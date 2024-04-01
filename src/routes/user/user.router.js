@@ -9,8 +9,6 @@ const {
   DeleteUser,
   UpdatePassword,
   RecoveryPassword,
-  SendOTPRequest,
-  SendOTPVerify,
 } = require("../../controllers/user.controller");
 const { AuthVerify } = require("../../middleware/tokenVerify");
 
@@ -22,7 +20,6 @@ router.post("/updatepassword", AuthVerify, UpdatePassword);
 router.post("/deleteuser", AuthVerify, DeleteUser);
 // extra features
 router.post("/recoverypassword", RecoveryPassword);
-// OTP features
 
 
 module.exports = router;

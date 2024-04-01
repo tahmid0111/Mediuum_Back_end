@@ -1,13 +1,11 @@
 const UserModel = require("../../models/user/user.model");
 const OTPModel = require("../../models/otp.model");
 // helpers
-const { CreateOTP, SendOTP } = require("../../helpers/important/otp.helper");
 const {
   EncodePassword,
   DecodePassword,
 } = require("../../helpers/others/bcrypt.helper");
 const {
-  ValidateEmail,
   ValidatePassword,
   ValidatePhoneNumber,
 } = require("../../helpers/others/regex.helper");
@@ -21,7 +19,7 @@ exports.RegistrationService = async (req) => {
     let reqBody = req.body;
     let Query = { Email: reqBody.Email };
     let data = await OTPModel.findOne(Query);
-    if (data.Status !== true) {
+    if (!data || data.Status !== true) {
       return { status: "invalidUser" };
     }
     // Validating given info using regex
@@ -43,8 +41,9 @@ exports.RegistrationService = async (req) => {
       Password: hashedPass, // Updating the Password property
     };
     // creating new account
-    let result = await UserModel.create(myBody);
-    await OTPModel.create({ Email: reqBody.Email });
+    await UserModel.create(myBody);
+    // setting status value
+    await OTPModel.updateOne(Query, { $set: { otp: 0, Status: false } });
 
     return { status: "success" };
   } catch (error) {
@@ -135,7 +134,6 @@ exports.DeleteUserService = async (req) => {
     return { status: "fail" };
   }
 };
-
 
 exports.RecoveryPasswordService = async (req) => {
   try {

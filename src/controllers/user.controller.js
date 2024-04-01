@@ -16,7 +16,6 @@ exports.Registration = async (req, res) => {
   const messages = {
     success: "User Successfully Registered",
     invalidUser: "Your email is not varified",
-    invalidEmail: "Please provide a valid Email",
     weakPassword: "Use a strong Password",
     invalidNumber: "Give a valid Bangladeshi Phone Number",
     existingUser: "An account is already registered with this email",

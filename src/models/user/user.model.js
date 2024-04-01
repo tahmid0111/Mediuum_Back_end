@@ -50,6 +50,11 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    About: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   {
     timestamps: true,
