@@ -1,7 +1,7 @@
 const {
   SendOTPRequestService,
   SendOTPVerifyService,
-} = require("../services/otp.service");
+} = require("../../services/otp/otp.service");
 
 exports.SendOTPRequest = async (req, res) => {
   let result = await SendOTPRequestService(req);

@@ -42,7 +42,7 @@ exports.RegistrationService = async (req) => {
     };
     // creating new account
     await UserModel.create(myBody);
-    // setting status value
+    // setting default value
     await OTPModel.updateOne(Query, { $set: { otp: 0, Status: false } });
 
     return { status: "success" };

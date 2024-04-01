@@ -9,7 +9,7 @@ const {
   DeleteUser,
   UpdatePassword,
   RecoveryPassword,
-} = require("../../controllers/user.controller");
+} = require("../../controllers/user/user.controller");
 const { AuthVerify } = require("../../middleware/tokenVerify");
 
 router.post("/register", Registration);
@@ -20,6 +20,5 @@ router.post("/updatepassword", AuthVerify, UpdatePassword);
 router.post("/deleteuser", AuthVerify, DeleteUser);
 // extra features
 router.post("/recoverypassword", RecoveryPassword);
-
 
 module.exports = router;

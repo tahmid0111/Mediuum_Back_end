@@ -2,7 +2,7 @@ const express = require("express");
 const {
   SendOTPRequest,
   SendOTPVerify,
-} = require("../controllers/otp.controller");
+} = require("../../controllers/otp/otp.controller");
 const router = express.Router();
 
 router.post("/sendOTPRequest", SendOTPRequest);
