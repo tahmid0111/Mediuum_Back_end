@@ -5,7 +5,7 @@ const {
   UpdateProductService,
   DeleteProductService,
   DeleteAllProductService,
-} = require("../services/product.service");
+} = require("../services/blog/blog.service");
 
 exports.CreateProduct = async (req, res) => {
   let result = await CreateProductService(req);

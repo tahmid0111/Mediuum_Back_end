@@ -29,6 +29,16 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    Occupation: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    Passion: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     Mobile: {
       type: String,
       required: true,

@@ -1,36 +1,37 @@
-const UserModel = require("../models/user/user.model");
-const OTPModel = require("../models/user/otp.model");
+const UserModel = require("../../models/user/user.model");
+const OTPModel = require("../../models/otp.model");
 // helpers
-const { CreateOTP, SendOTP } = require("../helpers/important/email.helper");
+const { CreateOTP, SendOTP } = require("../../helpers/important/otp.helper");
 const {
   EncodePassword,
   DecodePassword,
-} = require("../helpers/others/bcrypt.helper");
+} = require("../../helpers/others/bcrypt.helper");
 const {
   ValidateEmail,
   ValidatePassword,
   ValidatePhoneNumber,
-} = require("../helpers/others/regex.helper");
+} = require("../../helpers/others/regex.helper");
 const {
   EncodeToken,
   SetCookie,
-} = require("../helpers/important/common.helper");
+} = require("../../helpers/important/common.helper");
 
 exports.RegistrationService = async (req) => {
   try {
     let reqBody = req.body;
-    // Validating given info using regex
-    if (!ValidateEmail(reqBody.Email)) {
-      return { status: "invalidEmail" };
+    let Query = { Email: reqBody.Email };
+    let data = await OTPModel.findOne(Query);
+    if (data.Status !== true) {
+      return { status: "invalidUser" };
     }
+    // Validating given info using regex
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
     }
     if (!ValidatePhoneNumber(reqBody.Mobile)) {
       return { status: "invalidNumber" };
     }
-    // checking existing user's emails
-    let Query = { Email: reqBody.Email };
+    // checking existing user
     let existingUser = await UserModel.findOne(Query);
     if (existingUser) {
       return { status: "existingUser" };
@@ -135,39 +136,6 @@ exports.DeleteUserService = async (req) => {
   }
 };
 
-exports.ForgetPasswordRequestService = async (req) => {
-  try {
-    let email = req.body.Email;
-    let Query = { Email: email };
-
-    const result = await UserModel.findOne(Query);
-    if (!result) {
-      return { status: "invalidEmail" };
-    }
-    let code = CreateOTP();
-    await SendOTP(email, code);
-    // updating or creating a OTP field in users' info
-    await OTPModel.updateOne(Query, { $set: { otp: code } }, { upsert: true });
-    return { status: "success", userEmail: email };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.ForgetPasswordVerifyService = async (req) => {
-  try {
-    let { Email, otp } = req.body;
-    let Query = { Email: Email, otp: otp };
-    let result = await OTPModel.findOne(Query);
-    if (!result) {
-      return { status: "wrongOTP" };
-    }
-    await OTPModel.updateOne(Query, { $set: { Status: true } });
-    return { status: "success" };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
 
 exports.RecoveryPasswordService = async (req) => {
   try {

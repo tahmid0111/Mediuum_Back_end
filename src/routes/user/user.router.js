@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 // importing user controllers
 const {
   Registration,
@@ -9,11 +8,11 @@ const {
   UpdateUser,
   DeleteUser,
   UpdatePassword,
-  ForgetPasswordRequest,
-  ForgetPasswordVerify,
   RecoveryPassword,
-} = require("../controllers/user.controller");
-const { AuthVerify } = require("../middleware/tokenVerify");
+  SendOTPRequest,
+  SendOTPVerify,
+} = require("../../controllers/user.controller");
+const { AuthVerify } = require("../../middleware/tokenVerify");
 
 router.post("/register", Registration);
 router.post("/login", Login);
@@ -22,8 +21,8 @@ router.post("/updateuser", AuthVerify, UpdateUser);
 router.post("/updatepassword", AuthVerify, UpdatePassword);
 router.post("/deleteuser", AuthVerify, DeleteUser);
 // extra features
-router.post("/forgetPasswordRequest", ForgetPasswordRequest);
-router.post("/forgetPasswordVerify", ForgetPasswordVerify);
 router.post("/recoverypassword", RecoveryPassword);
+// OTP features
+
 
 module.exports = router;

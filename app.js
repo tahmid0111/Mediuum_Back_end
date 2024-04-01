@@ -2,8 +2,9 @@
 const express = require("express");
 const app = express();
 // importing routers
-const userRouter = require("./src/routes/user.router");
-const productRouter = require("./src/routes/product.router");
+const userRouter = require("./src/routes/user/user.router");
+const blogRouter = require("./src/routes/blog/blog.router");
+const otpRouter = require("./src/routes/otp.router");
 // imported helpers
 const securityMiddleware = require("./src/helpers/important/security.helper");
 const { connectDB } = require("./src/helpers/important/common.helper");
@@ -16,7 +17,8 @@ connectDB();
 
 // routing implement
 app.use("/user/api/v1", userRouter);
-app.use("/product/api/v1", productRouter);
+app.use("/product/api/v1", blogRouter);
+app.use("/otp/api/v1", otpRouter);
 
 // error routing implement
 app.use("*", (req, res) => {

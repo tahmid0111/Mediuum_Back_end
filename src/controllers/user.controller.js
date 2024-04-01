@@ -4,10 +4,8 @@ const {
   ReadUserService,
   UpdateUserService,
   DeleteUserService,
-  ForgetPasswordRequestService,
-  ForgetPasswordVerifyService,
   RecoveryPasswordService,
-} = require("../services/user.service");
+} = require("../services/user/user.service");
 
 const { sendError } = require("../helpers/important/common.helper");
 
@@ -17,6 +15,7 @@ exports.Registration = async (req, res) => {
   const responseStatus = result.status;
   const messages = {
     success: "User Successfully Registered",
+    invalidUser: "Your email is not varified",
     invalidEmail: "Please provide a valid Email",
     weakPassword: "Use a strong Password",
     invalidNumber: "Give a valid Bangladeshi Phone Number",
@@ -117,42 +116,6 @@ exports.DeleteUser = async (req, res) => {
   }
 };
 
-exports.ForgetPasswordRequest = async (req, res) => {
-  let result = await ForgetPasswordRequestService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "6 Digit OTP has been send",
-      userEmail: result.userEmail,
-    });
-  } else if (result.status === "invalidEmail") {
-    res.status(200).json({
-      status: result.status,
-      message: "Please provide the right email",
-    });
-  } else {
-    sendError(res);
-  }
-};
-
-exports.ForgetPasswordVerify = async (req, res) => {
-  let result = await ForgetPasswordVerifyService(req, res);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "User verified",
-    });
-  } else if (result.status === "wrongOTP") {
-    res.status(200).json({
-      status: result.status,
-      message: "wrong otp code",
-    });
-  } else {
-    sendError(res);
-  }
-};
 
 exports.RecoveryPassword = async (req, res) => {
   let result = await RecoveryPasswordService(req);
