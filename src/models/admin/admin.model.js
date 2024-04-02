@@ -34,9 +34,15 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    FavourateCategory: {
+    Passion: {
       type: String,
       required: true,
+      trim: true,
+    },
+    Mobile: {
+      type: String,
+      required: true,
+      unique: true,
       trim: true,
     },
     Country: {
@@ -49,13 +55,6 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    WriterProfile: {
-      type: Boolean,
-      required: true,
-    },
-    WriterID: {
-      type: String,
-    },
   },
   {
     timestamps: true,
@@ -63,6 +62,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.model("users", DataSchema);
+const AdminModel = mongoose.model("admin", DataSchema);
 
-module.exports = UserModel;
+module.exports = AdminModel;
