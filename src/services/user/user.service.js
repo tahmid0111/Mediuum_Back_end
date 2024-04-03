@@ -20,7 +20,7 @@ exports.RegistrationService = async (req) => {
     let Query = { Email: reqBody.Email };
     let data = await OTPModel.findOne(Query);
     if (!data || data.Status !== true) {
-      return { status: "invalidUser" };
+      return { status: "notVerified" };
     }
     // Validating given info using regex
     if (!ValidatePassword(reqBody.Password)) {

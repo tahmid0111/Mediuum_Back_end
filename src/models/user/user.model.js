@@ -35,6 +35,12 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     FavourateCategory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: Category,
+      required: true,
+      trim: true,
+    },
+    Image: {
       type: String,
       required: true,
       trim: true,
@@ -46,15 +52,18 @@ const DataSchema = mongoose.Schema(
     },
     About: {
       type: String,
-      required: true,
       trim: true,
+    },
+    Deactivated: {
+      type: Boolean,
+      required: true,
     },
     WriterProfile: {
       type: Boolean,
       required: true,
     },
     WriterID: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
     },
   },
   {

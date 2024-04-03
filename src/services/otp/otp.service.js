@@ -1,4 +1,4 @@
-const { CreateOTP, SendOTP } = require("../../helpers/important/otp.helper");
+const { CreateOTP, SendOTP } = require("../../helpers/others/otp.helper");
 const { ValidateEmail } = require("../../helpers/others/regex.helper");
 const OTPModel = require("../../models/otp.model");
 

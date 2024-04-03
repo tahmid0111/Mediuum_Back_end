@@ -1,25 +1,22 @@
 const mongoose = require("mongoose");
 // third party packages
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const { env_url, env_secret_key } = require("./dotenv.helper");
 
 exports.connectDB = async () => {
-  let url = process.env.URL;
-  await mongoose.connect(url);
+  await mongoose.connect(env_url);
   console.log("database connencted");
 };
 
 // ===============================================================
 // Json Web Token related helpers
-const secretKey = process.env.KEY;
-
 exports.EncodeToken = (email, user_id) => {
   let EXPIRE = { expiresIn: "24h" };
   let PAYLOAD = {
     email: email,
     user_id: user_id,
   };
-  return jwt.sign(PAYLOAD, secretKey, EXPIRE);
+  return jwt.sign(PAYLOAD, env_secret_key, EXPIRE);
 };
 
 exports.DecodeToken = (token) => {

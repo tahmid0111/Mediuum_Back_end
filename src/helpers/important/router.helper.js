@@ -9,7 +9,7 @@ const adminRouter = require("../../routes/admin/admin.router");
 exports.RouterImplement = async (app) => {
   app.use("/user/api/v1", userRouter);
   app.use("/writer/api/v1", writerRouter);
-  app.use("/product/api/v1", blogRouter);
+  app.use("/blog/api/v1", blogRouter);
   app.use("/otp/api/v1", otpRouter);
   // routing for admin and managers
   app.use("/manager/api/v1", managerRouter);

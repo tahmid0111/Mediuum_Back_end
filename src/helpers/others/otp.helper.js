@@ -1,5 +1,3 @@
-// ============================================================
-
 const { SendEmail } = require("./email.helper");
 
 // OTP related helpers
