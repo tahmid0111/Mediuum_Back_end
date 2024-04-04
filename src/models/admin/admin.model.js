@@ -22,7 +22,6 @@ const DataSchema = mongoose.Schema(
     Mobile: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     Image: {

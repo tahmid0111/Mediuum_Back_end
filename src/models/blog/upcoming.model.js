@@ -12,7 +12,7 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
       minLength: 10,
-      maxLength: 70,
+      maxLength: 150,
     },
     Image: {
       public_id: {

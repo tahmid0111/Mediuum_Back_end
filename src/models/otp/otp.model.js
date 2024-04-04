@@ -12,13 +12,11 @@ const DataSchema = mongoose.Schema(
       type: Number,
       default: 0,
       required: true,
-      trim: true,
     },
     Status: {
       type: Boolean,
       default: false,
       required: true,
-      trim: true,
     },
   },
   {

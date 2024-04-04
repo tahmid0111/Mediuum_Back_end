@@ -61,6 +61,7 @@ const DataSchema = mongoose.Schema(
     About: {
       type: String,
       trim: true,
+      trim: true,
     },
     Deactivated: {
       type: Boolean,

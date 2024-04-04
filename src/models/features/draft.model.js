@@ -12,19 +12,7 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
       minLength: 10,
-      maxLength: 70,
-    },
-    Image: {
-      public_id: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      url: {
-        type: String,
-        required: true,
-        trim: true,
-      },
+      maxLength: 150,
     },
     Content: {
       type: String,
@@ -57,6 +45,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const BlogModel = mongoose.model("blog", DataSchema);
+const DraftModel = mongoose.model("draft", DataSchema);
 
-module.exports = BlogModel;
+module.exports = DraftModel;
