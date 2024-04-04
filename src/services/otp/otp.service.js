@@ -5,6 +5,7 @@ const OTPModel = require("../../models/otp.model");
 exports.SendOTPRequestService = async (req) => {
   try {
     let email = req.body.Email;
+    let Query = {Email: email};
     if (!ValidateEmail(email)) {
       return { status: "invalidEmail" };
     }
@@ -13,7 +14,7 @@ exports.SendOTPRequestService = async (req) => {
       Email: email,
       otp: code,
     };
-    await OTPModel.create(myBody);
+    await OTPModel.updateOne(Query, myBody, {upsert: true});
     await SendOTP(email, code);
 
     return { status: "success", userEmail: email };

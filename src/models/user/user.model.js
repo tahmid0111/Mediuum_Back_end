@@ -34,16 +34,24 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    FavourateCategory: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: Category,
-      required: true,
-      trim: true,
-    },
+    FavourateCategory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'category',
+        required: true,
+      }
+    ],
     Image: {
-      type: String,
-      required: true,
-      trim: true,
+      public_id: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      url: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
     Country: {
       type: String,
@@ -64,6 +72,7 @@ const DataSchema = mongoose.Schema(
     },
     WriterID: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: 'writer',
     },
   },
   {
@@ -72,6 +81,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.model("users", DataSchema);
+const UserModel = mongoose.model("user", DataSchema);
 
 module.exports = UserModel;

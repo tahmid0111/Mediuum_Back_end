@@ -1,14 +1,13 @@
 const UserModel = require("../../models/user/user.model");
 const OTPModel = require("../../models/otp.model");
+// utilities
+const cloudinary = require('../../utility/cloudinary.utility')
 // helpers
 const {
   EncodePassword,
   DecodePassword,
 } = require("../../helpers/others/bcrypt.helper");
-const {
-  ValidatePassword,
-  ValidatePhoneNumber,
-} = require("../../helpers/others/regex.helper");
+const { ValidatePassword } = require("../../helpers/others/regex.helper");
 const {
   EncodeToken,
   SetCookie,
@@ -26,8 +25,8 @@ exports.RegistrationService = async (req) => {
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
     }
-    if (!ValidatePhoneNumber(reqBody.Mobile)) {
-      return { status: "invalidNumber" };
+    if (!reqBody.FavourateCategory.length === 3) {
+      return { status: "fail" };
     }
     // checking existing user
     let existingUser = await UserModel.findOne(Query);
@@ -36,9 +35,17 @@ exports.RegistrationService = async (req) => {
     }
     // if all is okay then a new user will be registered with an encrypted password
     let hashedPass = await EncodePassword(reqBody.Password);
+    // uploading image to cloudinary
+    let imageUpload = await cloudinary.uploader.upload(reqBody.Image, {
+      folder: users,
+    });
     let myBody = {
       ...reqBody,
       Password: hashedPass, // Updating the Password property
+      Image: {
+        public_id: imageUpload.public_id,
+        url: imageUpload.secure_id,
+      },
     };
     // creating new account
     await UserModel.create(myBody);

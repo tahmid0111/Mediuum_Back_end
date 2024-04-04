@@ -2,18 +2,17 @@ const mongoose = require("mongoose");
 
 const DataSchema = mongoose.Schema(
   {
-    UserID: {
+    WriterID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "writer",
       required: true,
     },
-    WriterName: {
+    Title: {
       type: String,
       required: true,
       trim: true,
-      minLength: 3,
-      maxLength: 20,
-      match: /^[A-Za-z\s]+$/,
+      minLength: 10,
+      maxLength: 70,
     },
     Image: {
       public_id: {
@@ -26,16 +25,16 @@ const DataSchema = mongoose.Schema(
         required: true,
         trim: true,
       },
-    },
-    Passion: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    About: {
-      type: String,
-      required: true,
-      trim: true,
+      CategoryID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'category',
+        required: true,
+      },
+      TopicID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'topic',
+        required: true,
+      },
     },
   },
   {
@@ -44,6 +43,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const WriterModel = mongoose.model("writer", DataSchema);
+const UpcomingModel = mongoose.model("upcoming", DataSchema);
 
-module.exports = WriterModel;
+module.exports = UpcomingModel;

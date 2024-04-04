@@ -29,31 +29,33 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    Occupation: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    Passion: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     Mobile: {
       type: String,
       required: true,
       unique: true,
       trim: true,
     },
-    Country: {
+    Image: {
+      public_id: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      url: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+    },
+    Address: {
       type: String,
       required: true,
       trim: true,
     },
-    About: {
+    Role: {
       type: String,
       required: true,
-      trim: true,
+      default: 'manager',
     },
   },
   {

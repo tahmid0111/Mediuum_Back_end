@@ -36,10 +36,15 @@ exports.ReadAllProduct = async (req, res) => {
 exports.ReadSingleProduct = async (req, res) => {
   let result = await ReadSingleProductService(req);
   if (result.status === "success") {
+    const createdAt = new Date(result.data.createdAt);
+    const exactYear = createdAt.getFullYear();
+    const exactMonth = createdAt.getMonth() + 1;
+    const exactDate = createdAt.getDate();
     res.status(200).json({
       status: "success",
       message: "Product has been created Successfully",
       data: result.data,
+      data2: `${exactYear} ${exactMonth} ${exactDate}`,
     });
   } else {
     res.status(404).json({ status: "fail", message: "Something went wrong" });

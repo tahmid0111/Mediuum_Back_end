@@ -2,14 +2,15 @@ const ProductModel = require("../../models/product/product.model");
 
 exports.CreateProductService = async (req) => {
   let reqBody = req.body;
-  let myBody = {
-    UserEmail: req.headers.email,
-    ...reqBody,
-  };
+  // let myBody = {
+  //   UserEmail: req.headers.email,
+  //   ...reqBody,
+  // };
   try {
-    const result = await ProductModel.create(myBody);
+    const result = await ProductModel.create(reqBody);
     return { status: "success", data: result };
   } catch (error) {
+    console.log(error)
     return { status: "fail" };
   }
 };
@@ -18,7 +19,7 @@ exports.ReadAllProductService = async (req) => {
   let Email = req.headers.email;
   let Query = { UserEmail: Email };
   try {
-    let result = await ProductModel.find(Query);
+    let result = await ProductModel.find(Query).sort({ createdAt: -1 });
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

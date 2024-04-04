@@ -2,21 +2,11 @@ const mongoose = require("mongoose");
 
 const DataSchema = mongoose.Schema(
   {
-    FirstName: {
+    Name: {
       type: String,
       required: true,
       trim: true,
-      minLength: 3,
-      maxLength: 12,
-      match: /^[A-Za-z\s]+$/,
-    },
-    LastName: {
-      type: String,
-      required: true,
-      trim: true,
-      minLength: 3,
-      maxLength: 12,
-      match: /^[A-Za-z\s]+$/,
+      default: "admin",
     },
     Email: {
       type: String,
@@ -29,31 +19,28 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    Occupation: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    Passion: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     Mobile: {
       type: String,
       required: true,
       unique: true,
       trim: true,
     },
-    Country: {
-      type: String,
-      required: true,
-      trim: true,
+    Image: {
+      public_id: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      url: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
-    About: {
+    Role: {
       type: String,
       required: true,
-      trim: true,
+      default: 'admin',
     },
   },
   {

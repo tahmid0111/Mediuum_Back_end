@@ -1,4 +1,4 @@
-const { SendEmail } = require("./email.helper");
+const { SendEmail } = require("../../utility/email.utility");
 
 // OTP related helpers
 exports.CreateOTP = () => {

@@ -11,9 +11,9 @@ const {
   DeleteAllProduct,
 } = require("../../controllers/blog/blog.controller");
 
-router.post("/createproduct", AuthVerify, CreateProduct);
-router.get("/readallproduct", AuthVerify, ReadAllProduct);
-router.get("/readproduct/:id", AuthVerify, ReadSingleProduct);
+router.post("/createProduct", CreateProduct);
+router.get("/readallproduct", ReadAllProduct);
+router.get("/readproduct/:id", ReadSingleProduct);
 router.post("/updateproduct/:id", AuthVerify, UpdateProduct);
 router.post("/deleteproduct/:id", AuthVerify, DeleteProduct);
 router.post("/deleteallproduct", AuthVerify, DeleteAllProduct);
