@@ -11,11 +11,16 @@ const {
   DeleteAllProduct,
 } = require("../../controllers/blog/blog.controller");
 
-router.post("/createProduct", CreateProduct);
-router.get("/readallproduct", ReadAllProduct);
-router.get("/readproduct/:id", ReadSingleProduct);
-router.post("/updateproduct/:id", AuthVerify, UpdateProduct);
-router.post("/deleteproduct/:id", AuthVerify, DeleteProduct);
-router.post("/deleteallproduct", AuthVerify, DeleteAllProduct);
+// guest features
+router.post("/readAllBlog", CreateProduct);
+router.get("/readAllCategory", ReadAllProduct);
+router.get("/readAllTopicByCategory/:categoryID", ReadAllProduct);
+router.get("/readBlogByCategory/:categoryID", ReadAllProduct);
+router.get("/readBlogByTopic/:topicID", ReadAllProduct);
+// reader features
+router.get("/readSingleBlog/:blogID", ReadSingleProduct);
+router.get("/readAllCommentByBlog/:blogID", ReadSingleProduct);
+router.get("/readAllExpressionByBlog/:blogID", ReadSingleProduct);
+router.get("/readSingleExpressionByBlog/:blogID", ReadSingleProduct);
 
 module.exports = router;

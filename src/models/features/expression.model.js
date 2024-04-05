@@ -23,6 +23,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const ReactModel = mongoose.model("react", DataSchema);
+const ExpressionModel = mongoose.model("expression", DataSchema);
 
-module.exports = ReactModel;
+module.exports = ExpressionModel;

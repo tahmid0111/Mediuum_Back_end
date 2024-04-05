@@ -5,6 +5,12 @@ const {
   UpdateUserService,
   DeleteUserService,
   RecoveryPasswordService,
+  DeactivateUserService,
+  AddExpressionService,
+  CreateCommentService,
+  ReportWriterService,
+  ReadAllWriterReportService,
+  WidrawWriterReportService,
 } = require("../../services/user/user.service");
 
 const { sendError } = require("../../helpers/important/common.helper");
@@ -102,6 +108,19 @@ exports.UpdatePassword = async (req, res) => {
   });
 };
 
+exports.DeactivateUser = async (req, res) => {
+  let result = await DeactivateUserService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
 exports.DeleteUser = async (req, res) => {
   let result = await DeleteUserService(req);
 
@@ -114,7 +133,6 @@ exports.DeleteUser = async (req, res) => {
     sendError(res);
   }
 };
-
 
 exports.RecoveryPassword = async (req, res) => {
   let result = await RecoveryPasswordService(req);
@@ -135,4 +153,121 @@ exports.RecoveryPassword = async (req, res) => {
     message,
     data,
   });
+};
+
+exports.AddExpression = async (req, res) => {
+  let result = await AddExpressionService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.CreateComment = async (req, res) => {
+  let result = await CreateCommentService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.ReportByUser = async (req, res) => {
+  let result = await ReportWriterService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.ReadAllReportByUser = async (req, res) => {
+  let result = await ReadAllWriterReportService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.WidrawReportByUser = async (req, res) => {
+  let result = await WidrawWriterReportService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.DeleteUser = async (req, res) => {
+  let result = await DeleteUserService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.DeleteUser = async (req, res) => {
+  let result = await DeleteUserService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.DeleteUser = async (req, res) => {
+  let result = await DeleteUserService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
+};
+
+exports.DeleteUser = async (req, res) => {
+  let result = await DeleteUserService(req);
+
+  if (result.status === "success") {
+    res.status(200).json({
+      status: result.status,
+      message: "Your has been deleted",
+    });
+  } else {
+    sendError(res);
+  }
 };

@@ -12,6 +12,10 @@ const {
   EncodeToken,
   SetCookie,
 } = require("../../helpers/important/common.helper");
+const ReportByReaderModel = require("../../models/privacy/reportByReader.model");
+const ExpressionModel = require("../../models/features/expression.model");
+const CommentModel = require("../../models/features/comment.model");
+const DeactivatedModel = require("../../models/privacy/deactivated.model");
 
 exports.RegistrationService = async (req) => {
   try {
@@ -132,6 +136,16 @@ exports.UpdatePasswordService = async (req) => {
   }
 };
 
+exports.DeactivateUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await DeactivatedModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
 exports.DeleteUserService = async (req) => {
   try {
     let Query = { Email: req.headers.email };
@@ -158,6 +172,96 @@ exports.RecoveryPasswordService = async (req) => {
     // setting status value
     await OTPModel.updateOne(Query, { $set: { Status: false } });
 
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.AddExpressionService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await ExpressionModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.CreateCommentService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await CommentModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReportByUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await ReportByReaderModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllReportByUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await ReportByReaderModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.WidrawReportByUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await ReportByReaderModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.DeleteUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await UserModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.DeleteUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await UserModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.DeleteUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await UserModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.DeleteUserService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await UserModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
