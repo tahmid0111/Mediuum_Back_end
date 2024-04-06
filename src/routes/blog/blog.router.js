@@ -3,24 +3,27 @@ const router = express.Router();
 
 const { AuthVerify } = require("../../middleware/tokenVerify");
 const {
-  CreateProduct,
-  ReadAllProduct,
-  ReadSingleProduct,
-  UpdateProduct,
-  DeleteProduct,
-  DeleteAllProduct,
+  ReadSingleExpressionByBlog,
+  ReadAllExpressionByBlog,
+  ReadAllCommentByBlog,
+  ReadSingleBlog,
+  ReadBlogByTopic,
+  ReadBlogByCategory,
+  ReadAllTopicByCategory,
+  ReadAllCategory,
+  ReadAllBlog,
 } = require("../../controllers/blog/blog.controller");
 
 // guest features
-router.post("/readAllBlog", CreateProduct);
-router.get("/readAllCategory", ReadAllProduct);
-router.get("/readAllTopicByCategory/:categoryID", ReadAllProduct);
-router.get("/readBlogByCategory/:categoryID", ReadAllProduct);
-router.get("/readBlogByTopic/:topicID", ReadAllProduct);
+router.post("/readAllBlog", ReadAllBlog);
+router.get("/readAllCategory", ReadAllCategory);
+router.get("/readAllTopicByCategory/:categoryID", ReadAllTopicByCategory);
+router.get("/readBlogByCategory/:categoryID", ReadBlogByCategory);
+router.get("/readBlogByTopic/:topicID", ReadBlogByTopic);
 // reader features
-router.get("/readSingleBlog/:blogID", ReadSingleProduct);
-router.get("/readAllCommentByBlog/:blogID", ReadSingleProduct);
-router.get("/readAllExpressionByBlog/:blogID", ReadSingleProduct);
-router.get("/readSingleExpressionByBlog/:blogID", ReadSingleProduct);
+router.get("/readSingleBlog/:blogID", ReadSingleBlog);
+router.get("/readAllCommentByBlog/:blogID", ReadAllCommentByBlog);
+router.get("/readAllExpressionByBlog/:blogID", ReadAllExpressionByBlog);
+router.get("/readSingleExpressionByBlog/:blogID", ReadSingleExpressionByBlog);
 
 module.exports = router;

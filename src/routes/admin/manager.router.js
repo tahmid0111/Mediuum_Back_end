@@ -1,19 +1,37 @@
-const express = require('express');
-const { CreateManager } = require('../../controllers/admin/manager.controller');
+const express = require("express");
+const {
+  CreateManager,
+  ReadAllUser,
+  ReadAllWriter,
+  CreateCategory,
+  CreateTopic,
+  DeleteCategory,
+  DeleteTopic,
+  SendNotice,
+  DeleteNotice,
+  ReadAllReportSubmitedByUser,
+  ReadAllReportSubmitedByWriter,
+  GlobalUnblockUser,
+  GlobalBlockUser,
+} = require("../../controllers/admin/manager.controller");
 const router = express.Router();
 
-router.post('/readAllUser', CreateManager)
-router.post('/readAllWriter', CreateManager)
-router.post('/createCategory', CreateManager)
-router.post('/createTopic', CreateManager)
-router.post('/deleteCategory', CreateManager)
-router.post('/deleteTopic', CreateManager)
+router.post("/readAllUser", ReadAllUser);
+router.post("/readAllWriter", ReadAllWriter);
+// basic features
+router.post("/createCategory", CreateCategory);
+router.post("/createTopic", CreateTopic);
+router.post("/deleteCategory/:categoryID", DeleteCategory);
+router.post("/deleteTopic/:topicID", DeleteTopic);
 // privacy features
-router.post('/sendNotice', CreateManager)
-router.post('/deleteNotice', CreateManager)
-router.post('/globalBlockUser', CreateManager)
-router.post('/globalBlockWriter', CreateManager)
-router.post('/readAllReportSubmitedByWriter', CreateManager)
-router.post('/readAllReportSubmitedByUser', CreateManager)
+router.post("/sendNotice", SendNotice);
+router.post("/deleteNotice/:noticeID", DeleteNotice);
+router.post("/globalBlockUser/:userID", GlobalBlockUser);
+router.post("/globalUnblockUser/:userID", GlobalUnblockUser);
+router.post("/readAllReportSubmitedByWriter/:writerID", ReadAllReportSubmitedByWriter);
+router.post(
+  "/readAllReportSubmitedByUser/:userID",
+  ReadAllReportSubmitedByUser
+);
 
 module.exports = router;
