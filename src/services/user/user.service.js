@@ -1,7 +1,5 @@
 const UserModel = require("../../models/user/user.model");
-const OTPModel = require("../../models/otp.model");
-// utilities
-const cloudinary = require('../../utility/cloudinary.utility')
+const OTPModel = require("../../models/otp/otp.model");
 // helpers
 const {
   EncodePassword,
@@ -21,17 +19,17 @@ exports.RegistrationService = async (req) => {
   try {
     let reqBody = req.body;
     let Query = { Email: reqBody.Email };
-    let data = await OTPModel.findOne(Query);
-    if (!data || data.Status !== true) {
-      return { status: "notVerified" };
-    }
+    // let data = await OTPModel.findOne(Query);
+    // if (!data || data.Status !== true) {
+    //   return { status: "notVerified" };
+    // }
     // Validating given info using regex
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
     }
-    if (!reqBody.FavourateCategory.length === 3) {
-      return { status: "fail" };
-    }
+    // if (!reqBody.FavourateCategory.length === 3) {
+    //   return { status: "fail" };
+    // }
     // checking existing user
     let existingUser = await UserModel.findOne(Query);
     if (existingUser) {
@@ -39,17 +37,10 @@ exports.RegistrationService = async (req) => {
     }
     // if all is okay then a new user will be registered with an encrypted password
     let hashedPass = await EncodePassword(reqBody.Password);
-    // uploading image to cloudinary
-    let imageUpload = await cloudinary.uploader.upload(reqBody.Image, {
-      folder: users,
-    });
     let myBody = {
       ...reqBody,
-      Password: hashedPass, // Updating the Password property
-      Image: {
-        public_id: imageUpload.public_id,
-        url: imageUpload.secure_id,
-      },
+      Password: hashedPass,
+      Image: req.file.path,
     };
     // creating new account
     await UserModel.create(myBody);
@@ -58,6 +49,7 @@ exports.RegistrationService = async (req) => {
 
     return { status: "success" };
   } catch (error) {
+    console.log(error);
     return { status: "fail" };
   }
 };

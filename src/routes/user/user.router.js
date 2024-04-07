@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require('multer');
 const router = express.Router();
 // importing user controllers
 const {
@@ -12,7 +13,12 @@ const {
 } = require("../../controllers/user/user.controller");
 const { AuthVerify } = require("../../middleware/tokenVerify");
 
-router.post("/register", Registration);
+const storage = require('../../utility/cloudinary.utility')
+
+// Initialize Multer with the storage configuration
+const upload = multer({ storage });
+
+router.post("/register", upload.single('file'), Registration);
 router.post("/login", Login);
 router.get("/readUserProfile", AuthVerify, ReadUser);
 router.post("/updateUserInfo", AuthVerify, UpdateUser);

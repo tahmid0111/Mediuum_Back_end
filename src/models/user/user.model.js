@@ -37,21 +37,14 @@ const DataSchema = mongoose.Schema(
     FavourateCategory: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'category',
-        required: true,
-      }
+        ref: "category",
+        // required: true,
+      },
     ],
     Image: {
-      public_id: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      url: {
-        type: String,
-        required: true,
-        trim: true,
-      },
+      type: String,
+      required: true,
+      trim: true,
     },
     Country: {
       type: String,
@@ -61,7 +54,7 @@ const DataSchema = mongoose.Schema(
     About: {
       type: String,
       trim: true,
-      trim: true,
+      required: true,
     },
     Deactivated: {
       type: Boolean,
@@ -73,7 +66,7 @@ const DataSchema = mongoose.Schema(
     },
     WriterID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'writer',
+      ref: "writer",
     },
   },
   {
