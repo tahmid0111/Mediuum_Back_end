@@ -19,10 +19,11 @@ exports.RegistrationService = async (req) => {
   try {
     let reqBody = req.body;
     let Query = { Email: reqBody.Email };
-    // let data = await OTPModel.findOne(Query);
-    // if (!data || data.Status !== true) {
-    //   return { status: "notVerified" };
-    // }
+    
+    let data = await OTPModel.findOne(Query);
+    if (!data || data.Status !== true) {
+      return { status: "notVerified" };
+    }
     // Validating given info using regex
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };

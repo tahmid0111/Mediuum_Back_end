@@ -4,17 +4,23 @@ const DataSchema = mongoose.Schema(
   {
     BlogID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'blog',
+      ref: "blog",
       required: true,
     },
     ReaderID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
       required: true,
+    },
+    Like: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
     Expression: {
       type: String,
       required: true,
+      enum: ['love', 'exciting' , 'sad', 'angry'],
     },
   },
   {

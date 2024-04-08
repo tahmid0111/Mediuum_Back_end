@@ -4,7 +4,7 @@ const DataSchema = mongoose.Schema(
   {
     WriterID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'writer',
+      ref: "writer",
       required: true,
     },
     Title: {
@@ -15,16 +15,9 @@ const DataSchema = mongoose.Schema(
       maxLength: 150,
     },
     Image: {
-      public_id: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      url: {
-        type: String,
-        required: true,
-        trim: true,
-      },
+      type: String,
+      required: true,
+      trim: true,
     },
     Content: {
       type: String,
@@ -42,12 +35,12 @@ const DataSchema = mongoose.Schema(
     },
     CategoryID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'category',
+      ref: "category",
       required: true,
     },
     TopicID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'topic',
+      ref: "topic",
       required: true,
     },
   },

@@ -18,14 +18,11 @@ const DataSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minLength: 500,
       maxLength: 10000,
     },
     Conclusion: {
       type: String,
-      required: true,
       trim: true,
-      minLength: 50,
       maxLength: 200,
     },
     CategoryID: {

@@ -1,10 +1,10 @@
 const {
-  SendOTPRequestService,
-  SendOTPVerifyService,
+  VerifyOTPService,
+  SendEmailWithOTPService,
 } = require("../../services/otp/otp.service");
 
-exports.SendOTPRequest = async (req, res) => {
-  let result = await SendOTPRequestService(req);
+exports.SendEmailWithOTP = async (req, res) => {
+  let result = await SendEmailWithOTPService(req);
 
   if (result.status === "success") {
     res.status(200).json({
@@ -15,15 +15,15 @@ exports.SendOTPRequest = async (req, res) => {
   } else if (result.status === "invalidEmail") {
     res.status(200).json({
       status: result.status,
-      message: "Please provide the right email",
+      message: "Please provide a valid email",
     });
   } else {
     sendError(res);
   }
 };
 
-exports.SendOTPVerify = async (req, res) => {
-  let result = await SendOTPVerifyService(req, res);
+exports.VerifyOTP = async (req, res) => {
+  let result = await VerifyOTPService(req, res);
 
   if (result.status === "success") {
     res.status(200).json({

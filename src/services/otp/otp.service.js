@@ -2,10 +2,10 @@ const { CreateOTP, SendOTP } = require("../../helpers/others/otp.helper");
 const { ValidateEmail } = require("../../helpers/others/regex.helper");
 const OTPModel = require("../../models/otp/otp.model");
 
-exports.SendOTPRequestService = async (req) => {
+exports.SendEmailWithOTPService = async (req) => {
   try {
     let email = req.body.Email;
-    let Query = {Email: email};
+    let Query = { Email: email };
     if (!ValidateEmail(email)) {
       return { status: "invalidEmail" };
     }
@@ -14,7 +14,7 @@ exports.SendOTPRequestService = async (req) => {
       Email: email,
       otp: code,
     };
-    await OTPModel.updateOne(Query, myBody, {upsert: true});
+    await OTPModel.updateOne(Query, myBody, { upsert: true });
     await SendOTP(email, code);
 
     return { status: "success", userEmail: email };
@@ -23,7 +23,7 @@ exports.SendOTPRequestService = async (req) => {
   }
 };
 
-exports.SendOTPVerifyService = async (req) => {
+exports.VerifyOTPService = async (req) => {
   try {
     let { Email, otp } = req.body;
     let Query = { Email: Email, otp: otp };
