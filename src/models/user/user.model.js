@@ -30,21 +30,20 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     Occupation: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "occupation",
       required: true,
-      trim: true,
     },
     FavourateCategory: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "category",
-        // required: true,
+        required: true,
       },
     ],
     Image: {
       type: String,
       required: true,
-      trim: true,
     },
     Country: {
       type: String,
@@ -53,16 +52,20 @@ const DataSchema = mongoose.Schema(
     },
     About: {
       type: String,
-      trim: true,
       required: true,
+      trim: true,
+      minLength: 15,
+      maxLength: 500,
     },
     Deactivated: {
       type: Boolean,
       required: true,
+      default: false,
     },
     WriterProfile: {
       type: Boolean,
       required: true,
+      default: false,
     },
     WriterID: {
       type: mongoose.Schema.Types.ObjectId,

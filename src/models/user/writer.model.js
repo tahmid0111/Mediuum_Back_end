@@ -4,7 +4,7 @@ const DataSchema = mongoose.Schema(
   {
     UserID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
       required: true,
     },
     WriterName: {
@@ -16,26 +16,20 @@ const DataSchema = mongoose.Schema(
       match: /^[A-Za-z\s]+$/,
     },
     Image: {
-      public_id: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      url: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-    },
-    Passion: {
       type: String,
       required: true,
-      trim: true,
+    },
+    Passion: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "passion",
+      required: true,
     },
     About: {
       type: String,
       required: true,
       trim: true,
+      minLength: 50,
+      maxLength: 500,
     },
   },
   {

@@ -25,21 +25,14 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     Image: {
-      public_id: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      url: {
-        type: String,
-        required: true,
-        trim: true,
-      },
+      type: String,
+      required: true,
+      trim: true,
     },
     Role: {
       type: String,
       required: true,
-      default: 'admin',
+      default: "admin",
     },
   },
   {

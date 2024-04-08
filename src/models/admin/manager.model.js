@@ -36,16 +36,8 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     Image: {
-      public_id: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      url: {
-        type: String,
-        required: true,
-        trim: true,
-      },
+      type: String,
+      required: true,
     },
     Address: {
       type: String,
@@ -55,7 +47,7 @@ const DataSchema = mongoose.Schema(
     Role: {
       type: String,
       required: true,
-      default: 'manager',
+      default: "manager",
     },
   },
   {
