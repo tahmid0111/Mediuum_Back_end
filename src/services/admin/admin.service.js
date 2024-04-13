@@ -6,6 +6,7 @@ const {
   ValidatePassword,
   ValidatePhoneNumber,
 } = require("../../helpers/others/regex.helper");
+const { VerifyAdmin } = require("../../helpers/others/verifyAdmin.helper");
 const AdminModel = require("../../models/admin/admin.model");
 const ManagerModel = require("../../models/admin/manager.model");
 
@@ -50,8 +51,7 @@ exports.ReadAdminProfileService = async (req) => {
 
 exports.CreateManagerService = async (req) => {
   try {
-    let role = req.headers.role;
-    if (!role === "admin") {
+    if (!VerifyAdmin) {
       return { status: "fail" };
     }
     let reqBody = req.body;

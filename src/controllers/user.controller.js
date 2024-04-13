@@ -11,9 +11,9 @@ const {
   ReportWriterService,
   ReadAllWriterReportService,
   WidrawWriterReportService,
-} = require("../../services/user/user.service");
+} = require("../services/user/user.service");
 
-const { sendError } = require("../../helpers/important/common.helper");
+const { sendError } = require("../helpers/important/common.helper");
 
 exports.Registration = async (req, res) => {
   let result = await RegistrationService(req);

@@ -1,3 +1,4 @@
+const { VerifyManager } = require("../../helpers/others/verifyAdmin.helper");
 const BlogModel = require("../../models/blog/blog.model");
 const CategoryModel = require("../../models/blog/category.model");
 const TopicModel = require("../../models/blog/topic.model");
@@ -20,10 +21,11 @@ exports.ReadAllBlogService = async (req) => {
 };
 
 exports.ReadAllCategoryService = async (req) => {
-  let Email = req.headers.email;
-  let Query = { UserEmail: Email };
   try {
-    let result = await CategoryModel.find(Query).sort({ createdAt: -1 });
+    if(!VerifyManager) {
+      return { status: "fail" };
+    }
+    let result = await CategoryModel.find().sort({ createdAt: -1 });
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

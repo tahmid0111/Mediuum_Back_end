@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { AuthVerify } = require("../../middleware/tokenVerify");
+const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 const {
   ReadSingleExpressionByBlog,
   ReadAllExpressionByBlog,

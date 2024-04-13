@@ -1,6 +1,3 @@
-const {
-  CreateCategory,
-} = require("../../controllers/admin/manager.controller");
 const { SetCookie, EncodeToken } = require("../../helpers/important/common.helper");
 const { VerifyManager } = require("../../helpers/others/verifyAdmin.helper");
 const ManagerModel = require("../../models/admin/manager.model");
@@ -40,7 +37,7 @@ exports.LoginAsManagerService = async (req, res) => {
 
 exports.ReadAllUserService = async (req) => {
   try {
-    if(!VerifyManager) {
+    if(!VerifyManager(req)) {
       return { status: "fail" };
     }
     let result = await UserModel.find();
@@ -51,9 +48,11 @@ exports.ReadAllUserService = async (req) => {
 };
 
 exports.ReadAllWriterService = async (req) => {
-  
   try {
-    let result = await WriterModel.updateOne(Query, reqBody);
+    if(!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let result = await WriterModel.find();
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -61,11 +60,13 @@ exports.ReadAllWriterService = async (req) => {
 };
 
 exports.CreateCategoryService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await CreateCategory.updateOne(Query, reqBody);
+    if(!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let reqBody = req.body;
+    let result = await CategoryModel.create(reqBody);
+    
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

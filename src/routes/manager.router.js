@@ -14,14 +14,14 @@ const {
   GlobalBlockUser,
   LoginAsManager,
 } = require("../../controllers/admin/manager.controller");
-const { AuthVerify } = require("../../middleware/AuthVerify.middleware");
+const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 const router = express.Router();
 
 router.post("/loginAsManager", LoginAsManager);
 router.post("/logoutAsManager", AuthVerify, ReadAllUser);
 // basic features
 router.get("/readAllUser", AuthVerify, ReadAllUser);
-router.post("/readAllWriter", ReadAllWriter);
+router.get("/readAllWriter", ReadAllWriter);
 router.post("/createCategory", CreateCategory);
 router.post("/createTopic", CreateTopic);
 router.post("/deleteCategory/:categoryID", DeleteCategory);

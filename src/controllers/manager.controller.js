@@ -1,4 +1,4 @@
-const { sendErrorResponse, sendResponse } = require("../../helpers/important/common.helper");
+const { sendErrorResponse, sendResponse } = require("../helpers/important/common.helper");
 const {
   ReadAllUserService,
   ReadAllWriterService,
@@ -13,7 +13,7 @@ const {
   ReadAllReportSubmitedByWriterService,
   ReadAllReportSubmitedByUserService,
   LoginAsManagerService,
-} = require("../../services/admin/manager.service");
+} = require("../services/admin/manager.service");
 
 exports.LoginAsManager = async (req, res) => {
   let result = await LoginAsManagerService(req, res);

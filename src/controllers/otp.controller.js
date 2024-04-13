@@ -1,8 +1,8 @@
-const { sendError } = require("../../helpers/important/common.helper");
+const { sendError } = require("../helpers/important/common.helper");
 const {
   VerifyOTPService,
   SendEmailWithOTPService,
-} = require("../../services/otp/otp.service");
+} = require("../services/otp/otp.service");
 
 exports.SendEmailWithOTP = async (req, res) => {
   let result = await SendEmailWithOTPService(req);

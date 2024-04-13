@@ -14,7 +14,7 @@ const {
   ReadWriterProfile,
   CreateWriterProfile,
 } = require("../../controllers/user/writer.controller");
-const { AuthVerify } = require("../../middleware/tokenVerify");
+const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 const router = express.Router();
 
 router.post("/createWriterProfile", AuthVerify, CreateWriterProfile);

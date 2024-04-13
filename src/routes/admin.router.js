@@ -9,7 +9,7 @@ const {
   LoginAsAdmin,
   ReadAdminProfile,
 } = require("../../controllers/admin/admin.controller");
-const { AuthVerify } = require("../../middleware/tokenVerify");
+const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 
 router.post("/loginAsAdmin", LoginAsAdmin);
 router.get("/readAdminProfile", AuthVerify, ReadAdminProfile);

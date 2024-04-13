@@ -13,7 +13,7 @@ const {
   ReportByWriterService,
   ReadAllReportByWriterService,
   WidrawReportByWriterService,
-} = require("../../services/user/writer.service");
+} = require("../services/user/writer.service");
 
 exports.CreateWriterProfile = async (req, res) => {
   let result = await CreateWriterProfileService(req);

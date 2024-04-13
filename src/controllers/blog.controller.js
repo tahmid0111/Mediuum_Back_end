@@ -1,63 +1,23 @@
 const {
-  CreateAdminService,
-  DeleteManagerService,
-  UpdateManagerPasswordService,
-  UpdateManagerInfoService,
-  CreateManagerService,
-  LoginAsAdminService,
-  ReadAdminProfileService,
-} = require("../../services/admin/admin.service");
+  CreateProductService,
+  ReadAllProductService,
+  ReadSingleProductService,
+  UpdateProductService,
+  DeleteProductService,
+  DeleteAllProductService,
+  ReadAllBlogService,
+  ReadAllCategoryService,
+  ReadAllTopicByCategoryService,
+  ReadBlogByCategoryService,
+  ReadBlogByTopicService,
+  ReadSingleBlogService,
+  ReadAllCommentByBlogService,
+  ReadAllExpressionByBlogService,
+  ReadSingleExpressionByBlogService,
+} = require("../services/blog/blog.service");
 
-exports.LoginAsAdmin = async (req, res) => {
-  let result = await LoginAsAdminService(req, res);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Login Successful",
-    });
-  } else if (result.status === "wrongPassword") {
-    res.status(404).json({ status: "fail", message: "Incorrect Password" });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-
-exports.ReadAdminProfile = async (req, res) => {
-  let result = await ReadAdminProfileService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Your requested data is here",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-
-exports.CreateManager = async (req, res) => {
-  let result = await CreateManagerService(req);
-
-  const responseStatus = result.status;
-  const messages = {
-    success: "User Successfully Registered",
-    weakPassword: "Use a strong Password",
-    invalidPhoneNumber: "Invalid Phone Number",
-    fail: "Something went wrong",
-  };
-
-  const message = messages[responseStatus];
-  const data = responseStatus === "success" ? result.data : undefined;
-
-  res.status(responseStatus === "success" ? 200 : 404).json({
-    status: responseStatus,
-    message,
-    data,
-  });
-};
-
-exports.UpdateManagerInfo = async (req, res) => {
-  let result = await UpdateManagerInfoService(req);
+exports.ReadAllBlog = async (req, res) => {
+  let result = await ReadAllBlogService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -69,8 +29,8 @@ exports.UpdateManagerInfo = async (req, res) => {
   }
 };
 
-exports.UpdateManagerPassword = async (req, res) => {
-  let result = await UpdateManagerPasswordService(req);
+exports.ReadAllCategory = async (req, res) => {
+  let result = await ReadAllCategoryService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -82,8 +42,8 @@ exports.UpdateManagerPassword = async (req, res) => {
   }
 };
 
-exports.DeleteManager = async (req, res) => {
-  let result = await DeleteManagerService(req);
+exports.ReadAllTopicByCategory = async (req, res) => {
+  let result = await ReadAllTopicByCategoryService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -95,8 +55,8 @@ exports.DeleteManager = async (req, res) => {
   }
 };
 
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
+exports.ReadBlogByCategory = async (req, res) => {
+  let result = await ReadBlogByCategoryService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -107,8 +67,9 @@ exports.createManager = async (req, res) => {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
 };
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
+
+exports.ReadBlogByTopic = async (req, res) => {
+  let result = await ReadBlogByTopicService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -119,8 +80,9 @@ exports.createManager = async (req, res) => {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
 };
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
+
+exports.ReadSingleBlog = async (req, res) => {
+  let result = await ReadSingleBlogService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -131,8 +93,9 @@ exports.createManager = async (req, res) => {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
 };
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
+
+exports.ReadAllCommentByBlog = async (req, res) => {
+  let result = await ReadAllCommentByBlogService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -143,8 +106,9 @@ exports.createManager = async (req, res) => {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
 };
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
+
+exports.ReadAllExpressionByBlog = async (req, res) => {
+  let result = await ReadAllExpressionByBlogService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
@@ -155,8 +119,66 @@ exports.createManager = async (req, res) => {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
 };
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
+
+exports.ReadSingleExpressionByBlog = async (req, res) => {
+  let result = await ReadSingleExpressionByBlogService(req);
+  if (result.status === "success") {
+    res.status(200).json({
+      status: "success",
+      message: "Product has been created Successfully",
+      data: result.data,
+    });
+  } else {
+    res.status(404).json({ status: "fail", message: "Something went wrong" });
+  }
+};
+
+exports.ReadSingleProduct = async (req, res) => {
+  let result = await ReadSingleProductService(req);
+  if (result.status === "success") {
+    const createdAt = new Date(result.data.createdAt);
+    const exactYear = createdAt.getFullYear();
+    const exactMonth = createdAt.getMonth() + 1;
+    const exactDate = createdAt.getDate();
+    res.status(200).json({
+      status: "success",
+      message: "Product has been created Successfully",
+      data: result.data,
+      data2: `${exactYear} ${exactMonth} ${exactDate}`,
+    });
+  } else {
+    res.status(404).json({ status: "fail", message: "Something went wrong" });
+  }
+};
+
+exports.UpdateProduct = async (req, res) => {
+  let result = await UpdateProductService(req);
+  if (result.status === "success") {
+    res.status(200).json({
+      status: "success",
+      message: "Product has been created Successfully",
+      data: result.data,
+    });
+  } else {
+    res.status(404).json({ status: "fail", message: "Something went wrong" });
+  }
+};
+
+exports.DeleteProduct = async (req, res) => {
+  let result = await DeleteProductService(req);
+  if (result.status === "success") {
+    res.status(200).json({
+      status: "success",
+      message: "Product has been created Successfully",
+      data: result.data,
+    });
+  } else {
+    res.status(404).json({ status: "fail", message: "Something went wrong" });
+  }
+};
+
+exports.DeleteAllProduct = async (req, res) => {
+  let result = await DeleteAllProductService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",

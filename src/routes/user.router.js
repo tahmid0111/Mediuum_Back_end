@@ -11,9 +11,9 @@ const {
   UpdatePassword,
   RecoveryPassword,
 } = require("../../controllers/user/user.controller");
-const { AuthVerify } = require("../../middleware/tokenVerify");
+const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 
-const storage = require('../../utility/cloudinary.utility')
+const storage = require('../utility/cloudinary.utility')
 
 // Initialize Multer with the storage configuration
 const upload = multer({ storage });
