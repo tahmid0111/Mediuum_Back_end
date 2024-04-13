@@ -1,3 +1,4 @@
+const { sendError } = require("../../helpers/important/common.helper");
 const {
   VerifyOTPService,
   SendEmailWithOTPService,
@@ -28,7 +29,7 @@ exports.VerifyOTP = async (req, res) => {
   if (result.status === "success") {
     res.status(200).json({
       status: result.status,
-      message: "User verified",
+      message: "Email verified",
     });
   } else if (result.status === "wrongOTP") {
     res.status(200).json({

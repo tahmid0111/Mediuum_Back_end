@@ -4,6 +4,7 @@ exports.AuthVerify = (req, res, next) => {
   let Token = req.cookies.token;
   try {
     const decoded = DecodeToken(Token); // decoding the provided token in header
+    console.log(decoded)
     let email = decoded.email;
     req.headers.email = email; // setting email in the header from the decoded token
 

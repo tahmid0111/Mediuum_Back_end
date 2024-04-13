@@ -6,12 +6,11 @@ const DataSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      default: "admin",
+      default: "Admin",
     },
     Email: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     Password: {

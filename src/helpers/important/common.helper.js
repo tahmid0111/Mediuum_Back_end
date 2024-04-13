@@ -10,11 +10,12 @@ exports.connectDB = async () => {
 
 // ===============================================================
 // Json Web Token related helpers
-exports.EncodeToken = (email, user_id) => {
+exports.EncodeToken = (email, user_id, role='user') => {
   let EXPIRE = { expiresIn: "24h" };
   let PAYLOAD = {
-    email: email,
-    user_id: user_id,
+    email,
+    user_id,
+    role,
   };
   return jwt.sign(PAYLOAD, env_secret_key, EXPIRE);
 };

@@ -4,7 +4,22 @@ const {
   UpdateManagerPasswordService,
   UpdateManagerInfoService,
   CreateManagerService,
+  LoginAsAdminService,
 } = require("../../services/admin/admin.service");
+
+exports.LoginAsAdmin = async (req, res) => {
+  let result = await LoginAsAdminService(req, res);
+  if (result.status === "success") {
+    res.status(200).json({
+      status: "success",
+      message: "Login Successful",
+    });
+  } else if (result.status === "wrongPassword") {
+    res.status(404).json({ status: "fail", message: "Incorrect Password" });
+  } else {
+    res.status(404).json({ status: "fail", message: "Something went wrong" });
+  }
+};
 
 exports.CreateManager = async (req, res) => {
   let result = await CreateManagerService(req);

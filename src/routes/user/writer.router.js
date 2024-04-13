@@ -18,8 +18,10 @@ const { AuthVerify } = require("../../middleware/tokenVerify");
 const router = express.Router();
 
 router.post("/createWriterProfile", AuthVerify, CreateWriterProfile);
-router.post("/readWriterProfile", AuthVerify, ReadWriterProfile);
+router.get("/readWriterProfile", AuthVerify, ReadWriterProfile);
+router.get("/readAllBlogByOwn", AuthVerify, ReadWriterProfile);
 router.post("/updateWriterProfile", AuthVerify, UpdateWriterProfile);
+router.post("/deleteWriterProfile", AuthVerify, UpdateWriterProfile);
 // draft related API
 router.post("/createBlogDraft", AuthVerify, CreateBlogDraft);
 router.post("/updateBlogDraft", AuthVerify, UpdateBlogDraft);

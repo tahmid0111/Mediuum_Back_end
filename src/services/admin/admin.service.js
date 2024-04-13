@@ -1,5 +1,35 @@
+const {
+  EncodeToken,
+  SetCookie,
+} = require("../../helpers/important/common.helper");
 const AdminModel = require("../../models/admin/admin.model");
 const ManagerModel = require("../../models/admin/manager.model");
+
+exports.LoginAsAdminService = async (req, res) => {
+  try {
+    let email = req.body.Email;
+    let password = req.body.Password;
+    let Query = { Email: email };
+    let Query2 = { Email: email, Password: password };
+
+    let user = await AdminModel.findOne(Query);
+    if (!user) {
+      return { status: "fail" };
+    }
+    let result = await AdminModel.findOne(Query2);
+    if (!result) {
+      return { status: "wrongPassword" };
+    }
+    // generating jwt token and saving to the cookies
+    let token = EncodeToken(user.Email, user._id, "admin");
+    SetCookie(res, "token", token);
+
+    return { status: "success" };
+  } catch (error) {
+    console.log(error)
+    return { status: "fail" };
+  }
+};
 
 exports.CreateManagerService = async (req) => {
   let ID = req.params.id;

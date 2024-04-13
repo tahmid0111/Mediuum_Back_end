@@ -1,6 +1,5 @@
 const express = require("express");
 const {
-  CreateManager,
   ReadAllUser,
   ReadAllWriter,
   CreateCategory,
@@ -16,6 +15,8 @@ const {
 } = require("../../controllers/admin/manager.controller");
 const router = express.Router();
 
+router.post("/loginAsManager", ReadAllUser);
+router.post("/logoutAsManager", ReadAllUser);
 router.post("/readAllUser", ReadAllUser);
 router.post("/readAllWriter", ReadAllWriter);
 // basic features
@@ -24,14 +25,12 @@ router.post("/createTopic", CreateTopic);
 router.post("/deleteCategory/:categoryID", DeleteCategory);
 router.post("/deleteTopic/:topicID", DeleteTopic);
 // privacy features
-router.post("/sendNotice", SendNotice);
+router.post("/sendGlobalNotice", SendNotice);
+router.post("/sendSingleNotice", SendNotice);
 router.post("/deleteNotice/:noticeID", DeleteNotice);
 router.post("/globalBlockUser/:userID", GlobalBlockUser);
 router.post("/globalUnblockUser/:userID", GlobalUnblockUser);
+router.post("/readAllReportSubmitedByUser/:userID", ReadAllReportSubmitedByUser);
 router.post("/readAllReportSubmitedByWriter/:writerID", ReadAllReportSubmitedByWriter);
-router.post(
-  "/readAllReportSubmitedByUser/:userID",
-  ReadAllReportSubmitedByUser
-);
 
 module.exports = router;

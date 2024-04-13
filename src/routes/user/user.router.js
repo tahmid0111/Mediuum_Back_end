@@ -25,6 +25,7 @@ router.post("/updateUserInfo", AuthVerify, UpdateUser);
 router.post("/updateUserPassword", AuthVerify, UpdatePassword);
 router.post("/deactivateUser", AuthVerify, UpdatePassword);
 router.post("/deleteUser", AuthVerify, DeleteUser);
+router.post("/logout", Login);
 // extra features
 router.post("/recoveryPassword", RecoveryPassword);
 // blog related features
@@ -33,6 +34,6 @@ router.post("/createComment", AuthVerify, DeleteUser);
 // report features
 router.post("/reportByUser", AuthVerify, DeleteUser);
 router.post("/readAllReportByUser", AuthVerify, DeleteUser);
-router.post("/widrawReportByUser", AuthVerify, DeleteUser);
+router.post("/withrawReportByUser", AuthVerify, DeleteUser);
 
 module.exports = router;
