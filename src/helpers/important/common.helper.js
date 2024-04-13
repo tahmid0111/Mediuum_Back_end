@@ -10,7 +10,7 @@ exports.connectDB = async () => {
 
 // ===============================================================
 // Json Web Token related helpers
-exports.EncodeToken = (email, user_id, role='user') => {
+exports.EncodeToken = (email, user_id, role = "user") => {
   let EXPIRE = { expiresIn: "24h" };
   let PAYLOAD = {
     email,
@@ -22,15 +22,28 @@ exports.EncodeToken = (email, user_id, role='user') => {
 
 exports.DecodeToken = (token) => {
   try {
-    return jwt.verify(token, secretKey);
+    return jwt.verify(token, env_secret_key);
   } catch (e) {
+    console.log(e);
     return null;
   }
 };
 // =================================================================
 // Error handler
-exports.sendError = (res, statusCode= 404) => {
-  res.status(statusCode).json({ status: "fail", message: "Something went wrong" });
+exports.sendError = (res, statusCode = 404) => {
+  res
+    .status(statusCode)
+    .json({ status: "fail", message: "Something went wrong" });
+};
+// Success handler
+exports.sendResponse = (
+  res,
+  message = "Request Success",
+  data = undefined,
+  statusCode = 200,
+  status = "success"
+) => {
+  res.status(statusCode).json({ status: status, message: message, data: data });
 };
 // =================================================================
 // cookies handler

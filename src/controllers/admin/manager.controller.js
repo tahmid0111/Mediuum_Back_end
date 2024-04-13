@@ -1,3 +1,4 @@
+const { sendError, sendResponse } = require("../../helpers/important/common.helper");
 const {
   ReadAllUserService,
   ReadAllWriterService,
@@ -11,16 +12,22 @@ const {
   GlobalUnblockUserService,
   ReadAllReportSubmitedByWriterService,
   ReadAllReportSubmitedByUserService,
+  LoginAsManagerService,
 } = require("../../services/admin/manager.service");
+
+exports.LoginAsManager = async (req, res) => {
+  let result = await LoginAsManagerService(req, res);
+  if (result.status === "success") {
+    sendResponse(res, 'Login Success')
+  } else {
+    sendError(res);
+  }
+};
 
 exports.ReadAllUser = async (req, res) => {
   let result = await ReadAllUserService(req);
   if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
+    sendResponse(res, 'Your Expected Data is Here', result.data )
   } else {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
@@ -158,19 +165,6 @@ exports.ReadAllReportSubmitedByWriter = async (req, res) => {
 
 exports.ReadAllReportSubmitedByUser = async (req, res) => {
   let result = await ReadAllReportSubmitedByUserService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-
-exports.ReadAllUser = async (req, res) => {
-  let result = await ReadAllUserService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",

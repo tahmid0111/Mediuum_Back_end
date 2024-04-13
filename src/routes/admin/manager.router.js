@@ -12,14 +12,16 @@ const {
   ReadAllReportSubmitedByWriter,
   GlobalUnblockUser,
   GlobalBlockUser,
+  LoginAsManager,
 } = require("../../controllers/admin/manager.controller");
+const { AuthVerify } = require("../../middleware/tokenVerify");
 const router = express.Router();
 
-router.post("/loginAsManager", ReadAllUser);
-router.post("/logoutAsManager", ReadAllUser);
-router.post("/readAllUser", ReadAllUser);
-router.post("/readAllWriter", ReadAllWriter);
+router.post("/loginAsManager", LoginAsManager);
+router.post("/logoutAsManager", AuthVerify, ReadAllUser);
 // basic features
+router.get("/readAllUser", AuthVerify, ReadAllUser);
+router.post("/readAllWriter", ReadAllWriter);
 router.post("/createCategory", CreateCategory);
 router.post("/createTopic", CreateTopic);
 router.post("/deleteCategory/:categoryID", DeleteCategory);

@@ -2,6 +2,10 @@ const {
   EncodeToken,
   SetCookie,
 } = require("../../helpers/important/common.helper");
+const {
+  ValidatePassword,
+  ValidatePhoneNumber,
+} = require("../../helpers/others/regex.helper");
 const AdminModel = require("../../models/admin/admin.model");
 const ManagerModel = require("../../models/admin/manager.model");
 
@@ -26,19 +30,44 @@ exports.LoginAsAdminService = async (req, res) => {
 
     return { status: "success" };
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAdminProfileService = async (req) => {
+  try {
+    let email = req.headers.email;
+    let Query = { Email: email };
+
+    let result = await AdminModel.findOne(Query);
+
+    return { status: "success", data: result };
+  } catch (error) {
     return { status: "fail" };
   }
 };
 
 exports.CreateManagerService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await ManagerModel.updateOne(Query, reqBody);
+    let role = req.headers.role;
+    if (!role === "admin") {
+      return { status: "fail" };
+    }
+    let reqBody = req.body;
+    console.log(reqBody)
+    // Validating given info using regex
+    if (!ValidatePassword(reqBody.Password)) {
+      return { status: "weakPassword" };
+    }
+    if (!ValidatePhoneNumber(reqBody.Mobile)) {
+      return { status: "invalidPhoneNumber" };
+    }
+    let result = await ManagerModel.create(reqBody);
+
     return { status: "success", data: result };
   } catch (error) {
+    console.log(error);
     return { status: "fail" };
   }
 };

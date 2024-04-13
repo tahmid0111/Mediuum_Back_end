@@ -5,6 +5,7 @@ const {
   UpdateManagerInfoService,
   CreateManagerService,
   LoginAsAdminService,
+  ReadAdminProfileService,
 } = require("../../services/admin/admin.service");
 
 exports.LoginAsAdmin = async (req, res) => {
@@ -21,17 +22,38 @@ exports.LoginAsAdmin = async (req, res) => {
   }
 };
 
-exports.CreateManager = async (req, res) => {
-  let result = await CreateManagerService(req);
+exports.ReadAdminProfile = async (req, res) => {
+  let result = await ReadAdminProfileService(req);
   if (result.status === "success") {
     res.status(200).json({
       status: "success",
-      message: "Product has been created Successfully",
+      message: "Your requested data is here",
       data: result.data,
     });
   } else {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
   }
+};
+
+exports.CreateManager = async (req, res) => {
+  let result = await CreateManagerService(req);
+
+  const responseStatus = result.status;
+  const messages = {
+    success: "User Successfully Registered",
+    weakPassword: "Use a strong Password",
+    invalidPhoneNumber: "Invalid Phone Number",
+    fail: "Something went wrong",
+  };
+
+  const message = messages[responseStatus];
+  const data = responseStatus === "success" ? result.data : undefined;
+
+  res.status(responseStatus === "success" ? 200 : 404).json({
+    status: responseStatus,
+    message,
+    data,
+  });
 };
 
 exports.UpdateManagerInfo = async (req, res) => {
