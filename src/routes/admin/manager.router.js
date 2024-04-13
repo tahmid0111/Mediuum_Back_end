@@ -14,7 +14,7 @@ const {
   GlobalBlockUser,
   LoginAsManager,
 } = require("../../controllers/admin/manager.controller");
-const { AuthVerify } = require("../../middleware/tokenVerify");
+const { AuthVerify } = require("../../middleware/AuthVerify.middleware");
 const router = express.Router();
 
 router.post("/loginAsManager", LoginAsManager);

@@ -1,4 +1,4 @@
-const { sendError, sendResponse } = require("../../helpers/important/common.helper");
+const { sendErrorResponse, sendResponse } = require("../../helpers/important/common.helper");
 const {
   ReadAllUserService,
   ReadAllWriterService,
@@ -20,7 +20,7 @@ exports.LoginAsManager = async (req, res) => {
   if (result.status === "success") {
     sendResponse(res, 'Login Success')
   } else {
-    sendError(res);
+    sendErrorResponse(res);
   }
 };
 

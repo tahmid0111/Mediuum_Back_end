@@ -2,6 +2,7 @@ const {
   CreateCategory,
 } = require("../../controllers/admin/manager.controller");
 const { SetCookie, EncodeToken } = require("../../helpers/important/common.helper");
+const { VerifyManager } = require("../../helpers/others/verifyAdmin.helper");
 const ManagerModel = require("../../models/admin/manager.model");
 const CategoryModel = require("../../models/blog/category.model");
 const TopicModel = require("../../models/blog/topic.model");
@@ -39,8 +40,7 @@ exports.LoginAsManagerService = async (req, res) => {
 
 exports.ReadAllUserService = async (req) => {
   try {
-    let role = req.headers.role;
-    if(!role === 'admin' || !role === 'manager') {
+    if(!VerifyManager) {
       return { status: "fail" };
     }
     let result = await UserModel.find();
@@ -51,9 +51,7 @@ exports.ReadAllUserService = async (req) => {
 };
 
 exports.ReadAllWriterService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+  
   try {
     let result = await WriterModel.updateOne(Query, reqBody);
     return { status: "success", data: result };

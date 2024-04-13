@@ -30,7 +30,7 @@ exports.DecodeToken = (token) => {
 };
 // =================================================================
 // Error handler
-exports.sendError = (res, statusCode = 404) => {
+exports.sendErrorResponse = (res, statusCode = 404) => {
   res
     .status(statusCode)
     .json({ status: "fail", message: "Something went wrong" });
