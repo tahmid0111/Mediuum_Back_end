@@ -28,9 +28,9 @@ exports.RegistrationService = async (req) => {
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
     }
-    // if (!reqBody.FavourateCategory.length === 3) {
-    //   return { status: "fail" };
-    // }
+    if (!reqBody.FavourateCategory.length === 3) {
+      return { status: "fail" };
+    }
     // checking existing user
     let existingUser = await UserModel.findOne(Query);
     if (existingUser) {

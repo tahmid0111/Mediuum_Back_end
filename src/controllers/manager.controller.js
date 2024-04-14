@@ -1,19 +1,6 @@
 const { sendErrorResponse, sendResponse } = require("../helpers/important/common.helper");
-const {
-  ReadAllUserService,
-  ReadAllWriterService,
-  CreateCategoryService,
-  CreateTopicService,
-  DeleteCategoryService,
-  DeleteTopicService,
-  SendNoticeService,
-  DeleteNoticeService,
-  GlobalBlockUserService,
-  GlobalUnblockUserService,
-  ReadAllReportSubmitedByWriterService,
-  ReadAllReportSubmitedByUserService,
-  LoginAsManagerService,
-} = require("../services/admin/manager.service");
+const { LoginAsManagerService, ReadAllUserService, ReadAllWriterService, CreateCategoryService, CreateTopicService, DeleteCategoryService, DeleteTopicService, SendNoticeService, DeleteNoticeService, GlobalBlockUserService, GlobalUnblockUserService, ReadAllReportSubmitedByWriterService, ReadAllReportSubmitedByUserService } = require("../services/manager.service");
+
 
 exports.LoginAsManager = async (req, res) => {
   let result = await LoginAsManagerService(req, res);

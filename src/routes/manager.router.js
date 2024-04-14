@@ -13,7 +13,7 @@ const {
   GlobalUnblockUser,
   GlobalBlockUser,
   LoginAsManager,
-} = require("../../controllers/admin/manager.controller");
+} = require("../../controllers/manager.controller");
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 const router = express.Router();
 

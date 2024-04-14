@@ -1,12 +1,5 @@
-const {
-  CreateAdminService,
-  DeleteManagerService,
-  UpdateManagerPasswordService,
-  UpdateManagerInfoService,
-  CreateManagerService,
-  LoginAsAdminService,
-  ReadAdminProfileService,
-} = require("../services/admin/admin.service");
+const { LoginAsAdminService, ReadAdminProfileService, CreateManagerService, UpdateManagerInfoService, UpdateManagerPasswordService, DeleteManagerService } = require("../services/admin.service");
+
 
 exports.LoginAsAdmin = async (req, res) => {
   let result = await LoginAsAdminService(req, res);

@@ -1,10 +1,4 @@
 const {
-  CreateProductService,
-  ReadAllProductService,
-  ReadSingleProductService,
-  UpdateProductService,
-  DeleteProductService,
-  DeleteAllProductService,
   ReadAllBlogService,
   ReadAllCategoryService,
   ReadAllTopicByCategoryService,
@@ -14,7 +8,10 @@ const {
   ReadAllCommentByBlogService,
   ReadAllExpressionByBlogService,
   ReadSingleExpressionByBlogService,
-} = require("../services/blog/blog.service");
+  UpdateProductService,
+  DeleteProductService,
+  DeleteAllProductService,
+} = require("../services/blog.service");
 
 exports.ReadAllBlog = async (req, res) => {
   let result = await ReadAllBlogService(req);
@@ -134,7 +131,7 @@ exports.ReadSingleExpressionByBlog = async (req, res) => {
 };
 
 exports.ReadSingleProduct = async (req, res) => {
-  let result = await ReadSingleProductService(req);
+  let result = await UpdateProductService(req);
   if (result.status === "success") {
     const createdAt = new Date(result.data.createdAt);
     const exactYear = createdAt.getFullYear();

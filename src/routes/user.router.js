@@ -2,18 +2,11 @@ const express = require("express");
 const multer = require('multer');
 const router = express.Router();
 // importing user controllers
-const {
-  Registration,
-  Login,
-  ReadUser,
-  UpdateUser,
-  DeleteUser,
-  UpdatePassword,
-  RecoveryPassword,
-} = require("../../controllers/user.controller");
+
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 
-const storage = require('../utility/cloudinary.utility')
+const storage = require('../utility/cloudinary.utility');
+const { Registration, Login, ReadUser, UpdateUser, UpdatePassword, DeactivateUser, RecoveryPassword, DeleteUser } = require("../controllers/user.controller");
 
 // Initialize Multer with the storage configuration
 const upload = multer({ storage });
@@ -24,7 +17,7 @@ router.get("/readUserProfile", AuthVerify, ReadUser);
 router.post("/updateUserInfo", AuthVerify, UpdateUser);
 router.post("/updateUserPassword", AuthVerify, UpdatePassword);
 router.post("/deactivateUser", AuthVerify, UpdatePassword);
-router.post("/deleteUser", AuthVerify, DeleteUser);
+router.post("/deleteUser", AuthVerify, DeactivateUser);
 router.post("/logout", Login);
 // extra features
 router.post("/recoveryPassword", RecoveryPassword);

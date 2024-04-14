@@ -1,19 +1,5 @@
-const {
-  CreateWriterProfileService,
-  ReadWriterProfileService,
-  UpdateWriterProfileService,
-  CreateBlogDraftService,
-  PublishBlogService,
-  UpdateBlogDraftService,
-  DeleteBlogDraftService,
-  UpdateBlogService,
-  DeleteBlogService,
-  DeleteCommentService,
-  DeleteCommentByWriterService,
-  ReportByWriterService,
-  ReadAllReportByWriterService,
-  WidrawReportByWriterService,
-} = require("../services/user/writer.service");
+const { CreateWriterProfileService, ReadWriterProfileService, UpdateWriterProfileService, CreateBlogDraftService, UpdateBlogDraftService, DeleteBlogDraftService, PublishBlogService, UpdateBlogService, DeleteBlogService, DeleteCommentByWriterService, ReportByWriterService, ReadAllReportByWriterService, WidrawReportByWriterService } = require("../services/writer.service");
+
 
 exports.CreateWriterProfile = async (req, res) => {
   let result = await CreateWriterProfileService(req);
@@ -184,67 +170,3 @@ exports.WidrawReportByWriter = async (req, res) => {
   }
 };
 
-exports.CreateWriterProfile = async (req, res) => {
-  let result = await DeleteUserService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
-};
-
-exports.CreateWriterProfile = async (req, res) => {
-  let result = await DeleteUserService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
-};
-
-exports.CreateWriterProfile = async (req, res) => {
-  let result = await DeleteUserService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
-};
-
-exports.CreateWriterProfile = async (req, res) => {
-  let result = await DeleteUserService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
-};
-
-exports.CreateWriterProfile = async (req, res) => {
-  let result = await DeleteUserService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
-};

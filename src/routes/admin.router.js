@@ -8,7 +8,7 @@ const {
   DeleteManager,
   LoginAsAdmin,
   ReadAdminProfile,
-} = require("../../controllers/admin/admin.controller");
+} = require("../../controllers/admin.controller");
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 
 router.post("/loginAsAdmin", LoginAsAdmin);

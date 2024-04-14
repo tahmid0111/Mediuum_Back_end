@@ -1,20 +1,20 @@
 const express = require("express");
-const {
-  WidrawReportByWriter,
-  ReadAllReportByWriter,
-  ReportByWriter,
-  DeleteCommentByWriter,
-  DeleteBlog,
-  UpdateBlog,
-  PublishBlog,
-  DeleteBlogDraft,
-  UpdateBlogDraft,
-  CreateBlogDraft,
-  UpdateWriterProfile,
-  ReadWriterProfile,
-  CreateWriterProfile,
-} = require("../../controllers/user/writer.controller");
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
+const {
+  CreateWriterProfile,
+  ReadWriterProfile,
+  UpdateWriterProfile,
+  CreateBlogDraft,
+  UpdateBlogDraft,
+  DeleteBlogDraft,
+  PublishBlog,
+  UpdateBlog,
+  DeleteBlog,
+  DeleteCommentByWriter,
+  ReportByWriter,
+  ReadAllReportByWriter,
+  WidrawReportByWriter,
+} = require("../controllers/writer.controller");
 const router = express.Router();
 
 router.post("/createWriterProfile", AuthVerify, CreateWriterProfile);

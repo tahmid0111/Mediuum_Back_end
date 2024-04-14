@@ -12,7 +12,7 @@ const {
   ReadAllTopicByCategory,
   ReadAllCategory,
   ReadAllBlog,
-} = require("../../controllers/blog/blog.controller");
+} = require("../../controllers/blog.controller");
 
 // guest features
 router.post("/readAllBlog", ReadAllBlog);
