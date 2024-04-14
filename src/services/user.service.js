@@ -1,19 +1,19 @@
-const UserModel = require("../../models/user/user.model");
-const OTPModel = require("../../models/otp/otp.model");
+const UserModel = require("../models/user/user.model");
+const OTPModel = require("../models/otp/otp.model");
 // helpers
 const {
   EncodePassword,
   DecodePassword,
-} = require("../../helpers/others/bcrypt.helper");
-const { ValidatePassword } = require("../../helpers/others/regex.helper");
+} = require("../helpers/others/bcrypt.helper");
+const { ValidatePassword } = require("../helpers/others/regex.helper");
 const {
   EncodeToken,
   SetCookie,
-} = require("../../helpers/important/common.helper");
-const ReportByReaderModel = require("../../models/privacy/reportByReader.model");
-const ExpressionModel = require("../../models/features/expression.model");
-const CommentModel = require("../../models/features/comment.model");
-const DeactivatedModel = require("../../models/privacy/deactivated.model");
+} = require("../helpers/important/common.helper");
+const ReportByReaderModel = require("../models/privacy/reportByReader.model");
+const ExpressionModel = require("../models/features/expression.model");
+const CommentModel = require("../models/features/comment.model");
+const DeactivatedModel = require("../models/privacy/deactivated.model");
 
 exports.RegistrationService = async (req) => {
   try {

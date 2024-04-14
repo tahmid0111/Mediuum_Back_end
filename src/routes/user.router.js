@@ -10,7 +10,7 @@ const {
   DeleteUser,
   UpdatePassword,
   RecoveryPassword,
-} = require("../../controllers/user/user.controller");
+} = require("../../controllers/user.controller");
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
 
 const storage = require('../utility/cloudinary.utility')

@@ -1,6 +1,6 @@
-const { CreateOTP, SendOTP } = require("../../helpers/others/otp.helper");
-const { ValidateEmail } = require("../../helpers/others/regex.helper");
-const OTPModel = require("../../models/otp/otp.model");
+const { CreateOTP, SendOTP } = require("../helpers/others/otp.helper");
+const { ValidateEmail } = require("../helpers/others/regex.helper");
+const OTPModel = require("../models/otp/otp.model");
 
 exports.SendEmailWithOTPService = async (req) => {
   try {

@@ -1,12 +1,12 @@
 const {
   EncodeToken,
   SetCookie,
-} = require("../../helpers/important/common.helper");
+} = require("../helpers/important/common.helper");
 const {
   ValidatePassword,
   ValidatePhoneNumber,
-} = require("../../helpers/others/regex.helper");
-const { VerifyAdmin } = require("../../helpers/others/verifyAdmin.helper");
+} = require("../helpers/others/regex.helper");
+const { VerifyAdmin } = require("../helpers/others/verifyAdmin.helper");
 const AdminModel = require("../../models/admin/admin.model");
 const ManagerModel = require("../../models/admin/manager.model");
 

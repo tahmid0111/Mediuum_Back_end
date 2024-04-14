@@ -1,13 +1,13 @@
-const { SetCookie, EncodeToken } = require("../../helpers/important/common.helper");
-const { VerifyManager } = require("../../helpers/others/verifyAdmin.helper");
+const { SetCookie, EncodeToken } = require("../helpers/important/common.helper");
+const { VerifyManager } = require("../helpers/others/verifyAdmin.helper");
 const ManagerModel = require("../../models/admin/manager.model");
-const CategoryModel = require("../../models/blog/category.model");
-const TopicModel = require("../../models/blog/topic.model");
-const NoticeModel = require("../../models/privacy/notice.model");
-const ReportByReaderModel = require("../../models/privacy/reportByReader.model");
-const ReportByWriterModel = require("../../models/privacy/reportByWriter.model");
-const UserModel = require("../../models/user/user.model");
-const WriterModel = require("../../models/user/writer.model");
+const CategoryModel = require("../models/blog/category.model");
+const TopicModel = require("../models/blog/topic.model");
+const NoticeModel = require("../models/privacy/notice.model");
+const ReportByReaderModel = require("../models/privacy/reportByReader.model");
+const ReportByWriterModel = require("../models/privacy/reportByWriter.model");
+const UserModel = require("../models/user/user.model");
+const WriterModel = require("../models/user/writer.model");
 
 exports.LoginAsManagerService = async (req, res) => {
   try {

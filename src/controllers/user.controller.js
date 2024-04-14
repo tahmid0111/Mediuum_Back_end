@@ -11,7 +11,7 @@ const {
   ReportWriterService,
   ReadAllWriterReportService,
   WidrawWriterReportService,
-} = require("../services/user/user.service");
+} = require("../services/user.service");
 
 const { sendError } = require("../helpers/important/common.helper");
 

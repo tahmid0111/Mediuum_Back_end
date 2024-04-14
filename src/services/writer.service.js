@@ -1,8 +1,8 @@
-const BlogModel = require("../../models/blog/blog.model");
-const CommentModel = require("../../models/features/comment.model");
-const DraftModel = require("../../models/features/draft.model");
-const ReportByWriterModel = require("../../models/privacy/reportByWriter.model");
-const WriterModel = require("../../models/user/writer.model");
+const BlogModel = require("../models/blog/blog.model");
+const CommentModel = require("../models/features/comment.model");
+const DraftModel = require("../models/features/draft.model");
+const ReportByWriterModel = require("../models/privacy/reportByWriter.model");
+const WriterModel = require("../models/user/writer.model");
 
 exports.CreateWriterProfileService = async (req) => {
   try {
