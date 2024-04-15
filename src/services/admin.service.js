@@ -7,8 +7,8 @@ const {
   ValidatePhoneNumber,
 } = require("../helpers/others/regex.helper");
 const { VerifyAdmin } = require("../helpers/others/verifyAdmin.helper");
-const AdminModel = require("../../models/admin/admin.model");
-const ManagerModel = require("../../models/admin/manager.model");
+const AdminModel = require("../models/user/admin.model");
+const ManagerModel = require("../models/user/manager.model");
 
 exports.LoginAsAdminService = async (req, res) => {
   try {

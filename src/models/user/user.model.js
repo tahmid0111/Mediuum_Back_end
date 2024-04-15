@@ -34,13 +34,13 @@ const DataSchema = mongoose.Schema(
       ref: "occupation",
       required: true,
     },
-    FavourateCategory: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
-        required: true,
-      },
-    ],
+    // FavourateCategory: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "category",
+    //     required: true,
+    //   },
+    // ],
     Image: {
       type: String,
       required: true,

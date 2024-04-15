@@ -1,5 +1,3 @@
-const UserModel = require("../models/user/user.model");
-const OTPModel = require("../models/otp/otp.model");
 // helpers
 const {
   EncodePassword,
@@ -9,17 +7,22 @@ const { ValidatePassword } = require("../helpers/others/regex.helper");
 const {
   EncodeToken,
   SetCookie,
+  RemoveCookie,
 } = require("../helpers/important/common.helper");
+// models
+const UserModel = require("../models/user/user.model");
+const OTPModel = require("../models/otp/otp.model");
 const ReportByReaderModel = require("../models/privacy/reportByReader.model");
 const ExpressionModel = require("../models/features/expression.model");
 const CommentModel = require("../models/features/comment.model");
-const DeactivatedModel = require("../models/privacy/deactivated.model");
+const FollowerModel = require("../models/features/follower.model");
+// const DeactivatedModel = require("../models/privacy/deactivated.model");
 
 exports.RegistrationService = async (req) => {
   try {
     let reqBody = req.body;
     let Query = { Email: reqBody.Email };
-    
+
     let data = await OTPModel.findOne(Query);
     if (!data || data.Status !== true) {
       return { status: "notVerified" };
@@ -28,9 +31,9 @@ exports.RegistrationService = async (req) => {
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
     }
-    if (!reqBody.FavourateCategory.length === 3) {
-      return { status: "fail" };
-    }
+    // if (!reqBody.FavourateCategory.length === 3) {
+    //   return { status: "fail" };
+    // }
     // checking existing user
     let existingUser = await UserModel.findOne(Query);
     if (existingUser) {
@@ -63,6 +66,9 @@ exports.LoginService = async (req, res) => {
     if (!user) {
       return { status: "newUser" };
     }
+    if (user.Deactivated) {
+      return { status: "deactivated" };
+    }
     let result = await DecodePassword(reqBody.Password, user.Password);
     if (!result) {
       return { status: "incorrectPassword" };
@@ -73,6 +79,16 @@ exports.LoginService = async (req, res) => {
 
     return { status: "success" };
   } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.LogoutService = async (req, res) => {
+  try {
+    await RemoveCookie(res, "token");
+    return { status: "success" };
+  } catch (error) {
+    console.log(error);
     return { status: "fail" };
   }
 };
@@ -95,8 +111,17 @@ exports.UpdateUserService = async (req) => {
     if (reqBody.Email || reqBody.Password) {
       return { status: "fail" };
     }
-    await UserModel.updateOne(Query, reqBody);
-    return { status: "success" };
+    if (req.file.path) {
+      let myBody = {
+        ...reqBody,
+        Image: req.file.path,
+      };
+      await UserModel.updateOne(Query, myBody);
+      return { status: "success" };
+    } else {
+      await UserModel.updateOne(Query, reqBody);
+      return { status: "success" };
+    }
   } catch (error) {
     return { status: "fail" };
   }
@@ -107,9 +132,6 @@ exports.UpdatePasswordService = async (req) => {
     let reqBody = req.body;
     let Query = { Email: req.headers.email };
     let data = await UserModel.findOne(Query);
-    if (!data) {
-      return { status: "fail" };
-    }
     let user = await DecodePassword(reqBody.OldPassword, data.Password);
     if (!user) {
       return { status: "incorrectPassword" };
@@ -129,20 +151,21 @@ exports.UpdatePasswordService = async (req) => {
   }
 };
 
-exports.DeactivateUserService = async (req) => {
+exports.DeleteUserService = async (req, res) => {
   try {
-    let Query = { Email: req.headers.email };
-    await DeactivatedModel.deleteOne(Query);
-    return { status: "success" };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
+    let reqBody = req.body;
+    let email = req.headers.email;
+    let Query = { Email: email };
 
-exports.DeleteUserService = async (req) => {
-  try {
-    let Query = { Email: req.headers.email };
+    let user = await UserModel.findOne(Query);
+    let result = await DecodePassword(reqBody.Password, user.Password);
+    if (!result) {
+      return { status: "incorrectPassword" };
+    }
+
     await UserModel.deleteOne(Query);
+    await RemoveCookie(res, "token");
+
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
@@ -171,20 +194,36 @@ exports.RecoveryPasswordService = async (req) => {
   }
 };
 
-exports.AddExpressionService = async (req) => {
+exports.DeactivateUserService = async (req, res) => {
   try {
-    let Query = { Email: req.headers.email };
-    await ExpressionModel.deleteOne(Query);
+    let reqBody = req.body;
+    let email = req.headers.email;
+    let Query = { Email: email };
+
+    let user = await UserModel.findOne(Query);
+    let result = await DecodePassword(reqBody.Password, user.Password);
+    if (!result) {
+      return { status: "incorrectPassword" };
+    }
+    // await DeactivatedModel.create(Query);
+    await UserModel.updateOne(Query, { $set: { Deactivated: true } });
+    await RemoveCookie(res, "token");
+
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.CreateCommentService = async (req) => {
+exports.ReactivateUserService = async (req, res) => {
   try {
-    let Query = { Email: req.headers.email };
-    await CommentModel.deleteOne(Query);
+    let Query = { Email: req.body.Email };
+
+    // await DeactivatedModel.delete(Query);
+    let result = await UserModel.updateOne(Query, {
+      $set: { Deactivated: false },
+    });
+    console.log(result);
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
@@ -193,17 +232,51 @@ exports.CreateCommentService = async (req) => {
 
 exports.ReportByUserService = async (req) => {
   try {
-    let Query = { Email: req.headers.email };
-    await ReportByReaderModel.deleteOne(Query);
+    let readerID = req.headers.user_id;
+    let writerID = req.params.writerID;
+
+    let reported = await ReportByReaderModel.findOne({
+      ReporterID: readerID,
+      ReportedWriterID: writerID,
+    });
+    if (reported) {
+      return { status: "alreadyReported" };
+    }
+    let myBody = {
+      ReporterID: readerID,
+      ReportedWriterID: writerID,
+      Report: req.body.Report,
+      ReportDetails: req.body.ReportDetails,
+    };
+
+    await ReportByReaderModel.create(myBody);
     return { status: "success" };
   } catch (error) {
+    console.log(error);
     return { status: "fail" };
   }
 };
 
 exports.ReadAllReportByUserService = async (req) => {
   try {
-    let Query = { Email: req.headers.email };
+    let readerID = req.headers.user_id;
+    let Query = { ReporterID: readerID };
+
+    let result = await ReportByReaderModel.find(Query);
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.WithrawReportByUserService = async (req) => {
+  try {
+    let readerID = req.headers.user_id;
+    let writerID = req.body.writerID;
+    let Query = {
+      ReporterID: readerID,
+      ReportedWriterID: writerID,
+    };
     await ReportByReaderModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {
@@ -211,50 +284,97 @@ exports.ReadAllReportByUserService = async (req) => {
   }
 };
 
-exports.WidrawReportByUserService = async (req) => {
+exports.FollowWriterService = async (req) => {
   try {
-    let Query = { Email: req.headers.email };
-    await ReportByReaderModel.deleteOne(Query);
+    let followerID = req.headers.user_id;
+    let writerID = req.params.writerID;
+
+    let followed = await FollowerModel.findOne({
+      FollowerID: followerID,
+      WriterID: writerID,
+    });
+    if (followed) {
+      return { status: "alreadyFollowed" };
+    }
+    let myBody = {
+      FollowerID: followerID,
+      WriterID: writerID,
+    };
+
+    await FollowerModel.create(myBody);
+    return { status: "success" };
+  } catch (error) {
+    console.log(error);
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllFollowingService = async (req) => {
+  try {
+    let Query = { FollowerID: req.headers.user_id };
+
+    let result = await FollowerModel.find(Query);
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.AddExpressionService = async (req) => {
+  try {
+    let readerID = req.headers.user_id;
+    let blogID = req.params.blogID;
+    let expression = req.body.Expression;
+    let Query = {
+      ReaderID: readerID,
+      BlogID: blogID,
+    };
+    let isLiked = await ExpressionModel.findOne(Query);
+    if (isLiked) {
+      await ExpressionModel.deleteOne(Query);
+      return { status: "success" };
+    }
+    let myBody = {
+      ReaderID: readerID,
+      BlogID: blogID,
+      Like: true,
+      Expression: expression,
+    };
+
+    await ExpressionModel.create(myBody);
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.DeleteUserService = async (req) => {
+exports.CreateCommentService = async (req) => {
   try {
-    let Query = { Email: req.headers.email };
-    await UserModel.deleteOne(Query);
+    let readerID = req.headers.user_id;
+    let blogID = req.params.blogID;
+    let myBody = {
+      ReaderID: readerID,
+      BlogID: blogID,
+      Comment: req.body.Comment,
+    };
+
+    await CommentModel.create(myBody);
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.DeleteUserService = async (req) => {
+exports.DeleteCommentByUserService = async (req) => {
   try {
-    let Query = { Email: req.headers.email };
-    await UserModel.deleteOne(Query);
-    return { status: "success" };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
+    let readerID = req.headers.user_id;
+    let commentID = req.params.commentID;
+    let Query = {
+      ReaderID: readerID,
+      _id: commentID,
+    };
 
-exports.DeleteUserService = async (req) => {
-  try {
-    let Query = { Email: req.headers.email };
-    await UserModel.deleteOne(Query);
-    return { status: "success" };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.DeleteUserService = async (req) => {
-  try {
-    let Query = { Email: req.headers.email };
-    await UserModel.deleteOne(Query);
+    await CommentModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };

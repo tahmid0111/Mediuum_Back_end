@@ -1,4 +1,7 @@
-const { sendError } = require("../helpers/important/common.helper");
+const {
+  sendErrorResponse,
+  sendResponse,
+} = require("../helpers/important/common.helper");
 const {
   RegistrationService,
   LoginService,
@@ -12,7 +15,12 @@ const {
   CreateCommentService,
   ReportByUserService,
   ReadAllReportByUserService,
-  WidrawReportByUserService,
+  LogoutService,
+  ReactivateUserService,
+  WithrawReportByUserService,
+  ReadAllFollowingService,
+  FollowWriterService,
+  DeleteCommentByUserService,
 } = require("../services/user.service");
 
 exports.Registration = async (req, res) => {
@@ -44,6 +52,7 @@ exports.Login = async (req, res) => {
   const messages = {
     success: "Login Successfull",
     newUser: "There is no account associated with this Email",
+    deactivated: "Your account is deacticated",
     incorrectPassword: "Incorrect Password",
     fail: "Something went wrong",
   };
@@ -58,31 +67,28 @@ exports.Login = async (req, res) => {
   });
 };
 
+exports.Logout = async (req, res) => {
+  let result = await LogoutService(req, res);
+
+  result.status === "success"
+    ? sendResponse(res, "Logout Success!")
+    : sendErrorResponse(res);
+};
+
 exports.ReadUser = async (req, res) => {
   let result = await ReadUserService(req);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your expected data is here",
-      data: result.data,
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.UpdateUser = async (req, res) => {
   let result = await UpdateUserService(req);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Update successful. Your information has been updated",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Your data has been successfully updated!")
+    : sendErrorResponse(res);
 };
 
 exports.UpdatePassword = async (req, res) => {
@@ -107,30 +113,12 @@ exports.UpdatePassword = async (req, res) => {
   });
 };
 
-exports.DeactivateUser = async (req, res) => {
-  let result = await DeactivateUserService(req);
-
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
-};
-
 exports.DeleteUser = async (req, res) => {
-  let result = await DeleteUserService(req);
+  let result = await DeleteUserService(req, res);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Your data has been successfully deleted!")
+    : sendErrorResponse(res);
 };
 
 exports.RecoveryPassword = async (req, res) => {
@@ -154,67 +142,106 @@ exports.RecoveryPassword = async (req, res) => {
   });
 };
 
-exports.AddExpression = async (req, res) => {
-  let result = await AddExpressionService(req);
+exports.DeactivateUser = async (req, res) => {
+  let result = await DeactivateUserService(req, res);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Your id has been deactivated!")
+    : result.status === "incorrectPassword"
+    ? sendResponse(
+        res,
+        "Please check your given password",
+        undefined,
+        409,
+        "Incorrect Password!"
+      )
+    : sendErrorResponse(res);
 };
 
-exports.CreateComment = async (req, res) => {
-  let result = await CreateCommentService(req);
+exports.ReactivateUser = async (req, res) => {
+  let result = await ReactivateUserService(req, res);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Your id is now active!")
+    : sendErrorResponse(res);
 };
 
 exports.ReportByUser = async (req, res) => {
   let result = await ReportByUserService(req);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Report Submitted!")
+    : result.status === "alreadyReported"
+    ? sendResponse(
+        res,
+        "You have already reported this writer!",
+        undefined,
+        409,
+        "Already Reported"
+      )
+    : sendErrorResponse(res);
 };
 
 exports.ReadAllReportByUser = async (req, res) => {
   let result = await ReadAllReportByUserService(req);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "All your submitted reports are here!")
+    : sendErrorResponse(res);
 };
 
-exports.WidrawReportByUser = async (req, res) => {
-  let result = await WidrawReportByUserService(req);
+exports.WithrawReportByUser = async (req, res) => {
+  let result = await WithrawReportByUserService(req);
 
-  if (result.status === "success") {
-    res.status(200).json({
-      status: result.status,
-      message: "Your has been deleted",
-    });
-  } else {
-    sendError(res);
-  }
+  result.status === "success"
+    ? sendResponse(res, "Withdrawal success!")
+    : sendErrorResponse(res);
+};
+
+exports.FollowWriter = async (req, res) => {
+  let result = await FollowWriterService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Withdrawal success!")
+    : result.status === "alreadyFollowed"
+    ? sendResponse(
+        res,
+        "You have already followed this writer!",
+        undefined,
+        409,
+        "Already Followed"
+      )
+    : sendErrorResponse(res);
+};
+
+exports.ReadAllFollowing = async (req, res) => {
+  let result = await ReadAllFollowingService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your followed writers list is here!")
+    : sendErrorResponse(res);
+};
+
+exports.AddExpression = async (req, res) => {
+  let result = await AddExpressionService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Thanks for adding your like!")
+    : sendErrorResponse(res);
+};
+
+exports.CreateComment = async (req, res) => {
+  let result = await CreateCommentService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Thanks for adding your comment!")
+    : sendErrorResponse(res);
+};
+
+exports.DeleteCommentByUser = async (req, res) => {
+  let result = await DeleteCommentByUserService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your comment has been deleted!")
+    : sendErrorResponse(res);
 };

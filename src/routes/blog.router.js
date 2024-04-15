@@ -2,17 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
-const {
-  ReadSingleExpressionByBlog,
-  ReadAllExpressionByBlog,
-  ReadAllCommentByBlog,
-  ReadSingleBlog,
-  ReadBlogByTopic,
-  ReadBlogByCategory,
-  ReadAllTopicByCategory,
-  ReadAllCategory,
-  ReadAllBlog,
-} = require("../../controllers/blog.controller");
+const { ReadAllBlog, ReadAllCategory, ReadAllTopicByCategory, ReadBlogByCategory, ReadBlogByTopic, ReadSingleBlog, ReadAllCommentByBlog, ReadAllExpressionByBlog, ReadSingleExpressionByBlog } = require("../controllers/blog.controller");
 
 // guest features
 router.post("/readAllBlog", ReadAllBlog);

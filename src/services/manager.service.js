@@ -1,6 +1,10 @@
-const { SetCookie, EncodeToken } = require("../helpers/important/common.helper");
+const {
+  SetCookie,
+  EncodeToken,
+} = require("../helpers/important/common.helper");
 const { VerifyManager } = require("../helpers/others/verifyAdmin.helper");
-const ManagerModel = require("../../models/admin/manager.model");
+
+const ManagerModel = require("../models/user/manager.model");
 const CategoryModel = require("../models/blog/category.model");
 const TopicModel = require("../models/blog/topic.model");
 const NoticeModel = require("../models/privacy/notice.model");
@@ -37,7 +41,7 @@ exports.LoginAsManagerService = async (req, res) => {
 
 exports.ReadAllUserService = async (req) => {
   try {
-    if(!VerifyManager(req)) {
+    if (!VerifyManager(req)) {
       return { status: "fail" };
     }
     let result = await UserModel.find();
@@ -49,7 +53,7 @@ exports.ReadAllUserService = async (req) => {
 
 exports.ReadAllWriterService = async (req) => {
   try {
-    if(!VerifyManager(req)) {
+    if (!VerifyManager(req)) {
       return { status: "fail" };
     }
     let result = await WriterModel.find();
@@ -61,12 +65,12 @@ exports.ReadAllWriterService = async (req) => {
 
 exports.CreateCategoryService = async (req) => {
   try {
-    if(!VerifyManager(req)) {
+    if (!VerifyManager(req)) {
       return { status: "fail" };
     }
     let reqBody = req.body;
     let result = await CategoryModel.create(reqBody);
-    
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

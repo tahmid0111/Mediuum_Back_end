@@ -1,15 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  CreateManager,
-  UpdateManagerInfo,
-  UpdateManagerPassword,
-  DeleteManager,
-  LoginAsAdmin,
-  ReadAdminProfile,
-} = require("../../controllers/admin.controller");
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
+const { LoginAsAdmin, ReadAdminProfile, CreateManager, UpdateManagerInfo, UpdateManagerPassword, DeleteManager } = require("../controllers/admin.controller");
 
 router.post("/loginAsAdmin", LoginAsAdmin);
 router.get("/readAdminProfile", AuthVerify, ReadAdminProfile);

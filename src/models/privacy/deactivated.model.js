@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 
 const DataSchema = mongoose.Schema(
   {
-    UserID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+    Email: {
+      type: String,
       required: true,
     },
   },
