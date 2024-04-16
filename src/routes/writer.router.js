@@ -1,5 +1,9 @@
 const express = require("express");
+const multer = require("multer");
+const router = express.Router();
+
 const { AuthVerify } = require("../middleware/AuthVerify.middleware");
+
 const {
   CreateWriterProfile,
   ReadWriterProfile,
@@ -15,13 +19,20 @@ const {
   ReadAllReportByWriter,
   WidrawReportByWriter,
 } = require("../controllers/writer.controller");
-const router = express.Router();
 
-router.post("/createWriterProfile", AuthVerify, CreateWriterProfile);
+const storage = require("../utility/cloudinary.utility");
+const upload = multer({ storage });
+
+router.post(
+  "/createWriterProfile",
+  AuthVerify,
+  upload.single("file"),
+  CreateWriterProfile
+);
 router.get("/readWriterProfile", AuthVerify, ReadWriterProfile);
 router.get("/readAllBlogByOwn", AuthVerify, ReadWriterProfile);
+router.get("/readAllfollower", AuthVerify, ReadWriterProfile);
 router.post("/updateWriterProfile", AuthVerify, UpdateWriterProfile);
-router.post("/deleteWriterProfile", AuthVerify, UpdateWriterProfile);
 // draft related API
 router.post("/createBlogDraft", AuthVerify, CreateBlogDraft);
 router.post("/updateBlogDraft", AuthVerify, UpdateBlogDraft);
@@ -30,7 +41,6 @@ router.post("/deleteBlogDraft", AuthVerify, DeleteBlogDraft);
 router.post("/publishBlog", AuthVerify, PublishBlog);
 router.post("/updateBlogContent", AuthVerify, UpdateBlog);
 router.post("/deleteBlog", AuthVerify, DeleteBlog);
-// comment related API
 router.post("/deleteCommentByWriter", AuthVerify, DeleteCommentByWriter);
 // report features
 router.post("/reportByWriter", AuthVerify, ReportByWriter);

@@ -6,6 +6,7 @@ const DataSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true,
+      unique: true,
     },
     WriterName: {
       type: String,
@@ -20,6 +21,7 @@ const DataSchema = mongoose.Schema(
       required: true,
     },
     Passion: {
+      type: String,
       type: mongoose.Schema.Types.ObjectId,
       ref: "passion",
       required: true,

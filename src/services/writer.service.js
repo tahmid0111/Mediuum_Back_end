@@ -6,6 +6,26 @@ const WriterModel = require("../models/user/writer.model");
 
 exports.CreateWriterProfileService = async (req) => {
   try {
+    let user_id = req.headers.user_id;
+    let reqBody = req.body;
+    let myBody = {
+      ...reqBody,
+      UserID: user_id,
+      Image: req.file.path,
+    };
+    console.log('hi')
+
+    await WriterModel.create(myBody);
+    console.log('hiooooo')
+    return { status: "success" };
+  } catch (error) {
+    console.log(error);
+    return { status: "fail" };
+  }
+};
+
+exports.ReadWriterProfileService = async (req) => {
+  try {
     let Query = { Email: req.headers.email };
     await WriterModel.deleteOne(Query);
     return { status: "success" };
@@ -14,7 +34,17 @@ exports.CreateWriterProfileService = async (req) => {
   }
 };
 
-exports.ReadWriterProfileService = async (req) => {
+exports.ReadAllBlogByOwnService = async (req) => {
+  try {
+    let Query = { Email: req.headers.email };
+    await WriterModel.deleteOne(Query);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllFollowerService = async (req) => {
   try {
     let Query = { Email: req.headers.email };
     await WriterModel.deleteOne(Query);
