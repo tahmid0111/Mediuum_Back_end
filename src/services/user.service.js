@@ -85,10 +85,9 @@ exports.LoginService = async (req, res) => {
 
 exports.LogoutService = async (req, res) => {
   try {
-    await RemoveCookie(res, "token");
+    await RemoveCookie(res);
     return { status: "success" };
   } catch (error) {
-    console.log(error);
     return { status: "fail" };
   }
 };

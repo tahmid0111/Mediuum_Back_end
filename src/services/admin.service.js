@@ -1,6 +1,7 @@
 const {
   EncodeToken,
   SetCookie,
+  RemoveCookie,
 } = require("../helpers/important/common.helper");
 const {
   ValidatePassword,
@@ -38,12 +39,26 @@ exports.LoginAsAdminService = async (req, res) => {
 
 exports.ReadAdminProfileService = async (req) => {
   try {
+    if (!VerifyAdmin(req)) {
+      return { status: "fail" };
+    }
     let email = req.headers.email;
     let Query = { Email: email };
 
     let result = await AdminModel.findOne(Query);
-
     return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.LogoutAsAdminService = async (req, res) => {
+  try {
+    if (!VerifyAdmin(req)) {
+      return { status: "fail" };
+    }
+    await RemoveCookie(res);
+    return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
@@ -51,11 +66,11 @@ exports.ReadAdminProfileService = async (req) => {
 
 exports.CreateManagerService = async (req) => {
   try {
-    if (!VerifyAdmin) {
+    if (!VerifyAdmin(req)) {
       return { status: "fail" };
     }
     let reqBody = req.body;
-    console.log(reqBody)
+    console.log(reqBody);
     // Validating given info using regex
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
@@ -72,23 +87,39 @@ exports.CreateManagerService = async (req) => {
   }
 };
 
-exports.UpdateManagerInfoService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+exports.ReadAllManagerService = async (req) => {
   try {
-    let result = await ManagerModel.updateOne(Query, reqBody);
+    if (!VerifyAdmin(req)) {
+      return { status: "fail" };
+    }
+    let result = await ManagerModel.find();
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.UpdateManagerPasswordService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+exports.ReadSingleManagerService = async (req) => {
   try {
+    if (!VerifyAdmin(req)) {
+      return { status: "fail" };
+    }
+    let Query = { _id: req.params.manager_id };
+    let result = await ManagerModel.findOne(Query);
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.UpdateManagerInfoService = async (req) => {
+  try {
+    if (!VerifyAdmin(req)) {
+      return { status: "fail" };
+    }
+    let reqBody = req.body;
+    let Query = { _id: req.params.manager_id };
+
     let result = await ManagerModel.updateOne(Query, reqBody);
     return { status: "success", data: result };
   } catch (error) {
@@ -97,95 +128,9 @@ exports.UpdateManagerPasswordService = async (req) => {
 };
 
 exports.DeleteManagerService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await ManagerModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await UserModel.updateOne(Query, reqBody);
+    let Query = { _id: req.params.manager_id };
+    let result = await ManagerModel.deleteOne(Query);
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

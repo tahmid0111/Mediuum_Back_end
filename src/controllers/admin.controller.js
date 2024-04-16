@@ -1,31 +1,29 @@
-const { LoginAsAdminService, ReadAdminProfileService, CreateManagerService, UpdateManagerInfoService, UpdateManagerPasswordService, DeleteManagerService } = require("../services/admin.service");
+const { sendErrorResponse, sendResponse } = require("../helpers/important/common.helper");
+const { LoginAsAdminService, ReadAdminProfileService, CreateManagerService, UpdateManagerInfoService, UpdateManagerPasswordService, DeleteManagerService, LogoutAsAdminService, ReadAllManagerService, ReadSingleManagerService } = require("../services/admin.service");
 
 
 exports.LoginAsAdmin = async (req, res) => {
   let result = await LoginAsAdminService(req, res);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Login Successful",
-    });
-  } else if (result.status === "wrongPassword") {
-    res.status(404).json({ status: "fail", message: "Incorrect Password" });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+  ? sendResponse(res, "Login Success!")
+  : result.status === "wrongPassword"
+  ? sendResponse(res, "Incorrect Password!")
+  : sendErrorResponse(res);
 };
 
 exports.ReadAdminProfile = async (req, res) => {
   let result = await ReadAdminProfileService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Your requested data is here",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+  result.status === "success"
+    ? sendResponse(res, "Logout Success!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.LogoutAsAdmin = async (req, res) => {
+  let result = await LogoutAsAdminService(req, res);
+  result.status === "success"
+    ? sendResponse(res, "Logout Success!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.CreateManager = async (req, res) => {
@@ -49,114 +47,35 @@ exports.CreateManager = async (req, res) => {
   });
 };
 
-exports.UpdateManagerInfo = async (req, res) => {
-  let result = await UpdateManagerInfoService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+exports.ReadAllManager = async (req, res) => {
+  let result = await ReadAllManagerService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
-exports.UpdateManagerPassword = async (req, res) => {
-  let result = await UpdateManagerPasswordService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+exports.ReadSingleManager = async (req, res) => {
+  let result = await ReadSingleManagerService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.UpdateManagerInfo = async (req, res) => {
+  let result = await UpdateManagerInfoService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Logout Success!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.DeleteManager = async (req, res) => {
   let result = await DeleteManagerService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Manager Account removed!")
+    : sendErrorResponse(res);
 };
 
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-exports.createManager = async (req, res) => {
-  let result = await CreateAdminService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};

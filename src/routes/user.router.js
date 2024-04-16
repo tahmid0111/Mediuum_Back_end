@@ -44,11 +44,11 @@ router.post("/deactivateUser", AuthVerify, DeactivateUser);
 router.post("/reactivateUser", ReactivateUser);
 
 router.post("/reportByUser/:writerID", AuthVerify, ReportByUser);
-router.get("/readAllReportByUser", AuthVerify, ReadAllReportByUser);
-router.post("/withrawReportByUser", AuthVerify, WithrawReportByUser);
+router.get("/readAllReportByUser/:user_id", AuthVerify, ReadAllReportByUser);
+router.post("/withrawReportByUser/:report_id", AuthVerify, WithrawReportByUser);
 // blog related features
 router.post("/followWriter/:writerID", AuthVerify, FollowWriter);
-router.get("/readAllFollowing", AuthVerify, ReadAllFollowing);
+router.get("/readAllFollowing/:writer_id", AuthVerify, ReadAllFollowing);
 
 router.post("/addExpression/:blogID", AuthVerify, AddExpression);
 router.post("/createComment/:blogID", AuthVerify, CreateComment);
