@@ -7,6 +7,11 @@ const DataSchema = mongoose.Schema(
       ref: "user",
       required: true,
     },
+    ManagerID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "manager",
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -14,6 +19,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const GlobalBlockedModel = mongoose.model("globalBlocked", DataSchema);
+const BlockedModel = mongoose.model("block", DataSchema);
 
-module.exports = GlobalBlockedModel;
+module.exports = BlockedModel;

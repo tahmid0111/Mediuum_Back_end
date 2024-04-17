@@ -12,10 +12,16 @@ const {
   ReadAllCommentByBlog,
   ReadAllExpressionByBlog,
   ReadSingleExpressionByBlog,
+  ReadAllWriter,
+  ReadSingleWriter,
+  ReadSingleUser,
 } = require("../controllers/blog.controller");
 
 // guest features
 router.get("/readAllBlog", ReadAllBlog);
+router.get("/readAllWriter", ReadAllWriter);
+router.get("/readSingleWriter/:writer_id", AuthVerify, ReadSingleWriter);
+router.get("/readSingleUser/:user_id", AuthVerify, ReadSingleUser);
 router.get("/readAllCategory", ReadAllCategory);
 router.get("/readAllTopicByCategory/:category_id", ReadAllTopicByCategory);
 router.get("/readBlogByCategory/:category_id", ReadBlogByCategory);

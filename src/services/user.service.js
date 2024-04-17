@@ -16,6 +16,8 @@ const ReportByReaderModel = require("../models/privacy/reportByReader.model");
 const ExpressionModel = require("../models/features/expression.model");
 const CommentModel = require("../models/features/comment.model");
 const FollowerModel = require("../models/features/follower.model");
+const NoticeModel = require("../models/privacy/notice.model");
+const GlobalNoticeModel = require("../models/privacy/globalNotice.model");
 // const DeactivatedModel = require("../models/privacy/deactivated.model");
 
 exports.RegistrationService = async (req) => {
@@ -224,6 +226,46 @@ exports.ReactivateUserService = async (req, res) => {
     });
     console.log(result);
     return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllGlobalNoticeService = async (req) => {
+  try {
+    let result = await GlobalNoticeModel.find();
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllNoticeByUserService = async (req) => {
+  try {
+    let Query = { UserID: req.params.user_id };
+    let result = await NoticeModel.find(Query);
+
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadGlobalSingleNoticeService = async (req) => {
+  try {
+    let Query = { _id: req.params.notice_id };
+    let result = await GlobalNoticeModel.findOne(Query);
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadSingleNoticeService = async (req) => {
+  try {
+    let Query = { _id: req.params.notice_id };
+    let result = await NoticeModel.findOne(Query);
+    return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
   }

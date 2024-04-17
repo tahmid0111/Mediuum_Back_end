@@ -11,10 +11,37 @@ const {
   UpdateProductService,
   DeleteProductService,
   DeleteAllProductService,
+  ReadAllWriterService,
+  ReadSingleWriterService,
+  ReadSingleUserService,
 } = require("../services/blog.service");
 
 exports.ReadAllBlog = async (req, res) => {
   let result = await ReadAllBlogService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadAllWriter = async (req, res) => {
+  let result = await ReadAllWriterService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadSingleWriter = async (req, res) => {
+  let result = await ReadSingleWriterService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadSingleUser = async (req, res) => {
+  let result = await ReadSingleUserService(req);
 
   result.status === "success"
     ? sendResponse(res, "Your expected data is here!", result.data)
@@ -63,6 +90,7 @@ exports.ReadSingleBlog = async (req, res) => {
 
 exports.ReadAllCommentByBlog = async (req, res) => {
   let result = await ReadAllCommentByBlogService(req);
+  
   result.status === "success"
     ? sendResponse(res, "Your expected data is here!", result.data)
     : sendErrorResponse(res);

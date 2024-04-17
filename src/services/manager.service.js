@@ -1,6 +1,7 @@
 const {
   SetCookie,
   EncodeToken,
+  RemoveCookie,
 } = require("../helpers/important/common.helper");
 const { VerifyManager } = require("../helpers/others/verifyAdmin.helper");
 
@@ -11,7 +12,8 @@ const NoticeModel = require("../models/privacy/notice.model");
 const ReportByReaderModel = require("../models/privacy/reportByReader.model");
 const ReportByWriterModel = require("../models/privacy/reportByWriter.model");
 const UserModel = require("../models/user/user.model");
-const WriterModel = require("../models/user/writer.model");
+const GlobalNoticeModel = require("../models/privacy/globalNotice.model");
+const BlockedModel = require("../models/privacy/block.model");
 
 exports.LoginAsManagerService = async (req, res) => {
   try {
@@ -39,24 +41,24 @@ exports.LoginAsManagerService = async (req, res) => {
   }
 };
 
+exports.LogoutAsManagerService = async (req, res) => {
+  try {
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    await RemoveCookie(res);
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
 exports.ReadAllUserService = async (req) => {
   try {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
     let result = await UserModel.find();
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.ReadAllWriterService = async (req) => {
-  try {
-    if (!VerifyManager(req)) {
-      return { status: "fail" };
-    }
-    let result = await WriterModel.find();
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -71,90 +73,163 @@ exports.CreateCategoryService = async (req) => {
     let reqBody = req.body;
     let result = await CategoryModel.create(reqBody);
 
-    return { status: "success", data: result };
+    return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
 exports.CreateTopicService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await TopicModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let category_id = req.params.category_id;
+    let reqBody = req.body;
+    let myBody = {
+      ...reqBody,
+      CategoryID: category_id,
+    };
+    let result = await TopicModel.create(myBody);
+
+    return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
 exports.DeleteCategoryService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await CategoryModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let Query = { _id: req.params.category_id };
+    await CategoryModel.deleteOne(Query);
+
+    return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
 exports.DeleteTopicService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await TopicModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let Query = { _id: req.params.topic_id };
+    await TopicModel.deleteOne(Query);
+
+    return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.SendNoticeService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+exports.SendGlobalNoticeService = async (req) => {
   try {
-    let result = await NoticeModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let manager_id = req.headers.user_id;
+    let reqBody = req.body;
+    let myBody = {
+      ...reqBody,
+      ManagerID: manager_id,
+    };
+    let result = await GlobalNoticeModel.create(myBody);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.SendNoticeToSingleUserService = async (req) => {
+  try {
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let user_id = req.params.user_id;
+    let manager_id = req.headers.user_id;
+    let reqBody = req.body;
+    let myBody = {
+      ...reqBody,
+      UserID: user_id,
+      ManagerID: manager_id,
+    };
+    await NoticeModel.create(myBody);
+
+    return { status: "success" };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
 exports.DeleteNoticeService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await NoticeModel.updateOne(Query, reqBody);
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let Query = { _id: req.params.notice_id };
+    let result = await NoticeModel.deleteOne(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.GlobalBlockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+exports.BlockUserService = async (req) => {
   try {
-    let result = await UserModel.updateOne(Query, reqBody);
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let myBody = {
+      UserID: req.params.user_id,
+      ManagerID: req.headers.user_id,
+    };
+    await BlockedModel.create(myBody);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.UnblockUserService = async (req) => {
+  try {
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let Query = { UserID: req.params.user_id, ManagerID: req.headers.user_id };
+    await BlockedModel.deleteOne(Query);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllReportSubmitedByUserService = async (req) => {
+  try {
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let result = await ReportByReaderModel.find();
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.GlobalUnblockUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+exports.ReadSingleReportSubmitedByUserService = async (req) => {
   try {
-    let result = await UserModel.updateOne(Query, reqBody);
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let Query = { _id: req.params.report_id };
+    let result = await ReportByReaderModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -162,23 +237,24 @@ exports.GlobalUnblockUserService = async (req) => {
 };
 
 exports.ReadAllReportSubmitedByWriterService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await ReportByWriterModel.updateOne(Query, reqBody);
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let result = await ReportByWriterModel.find();
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
   }
 };
 
-exports.ReadAllReportSubmitedByUserService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
+exports.ReadSingleReportSubmitedByWriterService = async (req) => {
   try {
-    let result = await ReportByReaderModel.updateOne(Query, reqBody);
+    if (!VerifyManager(req)) {
+      return { status: "fail" };
+    }
+    let Query = { _id: req.params.report_id };
+    let result = await ReportByWriterModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

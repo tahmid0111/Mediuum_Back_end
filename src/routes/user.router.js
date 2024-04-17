@@ -25,6 +25,10 @@ const {
   AddExpression,
   CreateComment,
   DeleteCommentByUser,
+  ReadAllGlobalNotice,
+  ReadAllNoticeByUser,
+  ReadGlobalSingleNotice,
+  ReadSingleNotice,
 } = require("../controllers/user.controller");
 
 // Initialize Multer with the storage configuration
@@ -42,6 +46,15 @@ router.post("/deleteUser", AuthVerify, DeleteUser);
 router.post("/recoveryPassword", RecoveryPassword);
 router.post("/deactivateUser", AuthVerify, DeactivateUser);
 router.post("/reactivateUser", ReactivateUser);
+
+router.get("/readAllGlobalNotice", AuthVerify, ReadAllGlobalNotice);
+router.get("/readAllNoticeByUser/:user_id", AuthVerify, ReadAllNoticeByUser);
+router.get(
+  "/readGlobalSingleNotice/:notice_id",
+  AuthVerify,
+  ReadGlobalSingleNotice
+);
+router.get("/readSingleNotice/:notice_id", AuthVerify, ReadSingleNotice);
 
 router.post("/reportByUser/:writerID", AuthVerify, ReportByUser);
 router.get("/readAllReportByUser/:user_id", AuthVerify, ReadAllReportByUser);

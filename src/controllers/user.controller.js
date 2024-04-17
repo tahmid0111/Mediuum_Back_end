@@ -21,6 +21,10 @@ const {
   ReadAllFollowingService,
   FollowWriterService,
   DeleteCommentByUserService,
+  ReadAllGlobalNoticeService,
+  ReadAllNoticeByUserService,
+  ReadSingleNoticeService,
+  ReadGlobalSingleNoticeService,
 } = require("../services/user.service");
 
 exports.Registration = async (req, res) => {
@@ -163,6 +167,38 @@ exports.ReactivateUser = async (req, res) => {
 
   result.status === "success"
     ? sendResponse(res, "Your id is now active!")
+    : sendErrorResponse(res);
+};
+
+exports.ReadAllGlobalNotice = async (req, res) => {
+  let result = await ReadAllGlobalNoticeService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadAllNoticeByUser = async (req, res) => {
+  let result = await ReadAllNoticeByUserService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadGlobalSingleNotice = async (req, res) => {
+  let result = await ReadGlobalSingleNoticeService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadSingleNotice = async (req, res) => {
+  let result = await ReadSingleNoticeService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
     : sendErrorResponse(res);
 };
 

@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 
 const DataSchema = mongoose.Schema(
   {
-    UserID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
-    },
     ManagerID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "manager",
@@ -31,6 +26,6 @@ const DataSchema = mongoose.Schema(
   }
 );
 
-const NoticeModel = mongoose.model("notice", DataSchema);
+const GlobalNoticeModel = mongoose.model("globalNotice", DataSchema);
 
-module.exports = NoticeModel;
+module.exports = GlobalNoticeModel;
