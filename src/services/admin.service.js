@@ -70,7 +70,10 @@ exports.CreateManagerService = async (req) => {
       return { status: "fail" };
     }
     let reqBody = req.body;
-    console.log(reqBody);
+    let myBody = {
+      ...reqBody,
+      Image: req.file.path,
+    };
     // Validating given info using regex
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
@@ -78,8 +81,8 @@ exports.CreateManagerService = async (req) => {
     if (!ValidatePhoneNumber(reqBody.Mobile)) {
       return { status: "invalidPhoneNumber" };
     }
-    let result = await ManagerModel.create(reqBody);
 
+    let result = await ManagerModel.create(myBody);
     return { status: "success", data: result };
   } catch (error) {
     console.log(error);
@@ -119,9 +122,17 @@ exports.UpdateManagerInfoService = async (req) => {
     }
     let reqBody = req.body;
     let Query = { _id: req.params.manager_id };
-
-    let result = await ManagerModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
+    if (reqBody.file) {
+      let myBody = {
+        ...reqBody,
+        Image: req.file.path,
+      };
+      await ManagerModel.updateOne(Query, myBody);
+      return { status: "success" };
+    } else {
+      await ManagerModel.updateOne(Query, reqBody);
+      return { status: "success" };
+    }
   } catch (error) {
     return { status: "fail" };
   }
