@@ -6,26 +6,17 @@ const CommentModel = require("../models/features/comment.model");
 const ExpressionModel = require("../models/features/expression.model");
 
 exports.ReadAllBlogService = async (req) => {
-  let reqBody = req.body;
-  // let myBody = {
-  //   UserEmail: req.headers.email,
-  //   ...reqBody,
-  // };
   try {
-    const result = await BlogModel.create(reqBody);
+    const result = await BlogModel.find().sort({ createdAt: -1 });
     return { status: "success", data: result };
   } catch (error) {
-    console.log(error)
     return { status: "fail" };
   }
 };
 
 exports.ReadAllCategoryService = async (req) => {
   try {
-    if(!VerifyManager) {
-      return { status: "fail" };
-    }
-    let result = await CategoryModel.find().sort({ createdAt: -1 });
+    let result = await CategoryModel.find();
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -33,10 +24,10 @@ exports.ReadAllCategoryService = async (req) => {
 };
 
 exports.ReadAllTopicByCategoryService = async (req) => {
-  let ID = req.params.id;
-  let Query = { _id: ID };
   try {
-    let result = await TopicModel.findOne(Query);
+    let Query = { CategoryID: req.paramas.category_id };
+    let result = await TopicModel.find(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -44,11 +35,10 @@ exports.ReadAllTopicByCategoryService = async (req) => {
 };
 
 exports.ReadBlogByCategoryService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await BlogModel.updateOne(Query, reqBody);
+    let Query = { CategoryID: req.paramas.category_id };
+    let result = await BlogModel.find(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -56,11 +46,10 @@ exports.ReadBlogByCategoryService = async (req) => {
 };
 
 exports.ReadBlogByTopicService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await BlogModel.updateOne(Query, reqBody);
+    let Query = { TopicID: req.paramas.topic_id };
+    let result = await BlogModel.find(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -68,11 +57,10 @@ exports.ReadBlogByTopicService = async (req) => {
 };
 
 exports.ReadSingleBlogService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await BlogModel.updateOne(Query, reqBody);
+    let Query = { _id: req.paramas.blog_id };
+    let result = await BlogModel.findOne(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -80,11 +68,10 @@ exports.ReadSingleBlogService = async (req) => {
 };
 
 exports.ReadAllCommentByBlogService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await CommentModel.updateOne(Query, reqBody);
+    let Query = { BlogID: req.paramas.blog_id };
+    let result = await CommentModel.find(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -92,11 +79,10 @@ exports.ReadAllCommentByBlogService = async (req) => {
 };
 
 exports.ReadAllExpressionByBlogService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await ExpressionModel.updateOne(Query, reqBody);
+    let Query = { BlogID: req.paramas.blog_id };
+    let result = await ExpressionModel.find(Query);
+
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -104,81 +90,12 @@ exports.ReadAllExpressionByBlogService = async (req) => {
 };
 
 exports.ReadSingleExpressionByBlogService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
   try {
-    let result = await ExpressionModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.UpdateProductService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await ProductModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.UpdateProductService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await ProductModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.UpdateProductService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await ProductModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.UpdateProductService = async (req) => {
-  let ID = req.params.id;
-  let reqBody = req.body;
-  let Query = { _id: ID };
-  try {
-    let result = await ProductModel.updateOne(Query, reqBody);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.DeleteProductService = async (req) => {
-  let ID = req.params.id;
-  let Query = { _id: ID };
-  try {
-    let result = await ProductModel.deleteOne(Query);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
-
-exports.DeleteAllProductService = async (req) => {
-  let Email = req.headers.email;
-  let Query = { UserEmail: Email };
-  try {
-    let result = await ProductModel.deleteMany(Query);
+    let Query = { BlogID: req.paramas.blog_id };
+    let result = await ExpressionModel.aggregate([
+      { $match: Query },
+      { $group: { _id: "$Expression" } },
+    ]);
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

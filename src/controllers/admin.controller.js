@@ -1,15 +1,27 @@
-const { sendErrorResponse, sendResponse } = require("../helpers/important/common.helper");
-const { LoginAsAdminService, ReadAdminProfileService, CreateManagerService, UpdateManagerInfoService, UpdateManagerPasswordService, DeleteManagerService, LogoutAsAdminService, ReadAllManagerService, ReadSingleManagerService } = require("../services/admin.service");
+const {
+  sendErrorResponse,
+  sendResponse,
+} = require("../helpers/important/common.helper");
 
+const {
+  LoginAsAdminService,
+  ReadAdminProfileService,
+  CreateManagerService,
+  UpdateManagerInfoService,
+  DeleteManagerService,
+  LogoutAsAdminService,
+  ReadAllManagerService,
+  ReadSingleManagerService,
+} = require("../services/admin.service");
 
 exports.LoginAsAdmin = async (req, res) => {
   let result = await LoginAsAdminService(req, res);
 
   result.status === "success"
-  ? sendResponse(res, "Login Success!")
-  : result.status === "wrongPassword"
-  ? sendResponse(res, "Incorrect Password!")
-  : sendErrorResponse(res);
+    ? sendResponse(res, "Login Success!")
+    : result.status === "wrongPassword"
+    ? sendResponse(res, "Incorrect Password!")
+    : sendErrorResponse(res);
 };
 
 exports.ReadAdminProfile = async (req, res) => {
@@ -78,4 +90,3 @@ exports.DeleteManager = async (req, res) => {
     ? sendResponse(res, "Manager Account removed!")
     : sendErrorResponse(res);
 };
-

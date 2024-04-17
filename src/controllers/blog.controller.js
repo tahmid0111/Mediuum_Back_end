@@ -15,119 +15,73 @@ const {
 
 exports.ReadAllBlog = async (req, res) => {
   let result = await ReadAllBlogService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadAllCategory = async (req, res) => {
   let result = await ReadAllCategoryService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadAllTopicByCategory = async (req, res) => {
   let result = await ReadAllTopicByCategoryService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadBlogByCategory = async (req, res) => {
   let result = await ReadBlogByCategoryService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadBlogByTopic = async (req, res) => {
   let result = await ReadBlogByTopicService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadSingleBlog = async (req, res) => {
   let result = await ReadSingleBlogService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadAllCommentByBlog = async (req, res) => {
   let result = await ReadAllCommentByBlogService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadAllExpressionByBlog = async (req, res) => {
   let result = await ReadAllExpressionByBlogService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadSingleExpressionByBlog = async (req, res) => {
   let result = await ReadSingleExpressionByBlogService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
 };
 
 exports.ReadSingleProduct = async (req, res) => {
@@ -142,45 +96,6 @@ exports.ReadSingleProduct = async (req, res) => {
       message: "Product has been created Successfully",
       data: result.data,
       data2: `${exactYear} ${exactMonth} ${exactDate}`,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-
-exports.UpdateProduct = async (req, res) => {
-  let result = await UpdateProductService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-
-exports.DeleteProduct = async (req, res) => {
-  let result = await DeleteProductService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
-    });
-  } else {
-    res.status(404).json({ status: "fail", message: "Something went wrong" });
-  }
-};
-
-exports.DeleteAllProduct = async (req, res) => {
-  let result = await DeleteAllProductService(req);
-  if (result.status === "success") {
-    res.status(200).json({
-      status: "success",
-      message: "Product has been created Successfully",
-      data: result.data,
     });
   } else {
     res.status(404).json({ status: "fail", message: "Something went wrong" });
