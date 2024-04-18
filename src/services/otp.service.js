@@ -1,5 +1,6 @@
-const { CreateOTP, SendOTP } = require("../helpers/others/otp.helper");
-const { ValidateEmail } = require("../helpers/others/regex.helper");
+
+const { CreateOTP, SendOTP } = require("../helpers/otp.helper");
+const { ValidateEmail } = require("../helpers/regex.helper");
 const OTPModel = require("../models/otp/otp.model");
 
 exports.SendEmailWithOTPService = async (req) => {
@@ -19,6 +20,7 @@ exports.SendEmailWithOTPService = async (req) => {
 
     return { status: "success", userEmail: email };
   } catch (error) {
+    console.log(error);
     return { status: "fail" };
   }
 };
@@ -34,6 +36,7 @@ exports.VerifyOTPService = async (req) => {
     await OTPModel.updateOne(Query, { $set: { Status: true } });
     return { status: "success" };
   } catch (error) {
+    console.log(error)
     return { status: "fail" };
   }
 };

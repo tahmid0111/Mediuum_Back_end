@@ -1,9 +1,7 @@
-// helpers
 const {
-  sendErrorResponse,
   sendResponse,
-} = require("../helpers/important/common.helper");
-// services
+  sendErrorResponse,
+} = require("../helpers/response.helper");
 const {
   CreateWriterProfileService,
   ReadWriterProfileService,
@@ -14,7 +12,6 @@ const {
   PublishBlogService,
   UpdateBlogService,
   DeleteBlogService,
-  DeleteCommentByWriterService,
   ReportByWriterService,
   ReadAllReportByWriterService,
   WidrawReportByWriterService,

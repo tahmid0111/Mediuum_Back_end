@@ -1,14 +1,8 @@
 // helpers
-const {
-  EncodePassword,
-  DecodePassword,
-} = require("../helpers/others/bcrypt.helper");
-const { ValidatePassword } = require("../helpers/others/regex.helper");
-const {
-  EncodeToken,
-  SetCookie,
-  RemoveCookie,
-} = require("../helpers/important/common.helper");
+const { EncodePassword, DecodePassword } = require("../utility/bcrypt.utility");
+const { ValidatePassword } = require("../helpers/regex.helper");
+const { RemoveCookie, SetCookie } = require("../helpers/cookie.helper");
+const { EncodeToken } = require("../utility/jwt.utility");
 // models
 const UserModel = require("../models/user/user.model");
 const OTPModel = require("../models/otp/otp.model");
@@ -18,6 +12,7 @@ const CommentModel = require("../models/features/comment.model");
 const FollowerModel = require("../models/features/follower.model");
 const NoticeModel = require("../models/privacy/notice.model");
 const GlobalNoticeModel = require("../models/privacy/globalNotice.model");
+
 // const DeactivatedModel = require("../models/privacy/deactivated.model");
 
 exports.RegistrationService = async (req) => {

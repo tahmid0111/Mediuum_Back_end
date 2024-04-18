@@ -1,11 +1,11 @@
 // initial packages
 const express = require("express");
 const app = express();
-// imported helpers
-const securityMiddleware = require("./src/helpers/important/security.helper");
-const { connectDB } = require("./src/helpers/important/common.helper");
-const { RouterImplement } = require("./src/helpers/important/router.helper");
-const { env_port } = require("./src/helpers/important/dotenv.helper");
+// importing configeration
+const securityMiddleware = require("./src/config/security.config");
+const { connectDB } = require("./src/config/db.config");
+const { RouterImplement } = require("./src/config/router.config");
+const { env_port } = require("./src/config/dotenv.config");
 
 // implementing security middlewares
 securityMiddleware(app);

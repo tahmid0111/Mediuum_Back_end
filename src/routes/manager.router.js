@@ -19,6 +19,8 @@ const {
   UnblockUser,
   ReadSingleReportSubmitedByWriter,
   ReadSingleReportSubmitedByUser,
+  SendGlobalNotice,
+  SendNoticeToSingleUser,
 } = require("../controllers/manager.controller");
 
 router.post("/loginAsManager", LoginAsManager);
@@ -30,8 +32,8 @@ router.post("/createTopic/:category_id", AuthVerify, CreateTopic);
 router.post("/deleteCategory/:category_id", AuthVerify, DeleteCategory);
 router.post("/deleteTopic/:topic_id", AuthVerify, DeleteTopic);
 // privacy features
-router.post("/sendGlobalNotice", AuthVerify, SendNotice);
-router.post("/sendNoticeToSingleUser/:user_id", AuthVerify, SendNotice);
+router.post("/sendGlobalNotice", AuthVerify, SendGlobalNotice);
+router.post("/sendNoticeToSingleUser/:user_id", AuthVerify, SendNoticeToSingleUser);
 router.post("/deleteNotice/:notice_id", AuthVerify, DeleteNotice);
 router.post("/blockUser/:user_id", AuthVerify, BlockUser);
 router.post("/unblockUser/:user_id", AuthVerify, UnblockUser);

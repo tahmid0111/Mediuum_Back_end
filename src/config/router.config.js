@@ -1,10 +1,10 @@
 // importing routers
-const userRouter = require('../../routes/user.router')
-const writerRouter = require("../../routes/writer.router");
-const blogRouter = require("../../routes/blog.router");
-const otpRouter = require("../../routes/otp.router");
-const managerRouter = require("../../routes/manager.router");
-const adminRouter = require("../../routes/admin.router");
+const userRouter = require("../routes/user.router");
+const writerRouter = require("../routes/writer.router");
+const blogRouter = require("../routes/blog.router");
+const otpRouter = require("../routes/otp.router");
+const managerRouter = require("../routes/manager.router");
+const adminRouter = require("../routes/admin.router");
 
 exports.RouterImplement = async (app) => {
   app.use("/user/api/v1", userRouter);

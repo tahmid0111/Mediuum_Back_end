@@ -1,15 +1,10 @@
-const {
-  EncodeToken,
-  SetCookie,
-  RemoveCookie,
-} = require("../helpers/important/common.helper");
-const {
-  ValidatePassword,
-  ValidatePhoneNumber,
-} = require("../helpers/others/regex.helper");
-const { VerifyAdmin } = require("../helpers/others/verifyAdmin.helper");
+
+const { SetCookie, RemoveCookie } = require("../helpers/cookie.helper");
+const { ValidatePassword, ValidatePhoneNumber } = require("../helpers/regex.helper");
+const { VerifyAdmin } = require("../helpers/verifyAdmin.helper");
 const AdminModel = require("../models/user/admin.model");
 const ManagerModel = require("../models/user/manager.model");
+const { EncodeToken } = require("../utility/jwt.utility");
 
 exports.LoginAsAdminService = async (req, res) => {
   try {

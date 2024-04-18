@@ -1,8 +1,7 @@
 const {
-  sendErrorResponse,
   sendResponse,
-} = require("../helpers/important/common.helper");
-
+  sendErrorResponse,
+} = require("../helpers/response.helper");
 const {
   LoginAsAdminService,
   ReadAdminProfileService,

@@ -1,4 +1,8 @@
 const {
+  sendResponse,
+  sendErrorResponse,
+} = require("../helpers/response.helper");
+const {
   ReadAllBlogService,
   ReadAllCategoryService,
   ReadAllTopicByCategoryService,
@@ -9,8 +13,6 @@ const {
   ReadAllExpressionByBlogService,
   ReadSingleExpressionByBlogService,
   UpdateProductService,
-  DeleteProductService,
-  DeleteAllProductService,
   ReadAllWriterService,
   ReadSingleWriterService,
   ReadSingleUserService,
@@ -90,7 +92,7 @@ exports.ReadSingleBlog = async (req, res) => {
 
 exports.ReadAllCommentByBlog = async (req, res) => {
   let result = await ReadAllCommentByBlogService(req);
-  
+
   result.status === "success"
     ? sendResponse(res, "Your expected data is here!", result.data)
     : sendErrorResponse(res);

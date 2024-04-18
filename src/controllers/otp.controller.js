@@ -1,8 +1,6 @@
-const {
-  sendErrorResponse,
-  sendResponse,
-} = require("../helpers/important/common.helper");
 
+
+const { sendResponse, sendErrorResponse } = require("../helpers/response.helper");
 const {
   SendEmailWithOTPService,
   VerifyOTPService,

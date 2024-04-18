@@ -10,11 +10,10 @@ exports.SendEmail = async (EmailTo, EmailText, EmailSubject) => {
   });
 
   let mailOption = {
-    from: "Mediuum <info@mediuum.com>",
+    from: "Mediuum <info@teamrabbil.com>",
     to: EmailTo,
     subject: EmailSubject,
     text: EmailText,
   };
   return await transport.sendMail(mailOption);
 };
-

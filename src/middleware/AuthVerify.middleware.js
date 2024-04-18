@@ -1,4 +1,4 @@
-const { DecodeToken } = require("../helpers/important/common.helper");
+const { DecodeToken } = require("../utility/jwt.utility");
 
 exports.AuthVerify = (req, res, next) => {
   let Token = req.cookies.token;
@@ -13,4 +13,4 @@ exports.AuthVerify = (req, res, next) => {
   } catch (error) {
     res.json({ status: "fail", message: "Check your login access" });
   }
-}
+};

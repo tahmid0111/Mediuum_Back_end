@@ -1,9 +1,6 @@
-const {
-  SetCookie,
-  EncodeToken,
-  RemoveCookie,
-} = require("../helpers/important/common.helper");
-const { VerifyManager } = require("../helpers/others/verifyAdmin.helper");
+const { VerifyManager } = require("../helpers/verifyAdmin.helper");
+const { EncodeToken } = require("../utility/jwt.utility");
+const { SetCookie, RemoveCookie } = require("../helpers/cookie.helper");
 
 const ManagerModel = require("../models/user/manager.model");
 const CategoryModel = require("../models/blog/category.model");
@@ -14,6 +11,7 @@ const ReportByWriterModel = require("../models/privacy/reportByWriter.model");
 const UserModel = require("../models/user/user.model");
 const GlobalNoticeModel = require("../models/privacy/globalNotice.model");
 const BlockedModel = require("../models/privacy/block.model");
+
 
 exports.LoginAsManagerService = async (req, res) => {
   try {
