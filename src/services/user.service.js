@@ -28,9 +28,6 @@ exports.RegistrationService = async (req) => {
     if (!ValidatePassword(reqBody.Password)) {
       return { status: "weakPassword" };
     }
-    // if (!reqBody.FavourateCategory.length === 3) {
-    //   return { status: "fail" };
-    // }
     // checking existing user
     let existingUser = await UserModel.findOne(Query);
     if (existingUser) {
@@ -74,7 +71,7 @@ exports.LoginService = async (req, res) => {
     let token = EncodeToken(user.Email, user._id);
     SetCookie(res, "token", token);
 
-    return { status: "success" };
+    return { status: "success", data: token };
   } catch (error) {
     return { status: "fail" };
   }

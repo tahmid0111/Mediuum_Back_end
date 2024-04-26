@@ -1,6 +1,7 @@
-
-
-const { sendResponse, sendErrorResponse } = require("../helpers/response.helper");
+const {
+  sendResponse,
+  sendErrorResponse,
+} = require("../helpers/response.helper");
 const {
   SendEmailWithOTPService,
   VerifyOTPService,
@@ -22,6 +23,6 @@ exports.VerifyOTP = async (req, res) => {
   result.status === "success"
     ? sendResponse(res, "Email verified!")
     : result.status === "wrongOTP"
-    ? sendResponse(res, "wrong otp code!")
+    ? sendResponse(res, "wrong otp code!", undefined, 200, result.status)
     : sendErrorResponse(res);
 };

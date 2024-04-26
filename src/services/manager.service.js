@@ -88,10 +88,11 @@ exports.CreateTopicService = async (req) => {
       ...reqBody,
       CategoryID: category_id,
     };
-    let result = await TopicModel.create(myBody);
+    await TopicModel.create(myBody);
 
     return { status: "success" };
   } catch (error) {
+    console.log(error)
     return { status: "fail" };
   }
 };

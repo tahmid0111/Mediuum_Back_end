@@ -10,7 +10,12 @@ const rateLimit = require("express-rate-limit");
 // implementing security middlewares
 const securityMiddleware = (app) => {
   app.use(cookieParser());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
   app.use(hpp());
   app.use(helmet());
   app.use(mongoSanitize());

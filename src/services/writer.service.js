@@ -9,13 +9,15 @@ const WriterModel = require("../models/user/writer.model");
 exports.CreateWriterProfileService = async (req) => {
   try {
     let user_id = req.headers.user_id;
+    let Query = { _id: user_id };
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
       UserID: user_id,
       Image: req.file.path,
     };
-    await WriterModel.create(myBody);
+    let result = await WriterModel.create(myBody);
+    await UserModel.updateOne(Query, { $set: { WriterID: result._id } });
     return { status: "success" };
   } catch (error) {
     console.log(error);
@@ -232,7 +234,7 @@ exports.ReadAllReportByWriterService = async (req) => {
 
 exports.WidrawReportByWriterService = async (req) => {
   try {
-    let Query = { _id : req.params.report_id };
+    let Query = { _id: req.params.report_id };
     await ReportByWriterModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {

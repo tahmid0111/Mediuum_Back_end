@@ -30,25 +30,24 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     Occupation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "occupation",
+      type: String,
       required: true,
+      enum: [
+        "Software Engineer",
+        "Doctor",
+        "Data Analyst",
+        "Marketing Specialist",
+        "Civil Engineer",
+        "Financial Analyst",
+        "Human Resources Manager",
+        "Student",
+        "others",
+      ],
+      trim: true,
     },
-    // FavourateCategory: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "category",
-    //     required: true,
-    //   },
-    // ],
     Image: {
       type: String,
-      required: true,
-    },
-    Country: {
-      type: String,
-      required: true,
-      trim: true,
+      // required: true,
     },
     About: {
       type: String,

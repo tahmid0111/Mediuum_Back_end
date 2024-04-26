@@ -18,8 +18,8 @@ const {
 } = require("../controllers/admin.controller");
 
 router.post("/loginAsAdmin", LoginAsAdmin);
-router.get("/readAdminProfile", AuthVerify, ReadAdminProfile);
 router.post("/logoutAsAdmin", LogoutAsAdmin);
+router.get("/readAdminProfile", AuthVerify, ReadAdminProfile);
 // manager related API
 router.post("/createManager", AuthVerify, upload.single("file"), CreateManager);
 router.get("/readAllManager", AuthVerify, ReadAllManager);

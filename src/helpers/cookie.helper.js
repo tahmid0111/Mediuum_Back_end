@@ -1,7 +1,7 @@
 // cookies handler
 exports.SetCookie = async (res, cookieName = "token", cookieValue) => {
   let cookieOption = {
-    expires: new Date(Date.now() + 24 * 6060 * 1000),
+    expires: new Date(Date.now() + 24 * 60 * 1000),
     httpOnly: false,
   };
 
