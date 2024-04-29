@@ -1,11 +1,17 @@
 // initial packages
 const express = require("express");
 const app = express();
-// importing configeration
+// importing configerations
 const securityMiddleware = require("./src/config/security.config");
 const { connectDB } = require("./src/config/db.config");
-const { RouterImplement } = require("./src/config/router.config");
 const { env_port } = require("./src/config/dotenv.config");
+// importing routers
+const userRouter = require('./src/routes/user.router')
+const writerRouter = require('./src/routes/writer.router')
+const blogRouter = require('./src/routes/blog.router')
+const otpRouter = require('./src/routes/otp.router')
+const managerRouter = require('./src/routes/manager.router')
+const adminRouter = require('./src/routes/admin.router')
 
 // implementing security middlewares
 securityMiddleware(app);
@@ -14,7 +20,13 @@ securityMiddleware(app);
 connectDB();
 
 // routing implement
-RouterImplement(app);
+app.use("/user/api/v1", userRouter);
+app.use("/writer/api/v1", writerRouter);
+app.use("/blog/api/v1", blogRouter);
+app.use("/otp/api/v1", otpRouter);
+// routing for admin and managers
+app.use("/manager/api/v1", managerRouter);
+app.use("/admin/api/v1", adminRouter);
 
 
 // error routing implement
