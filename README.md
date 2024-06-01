@@ -16,3 +16,5 @@
 - writer
 - manager
 - admin
+
+- ### I have focused on code quality, not quantity.
