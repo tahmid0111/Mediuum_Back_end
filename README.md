@@ -11,10 +11,10 @@
 - ### The project follows a clear and organized folder structure to maintain code readability and scalability.
 
 - ### I am working with five user roles:
-- guest
-- reader
-- writer
-- manager
-- admin
+ guest
+ reader
+ writer
+ manager
+ admin
 
 - ### I have focused on code quality, not quantity.
