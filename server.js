@@ -12,7 +12,6 @@ const blogRouter = require('./src/routes/blog.router')
 const otpRouter = require('./src/routes/otp.router')
 const managerRouter = require('./src/routes/manager.router')
 const adminRouter = require('./src/routes/admin.router')
-
 // implementing security middlewares
 securityMiddleware(app);
 
@@ -27,12 +26,11 @@ app.use("/otp/api/v1", otpRouter);
 // routing for admin and managers
 app.use("/manager/api/v1", managerRouter);
 app.use("/admin/api/v1", adminRouter);
-
-
 // error routing implement
 app.use("*", (req, res) => {
   res.status(404).json({ status: "fail", data: "wrong connection" });
 });
+
 
 app.listen(env_port, () => {
   console.log(`server is running`);

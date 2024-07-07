@@ -42,7 +42,7 @@ exports.Registration = async (req, res) => {
   const message = messages[responseStatus];
   const data = responseStatus === "success" ? result.data : undefined;
 
-  res.status(responseStatus === "fail" ? 404 : 200).json({
+  res.status(responseStatus === "fail" ? 400 : 200).json({
     status: responseStatus,
     message,
     data,

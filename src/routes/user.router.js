@@ -48,20 +48,20 @@ router.post("/deactivateUser", AuthVerify, DeactivateUser);
 router.post("/reactivateUser", ReactivateUser);
 
 router.get("/readAllGlobalNotice", AuthVerify, ReadAllGlobalNotice);
-router.get("/readAllNoticeByUser/:user_id", AuthVerify, ReadAllNoticeByUser);
+router.get("/readAllNoticeByUser/:userId", AuthVerify, ReadAllNoticeByUser);
 router.get(
-  "/readGlobalSingleNotice/:notice_id",
+  "/readGlobalSingleNotice/:noticeId",
   AuthVerify,
   ReadGlobalSingleNotice
 );
-router.get("/readSingleNotice/:notice_id", AuthVerify, ReadSingleNotice);
+router.get("/readSingleNotice/:noticeId", AuthVerify, ReadSingleNotice);
 
 router.post("/reportByUser/:writerID", AuthVerify, ReportByUser);
-router.get("/readAllReportByUser/:user_id", AuthVerify, ReadAllReportByUser);
-router.post("/withrawReportByUser/:report_id", AuthVerify, WithrawReportByUser);
+router.get("/readAllReportByUser/:userId", AuthVerify, ReadAllReportByUser);
+router.post("/withrawReportByUser/:reportId", AuthVerify, WithrawReportByUser);
 // blog related features
 router.post("/followWriter/:writerID", AuthVerify, FollowWriter);
-router.get("/readAllFollowing/:writer_id", AuthVerify, ReadAllFollowing);
+router.get("/readAllFollowing/:writerId", AuthVerify, ReadAllFollowing);
 
 router.post("/addExpression/:blogID", AuthVerify, AddExpression);
 router.post("/createComment/:blogID", AuthVerify, CreateComment);

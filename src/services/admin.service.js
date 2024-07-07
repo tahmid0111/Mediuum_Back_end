@@ -1,6 +1,8 @@
-
 const { SetCookie, RemoveCookie } = require("../helpers/cookie.helper");
-const { ValidatePassword, ValidatePhoneNumber } = require("../helpers/regex.helper");
+const {
+  ValidatePassword,
+  ValidatePhoneNumber,
+} = require("../helpers/regex.helper");
 const { VerifyAdmin } = require("../helpers/verifyAdmin.helper");
 const AdminModel = require("../models/user/admin.model");
 const ManagerModel = require("../models/user/manager.model");

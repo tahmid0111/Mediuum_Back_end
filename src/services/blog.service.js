@@ -67,11 +67,12 @@ exports.ReadAllTopicByCategoryService = async (req) => {
 
 exports.ReadBlogByCategoryService = async (req) => {
   try {
-    let Query = { CategoryID: req.paramas.category_id };
+    let Query = { CategoryID: req.params.category_id };
     let result = await BlogModel.find(Query);
 
     return { status: "success", data: result };
   } catch (error) {
+    console.log(error)
     return { status: "fail" };
   }
 };
