@@ -1,4 +1,3 @@
-
 const BlogModel = require("../models/blog/blog.model");
 const CategoryModel = require("../models/blog/category.model");
 const TopicModel = require("../models/blog/topic.model");
@@ -27,7 +26,7 @@ exports.ReadAllWriterService = async (req) => {
 
 exports.ReadSingleWriterService = async (req) => {
   try {
-    let Query = { _id: req.params.writer_id};
+    let Query = { _id: req.params.writer_id };
     const result = await WriterModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -37,7 +36,7 @@ exports.ReadSingleWriterService = async (req) => {
 
 exports.ReadSingleUserService = async (req) => {
   try {
-    let Query = { _id: req.params.user_id};
+    let Query = { _id: req.params.user_id };
     const result = await UserModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -56,9 +55,8 @@ exports.ReadAllCategoryService = async (req) => {
 
 exports.ReadAllTopicByCategoryService = async (req) => {
   try {
-    let Query = { CategoryID: req.paramas.category_id };
+    let Query = { CategoryID: req.params.categoryID };
     let result = await TopicModel.find(Query);
-
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -67,12 +65,12 @@ exports.ReadAllTopicByCategoryService = async (req) => {
 
 exports.ReadBlogByCategoryService = async (req) => {
   try {
-    let Query = { CategoryID: req.params.category_id };
+    let Query = { CategoryID: req.params.categoryID };
     let result = await BlogModel.find(Query);
 
     return { status: "success", data: result };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return { status: "fail" };
   }
 };

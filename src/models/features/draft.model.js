@@ -37,7 +37,6 @@ const DataSchema = mongoose.Schema(
     },
   },
   {
-    timestamps: true,
     versionKey: false,
   }
 );

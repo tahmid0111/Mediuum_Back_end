@@ -135,23 +135,25 @@ exports.DeleteBlogDraftService = async (req) => {
 
 exports.PublishBlogService = async (req) => {
   try {
+    let Query = { _id: req.params.draftId };
+    let draft = await DraftModel.findOne(Query);
+    console.log(draft)
     const removeExtraFieldsFromDraft = (draft) => {
       const plainObject = draft.toObject();
-      const { _id, createdAt, updatedAt, ...rest } = plainObject;
+      const { _id, ...rest } = plainObject;
       return rest;
     };
-    let Query = { _id: req.params.draft_id };
-    let draft = await DraftModel.findOne(Query);
     let modifiedDraft = removeExtraFieldsFromDraft(draft);
     let myBody = {
       ...modifiedDraft,
       Image: req.file.path,
     };
+    console.log(myBody)
 
     await BlogModel.create(myBody);
     return { status: "success" };
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return { status: "fail" };
   }
 };

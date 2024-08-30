@@ -20,7 +20,7 @@ exports.SendEmailWithOTPService = async (req) => {
 
     return { status: "success", userEmail: email };
   } catch (error) {
-    console.log(error);
+    console.log(error, "hi");
     return { status: "fail" };
   }
 };
@@ -36,7 +36,7 @@ exports.VerifyOTPService = async (req) => {
     await OTPModel.updateOne(Query, { $set: { Status: true } });
     return { status: "success" };
   } catch (error) {
-    console.log(error)
+    console.log(error, "hi2")
     return { status: "fail" };
   }
 };

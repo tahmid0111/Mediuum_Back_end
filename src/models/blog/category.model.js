@@ -7,10 +7,6 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-  },
-  {
-    timestamps: true,
-    versionKey: false,
   }
 );
 

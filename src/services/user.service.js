@@ -47,7 +47,7 @@ exports.RegistrationService = async (req) => {
 
     return { status: "success" };
   } catch (error) {
-    console.log(error);
+    console.log(error, "hi3");
     return { status: "fail" };
   }
 };
@@ -73,6 +73,7 @@ exports.LoginService = async (req, res) => {
 
     return { status: "success", data: token };
   } catch (error) {
+    console.log(error)
     return { status: "fail" };
   }
 };
@@ -89,6 +90,7 @@ exports.LogoutService = async (req, res) => {
 exports.ReadUserService = async (req) => {
   try {
     let Query = { Email: req.headers.email };
+    console.log(req.headers.email)
     const projection = { Password: 0 };
     const result = await UserModel.findOne(Query, projection);
     return { status: "success", data: result };

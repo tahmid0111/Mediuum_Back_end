@@ -53,7 +53,7 @@ router.post("/updateBlogDraft/:draft_id", AuthVerify, UpdateBlogDraft);
 router.post("/deleteBlogDraft/:draft_id", AuthVerify, DeleteBlogDraft);
 // blog related API
 router.post(
-  "/publishBlog/:draft_id",
+  "/publishBlog/:draftId",
   AuthVerify,
   upload.single("file"),
   PublishBlog

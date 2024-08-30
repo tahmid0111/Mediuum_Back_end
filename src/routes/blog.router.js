@@ -23,8 +23,8 @@ router.get("/readAllWriter", ReadAllWriter);
 router.get("/readSingleWriter/:writer_id", AuthVerify, ReadSingleWriter);
 router.get("/readSingleUser/:user_id", AuthVerify, ReadSingleUser);
 router.get("/readAllCategory", ReadAllCategory);
-router.get("/readAllTopicByCategory/:category_id", ReadAllTopicByCategory);
-router.get("/readBlogByCategory/:category_id", ReadBlogByCategory);
+router.get("/readAllTopicByCategory/:categoryID", ReadAllTopicByCategory);
+router.get("/readBlogByCategory/:categoryID", ReadBlogByCategory);
 router.get("/readBlogByTopic/:topic_id", ReadBlogByTopic);
 // reader features
 router.get("/readSingleBlog/:blog_id", AuthVerify, ReadSingleBlog);

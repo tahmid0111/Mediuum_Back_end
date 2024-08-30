@@ -2,7 +2,7 @@
 exports.SetCookie = async (res, cookieName = "token", cookieValue) => {
   let cookieOption = {
     expires: new Date(Date.now() + 24 * 60 * 1000),
-    httpOnly: false,
+    httpOnly: true,
   };
 
   res.cookie(cookieName, cookieValue, cookieOption);
@@ -11,7 +11,7 @@ exports.SetCookie = async (res, cookieName = "token", cookieValue) => {
 exports.RemoveCookie = async (res, cookieName = "token", cookieValue = "") => {
   let cookieOption = {
     expires: new Date(Date.now() - 24 * 6060 * 1000),
-    httpOnly: false,
+    httpOnly: true,
   };
 
   res.cookie(cookieName, cookieValue, cookieOption);

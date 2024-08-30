@@ -20,11 +20,11 @@ const DataSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    Passion: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "passion",
-      required: true,
-    },
+    // Passion: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "passion",
+    //   required: true,
+    // },
     About: {
       type: String,
       required: true,

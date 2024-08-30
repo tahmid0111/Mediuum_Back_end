@@ -8,14 +8,11 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     CategoryID: {
-      type: mongoose.Schema.Types.ObjectId,
+      // type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: 'category',
       required: true,
     },
-  },
-  {
-    timestamps: true,
-    versionKey: false,
   }
 );
 

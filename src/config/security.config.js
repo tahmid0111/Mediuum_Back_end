@@ -6,9 +6,18 @@ const hpp = require("hpp");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const rateLimit = require("express-rate-limit");
+const { env_jwt_secret_key } = require("./dotenv.config");
+const session = require("express-session");
 
 // implementing security middlewares
 const securityMiddleware = (app) => {
+  app.use(
+    session({
+      secret: env_jwt_secret_key,
+      resave: false,
+      saveUninitialized: true,
+    })
+  );
   app.use(cookieParser());
   app.use(
     cors({
