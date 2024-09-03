@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken')
 const { env_jwt_secret_key } = require("../config/dotenv.config");
 
-exports.EncodeToken = (email, user_id, role = "user") => {
+exports.EncodeToken = (email, userID, role = "user") => {
   let EXPIRE = { expiresIn: "24h" };
   let PAYLOAD = {
     email,
-    user_id,
+    userID,
     role,
   };
   return jwt.sign(PAYLOAD, env_jwt_secret_key, EXPIRE);

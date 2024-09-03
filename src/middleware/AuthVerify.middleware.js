@@ -2,12 +2,11 @@ const { DecodeToken } = require("../utility/jwt.utility");
 
 exports.AuthVerify = (req, res, next) => {
   let Token = req.cookies.token;
-  console.log(Token)
   try {
     const decoded = DecodeToken(Token);
 
     req.headers.email = decoded.email;
-    req.headers.user_id = decoded.user_id;
+    req.headers.userID = decoded.userID;
     req.headers.role = decoded.role;
 
     next();

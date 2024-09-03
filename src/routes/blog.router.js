@@ -15,27 +15,34 @@ const {
   ReadAllWriter,
   ReadSingleWriter,
   ReadSingleUser,
+  AddToLibrary,
 } = require("../controllers/blog.controller");
 
 // guest features
 router.get("/readAllBlog", ReadAllBlog);
 router.get("/readAllWriter", ReadAllWriter);
-router.get("/readSingleWriter/:writer_id", AuthVerify, ReadSingleWriter);
-router.get("/readSingleUser/:user_id", AuthVerify, ReadSingleUser);
+router.get("/readSingleWriter/:writerID", AuthVerify, ReadSingleWriter);
+router.get("/readSingleUser/:userID", AuthVerify, ReadSingleUser);
 router.get("/readAllCategory", ReadAllCategory);
 router.get("/readAllTopicByCategory/:categoryID", ReadAllTopicByCategory);
 router.get("/readBlogByCategory/:categoryID", ReadBlogByCategory);
-router.get("/readBlogByTopic/:topic_id", ReadBlogByTopic);
+router.get("/readBlogByTopic/:topicID", ReadBlogByTopic);
 // reader features
-router.get("/readSingleBlog/:blog_id", AuthVerify, ReadSingleBlog);
-router.get("/readAllCommentByBlog/:blog_id", AuthVerify, ReadAllCommentByBlog);
+router.get("/readSingleBlog/:blogID", AuthVerify, ReadSingleBlog);
+// library
+router.post("/addToLibrary/:blogID", AuthVerify, AddToLibrary);
+router.post("/removeFromLibrary/:blogID", AuthVerify, ReadSingleBlog);
+router.get("/getFullLibrary", AuthVerify, ReadSingleBlog);
+router.post("/removeFullLibrary", AuthVerify, ReadSingleBlog);
+
+router.get("/readAllCommentByBlog/:blogID", AuthVerify,ReadAllCommentByBlog);
 router.get(
-  "/readAllExpressionByBlog/:blog_id",
+  "/readAllExpressionByBlog/:blogID",
   AuthVerify,
   ReadAllExpressionByBlog
 );
 router.get(
-  "/readSingleExpressionByBlog/:blog_id",
+  "/readSingleExpressionByBlog/:blogID",
   AuthVerify,
   ReadSingleExpressionByBlog
 );

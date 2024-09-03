@@ -82,11 +82,11 @@ exports.CreateTopicService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let category_id = req.params.category_id;
+    let categoryID = req.params.categoryID;
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
-      CategoryID: category_id,
+      CategoryID: categoryID,
     };
     await TopicModel.create(myBody);
 
@@ -102,7 +102,7 @@ exports.DeleteCategoryService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let Query = { _id: req.params.category_id };
+    let Query = { _id: req.params.categoryID };
     await CategoryModel.deleteOne(Query);
 
     return { status: "success" };
@@ -116,7 +116,7 @@ exports.DeleteTopicService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let Query = { _id: req.params.topic_id };
+    let Query = { _id: req.params.topicID };
     await TopicModel.deleteOne(Query);
 
     return { status: "success" };
@@ -130,7 +130,7 @@ exports.SendGlobalNoticeService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let manager_id = req.headers.user_id;
+    let manager_id = req.headers.userID;
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
@@ -149,12 +149,12 @@ exports.SendNoticeToSingleUserService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let user_id = req.params.user_id;
-    let manager_id = req.headers.user_id;
+    let userID = req.params.userID;
+    let manager_id = req.headers.userID;
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
-      UserID: user_id,
+      UserID: userID,
       ManagerID: manager_id,
     };
     await NoticeModel.create(myBody);
@@ -170,7 +170,7 @@ exports.DeleteNoticeService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let Query = { _id: req.params.notice_id };
+    let Query = { _id: req.params.noticeID };
     let result = await NoticeModel.deleteOne(Query);
 
     return { status: "success", data: result };
@@ -185,8 +185,8 @@ exports.BlockUserService = async (req) => {
       return { status: "fail" };
     }
     let myBody = {
-      UserID: req.params.user_id,
-      ManagerID: req.headers.user_id,
+      UserID: req.params.userID,
+      ManagerID: req.headers.userID,
     };
     await BlockedModel.create(myBody);
 
@@ -201,7 +201,7 @@ exports.UnblockUserService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let Query = { UserID: req.params.user_id, ManagerID: req.headers.user_id };
+    let Query = { UserID: req.params.userID, ManagerID: req.headers.userID };
     await BlockedModel.deleteOne(Query);
 
     return { status: "success" };
@@ -227,7 +227,7 @@ exports.ReadSingleReportSubmitedByUserService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let Query = { _id: req.params.report_id };
+    let Query = { _id: req.params.reportID };
     let result = await ReportByReaderModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -252,7 +252,7 @@ exports.ReadSingleReportSubmitedByWriterService = async (req) => {
     if (!VerifyManager(req)) {
       return { status: "fail" };
     }
-    let Query = { _id: req.params.report_id };
+    let Query = { _id: req.params.reportID };
     let result = await ReportByWriterModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {

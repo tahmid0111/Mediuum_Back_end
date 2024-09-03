@@ -31,7 +31,6 @@ app.use("*", (req, res) => {
   res.status(404).json({ status: "fail", data: "wrong connection" });
 });
 
-
 app.listen(env_port, () => {
   console.log(`server is running`);
 });

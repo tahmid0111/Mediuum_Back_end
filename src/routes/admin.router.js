@@ -23,13 +23,13 @@ router.get("/readAdminProfile", AuthVerify, ReadAdminProfile);
 // manager related API
 router.post("/createManager", AuthVerify, upload.single("file"), CreateManager);
 router.get("/readAllManager", AuthVerify, ReadAllManager);
-router.get("/readSingleManager/:manager_id", AuthVerify, ReadSingleManager);
+router.get("/readSingleManager/:managerID", AuthVerify, ReadSingleManager);
 router.post(
-  "/updateManagerInfo/:manager_id",
+  "/updateManagerInfo/:managerID",
   AuthVerify,
   upload.single("file"),
   UpdateManagerInfo
 );
-router.post("/deleteManager/:manager_id", AuthVerify, DeleteManager);
+router.post("/deleteManager/:managerID", AuthVerify, DeleteManager);
 
 module.exports = router;

@@ -73,7 +73,6 @@ exports.Login = async (req, res) => {
 
 exports.Logout = async (req, res) => {
   let result = await LogoutService(req, res);
-
   result.status === "success"
     ? sendResponse(res, "Logout Success!")
     : sendErrorResponse(res);

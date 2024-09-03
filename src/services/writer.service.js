@@ -8,12 +8,12 @@ const WriterModel = require("../models/user/writer.model");
 
 exports.CreateWriterProfileService = async (req) => {
   try {
-    let user_id = req.headers.user_id;
-    let Query = { _id: user_id };
+    let userID = req.headers.userID;
+    let Query = { _id: userID };
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
-      UserID: user_id,
+      UserID: userID,
       Image: req.file.path,
     };
     let result = await WriterModel.create(myBody);
@@ -27,7 +27,7 @@ exports.CreateWriterProfileService = async (req) => {
 
 exports.ReadWriterProfileService = async (req) => {
   try {
-    let Query = { UserID: req.headers.user_id };
+    let Query = { UserID: req.headers.userID };
     let result = await WriterModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -37,7 +37,7 @@ exports.ReadWriterProfileService = async (req) => {
 
 exports.ReadAllFollowerService = async (req) => {
   try {
-    let Query = { WriterID: req.params.writer_id };
+    let Query = { WriterID: req.params.writerID };
     let result = await FollowerModel.find(Query);
 
     return { status: "success", data: result };
@@ -48,8 +48,8 @@ exports.ReadAllFollowerService = async (req) => {
 
 exports.UpdateWriterProfileService = async (req) => {
   try {
-    let user_id = req.headers.user_id;
-    let Query = { UserID: user_id };
+    let userID = req.headers.userID;
+    let Query = { UserID: userID };
     let reqBody = req.body;
 
     if (reqBody.WriterName || reqBody.UserID) {
@@ -78,7 +78,7 @@ exports.CreateBlogDraftService = async (req) => {
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
-      WriterID: req.params.writer_id,
+      WriterID: req.params.writerID,
     };
 
     await DraftModel.create(myBody);
@@ -91,7 +91,7 @@ exports.CreateBlogDraftService = async (req) => {
 
 exports.ReadAllBlogDraftService = async (req) => {
   try {
-    let Query = { WriterID: req.params.writer_id };
+    let Query = { WriterID: req.params.writerID };
     let result = await DraftModel.find(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -101,7 +101,7 @@ exports.ReadAllBlogDraftService = async (req) => {
 
 exports.ReadSingleBlogDraftService = async (req) => {
   try {
-    let Query = { _id: req.params.draft_id };
+    let Query = { _id: req.params.draftID };
     let result = await DraftModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -111,7 +111,7 @@ exports.ReadSingleBlogDraftService = async (req) => {
 
 exports.UpdateBlogDraftService = async (req) => {
   try {
-    let Query = { _id: req.params.draft_id };
+    let Query = { _id: req.params.draftID };
     let reqBody = req.body;
     if (reqBody.WriterID) {
       return { status: "fail" };
@@ -125,7 +125,7 @@ exports.UpdateBlogDraftService = async (req) => {
 
 exports.DeleteBlogDraftService = async (req) => {
   try {
-    let Query = { _id: req.params.draft_id };
+    let Query = { _id: req.params.draftID };
     await DraftModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {
@@ -135,7 +135,7 @@ exports.DeleteBlogDraftService = async (req) => {
 
 exports.PublishBlogService = async (req) => {
   try {
-    let Query = { _id: req.params.draftId };
+    let Query = { _id: req.params.draftID };
     let draft = await DraftModel.findOne(Query);
     console.log(draft)
     const removeExtraFieldsFromDraft = (draft) => {
@@ -160,7 +160,7 @@ exports.PublishBlogService = async (req) => {
 
 exports.ReadAllBlogByWriterService = async (req) => {
   try {
-    let Query = { WriterID: req.params.writer_id };
+    let Query = { WriterID: req.params.writerID };
     let result = await BlogModel.find(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -170,7 +170,7 @@ exports.ReadAllBlogByWriterService = async (req) => {
 
 exports.UpdateBlogService = async (req) => {
   try {
-    let Query = { _id: req.params.blog_id };
+    let Query = { _id: req.params.blogID };
     let reqBody = req.body;
     if (reqBody.WriterID || reqBody.Title) {
       return { status: "fail" };
@@ -187,7 +187,7 @@ exports.UpdateBlogService = async (req) => {
 
 exports.DeleteBlogService = async (req) => {
   try {
-    let Query = { _id: req.params.blog_id };
+    let Query = { _id: req.params.blogID };
     await BlogModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {
@@ -197,21 +197,21 @@ exports.DeleteBlogService = async (req) => {
 
 exports.ReportByWriterService = async (req) => {
   try {
-    let user_id = req.headers.user_id;
-    let writer = await WriterModel.findOne({ UserID: user_id });
-    let writer_id = writer._id;
-    let reader_id = req.params.reader_id;
+    let userID = req.headers.userID;
+    let writer = await WriterModel.findOne({ UserID: userID });
+    let writerID = writer._id;
+    let readerID = req.params.readerID;
 
     let reported = await ReportByWriterModel.findOne({
-      ReporterID: writer_id,
-      ReportedReaderID: reader_id,
+      ReporterID: writerID,
+      ReportedReaderID: readerID,
     });
     if (reported) {
       return { status: "alreadyReported" };
     }
     let myBody = {
-      ReporterID: writer_id,
-      ReportedReaderID: reader_id,
+      ReporterID: writerID,
+      ReportedReaderID: readerID,
       Report: req.body.Report,
       ReportDetails: req.body.ReportDetails,
     };
@@ -226,7 +226,7 @@ exports.ReportByWriterService = async (req) => {
 
 exports.ReadAllReportByWriterService = async (req) => {
   try {
-    let Query = { ReporterID: req.params.writer_id };
+    let Query = { ReporterID: req.params.writerID };
     let result = await ReportByWriterModel.find(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -236,7 +236,7 @@ exports.ReadAllReportByWriterService = async (req) => {
 
 exports.WidrawReportByWriterService = async (req) => {
   try {
-    let Query = { _id: req.params.report_id };
+    let Query = { _id: req.params.reportID };
     await ReportByWriterModel.deleteOne(Query);
     return { status: "success" };
   } catch (error) {

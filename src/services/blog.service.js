@@ -1,5 +1,6 @@
 const BlogModel = require("../models/blog/blog.model");
 const CategoryModel = require("../models/blog/category.model");
+const LibraryModel = require("../models/blog/library.model");
 const TopicModel = require("../models/blog/topic.model");
 const CommentModel = require("../models/features/comment.model");
 const ExpressionModel = require("../models/features/expression.model");
@@ -26,7 +27,7 @@ exports.ReadAllWriterService = async (req) => {
 
 exports.ReadSingleWriterService = async (req) => {
   try {
-    let Query = { _id: req.params.writer_id };
+    let Query = { _id: req.params.writerID };
     const result = await WriterModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -36,7 +37,7 @@ exports.ReadSingleWriterService = async (req) => {
 
 exports.ReadSingleUserService = async (req) => {
   try {
-    let Query = { _id: req.params.user_id };
+    let Query = { _id: req.params.userID };
     const result = await UserModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -77,7 +78,7 @@ exports.ReadBlogByCategoryService = async (req) => {
 
 exports.ReadBlogByTopicService = async (req) => {
   try {
-    let Query = { TopicID: req.paramas.topic_id };
+    let Query = { TopicID: req.params.topicID };
     let result = await BlogModel.find(Query);
 
     return { status: "success", data: result };
@@ -88,8 +89,22 @@ exports.ReadBlogByTopicService = async (req) => {
 
 exports.ReadSingleBlogService = async (req) => {
   try {
-    let Query = { _id: req.paramas.blog_id };
+    let Query = { _id: req.params.blogID };
     let result = await BlogModel.findOne(Query);
+
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.AddToLibraryService = async (req) => {
+  try {
+    let myBody = {
+      BlogID: req.params.blogID,
+      UserID: req.headers.userID,
+    }
+    let result = await LibraryModel.create(myBody);
 
     return { status: "success", data: result };
   } catch (error) {
@@ -99,7 +114,7 @@ exports.ReadSingleBlogService = async (req) => {
 
 exports.ReadAllCommentByBlogService = async (req) => {
   try {
-    let Query = { BlogID: req.paramas.blog_id };
+    let Query = { BlogID: req.params.blogID };
     let result = await CommentModel.find(Query);
 
     return { status: "success", data: result };
@@ -110,7 +125,7 @@ exports.ReadAllCommentByBlogService = async (req) => {
 
 exports.ReadAllExpressionByBlogService = async (req) => {
   try {
-    let Query = { BlogID: req.paramas.blog_id };
+    let Query = { BlogID: req.params.blogID };
     let result = await ExpressionModel.find(Query);
 
     return { status: "success", data: result };
@@ -121,7 +136,7 @@ exports.ReadAllExpressionByBlogService = async (req) => {
 
 exports.ReadSingleExpressionByBlogService = async (req) => {
   try {
-    let Query = { BlogID: req.paramas.blog_id };
+    let Query = { BlogID: req.params.blogID };
     let result = await ExpressionModel.aggregate([
       { $match: Query },
       { $group: { _id: "$Expression" } },

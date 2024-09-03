@@ -34,7 +34,7 @@ router.post(
   CreateWriterProfile
 );
 router.get("/readWriterProfile", AuthVerify, ReadWriterProfile);
-router.get("/readAllFollower/:writer_id", AuthVerify, ReadAllFollower);
+router.get("/readAllFollower/:writerID", AuthVerify, ReadAllFollower);
 router.post(
   "/updateWriterProfile",
   AuthVerify,
@@ -42,28 +42,28 @@ router.post(
   UpdateWriterProfile
 );
 // draft related API
-router.post("/createBlogDraft/:writer_id", AuthVerify, CreateBlogDraft);
+router.post("/createBlogDraft/:writerID", AuthVerify, CreateBlogDraft);
 router.get(
-  "/readAllBlogDraftByWriter/:writer_id",
+  "/readAllBlogDraftByWriter/:writerID",
   AuthVerify,
   ReadAllBlogDraft
 );
-router.get("/readSingleBlogDraft/:draft_id", AuthVerify, ReadSingleBlogDraft);
-router.post("/updateBlogDraft/:draft_id", AuthVerify, UpdateBlogDraft);
-router.post("/deleteBlogDraft/:draft_id", AuthVerify, DeleteBlogDraft);
+router.get("/readSingleBlogDraft/:draftID", AuthVerify, ReadSingleBlogDraft);
+router.post("/updateBlogDraft/:draftID", AuthVerify, UpdateBlogDraft);
+router.post("/deleteBlogDraft/:draftID", AuthVerify, DeleteBlogDraft);
 // blog related API
 router.post(
-  "/publishBlog/:draftId",
+  "/publishBlog/:draftID",
   AuthVerify,
   upload.single("file"),
   PublishBlog
 );
-router.get("/readAllBlogByWriter/:writer_id", AuthVerify, ReadAllBlogByWriter);
-router.post("/updateBlogContent/:blog_id", AuthVerify, UpdateBlog);
-router.post("/deleteBlog/:blog_id", AuthVerify, DeleteBlog);
+router.get("/readAllBlogByWriter/:writerID", AuthVerify, ReadAllBlogByWriter);
+router.post("/updateBlogContent/:blogID", AuthVerify, UpdateBlog);
+router.post("/deleteBlog/:blogID", AuthVerify, DeleteBlog);
 // report features
-router.post("/reportByWriter/:reader_id", AuthVerify, ReportByWriter);
-router.get("/readAllReportByWriter/:writer_id", AuthVerify, ReadAllReportByWriter);
-router.post("/widrawReportByWriter/:report_id", AuthVerify, WidrawReportByWriter);
+router.post("/reportByWriter/:readerID", AuthVerify, ReportByWriter);
+router.get("/readAllReportByWriter/:writerID", AuthVerify, ReadAllReportByWriter);
+router.post("/widrawReportByWriter/:reportID", AuthVerify, WidrawReportByWriter);
 
 module.exports = router;

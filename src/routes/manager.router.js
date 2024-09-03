@@ -28,22 +28,22 @@ router.post("/logoutAsManager", AuthVerify, LogoutAsManager);
 // basic features
 router.get("/readAllUser", AuthVerify, ReadAllUser);
 router.post("/createCategory", AuthVerify, CreateCategory);
-router.post("/createTopic/:category_id", AuthVerify, CreateTopic);
-router.post("/deleteCategory/:category_id", AuthVerify, DeleteCategory);
-router.post("/deleteTopic/:topic_id", AuthVerify, DeleteTopic);
+router.post("/createTopic/:categoryID", AuthVerify, CreateTopic);
+router.post("/deleteCategory/:categoryID", AuthVerify, DeleteCategory);
+router.post("/deleteTopic/:topicID", AuthVerify, DeleteTopic);
 // privacy features
 router.post("/sendGlobalNotice", AuthVerify, SendGlobalNotice);
-router.post("/sendNoticeToSingleUser/:user_id", AuthVerify, SendNoticeToSingleUser);
-router.post("/deleteNotice/:notice_id", AuthVerify, DeleteNotice);
-router.post("/blockUser/:user_id", AuthVerify, BlockUser);
-router.post("/unblockUser/:user_id", AuthVerify, UnblockUser);
+router.post("/sendNoticeToSingleUser/:userID", AuthVerify, SendNoticeToSingleUser);
+router.post("/deleteNotice/:noticeID", AuthVerify, DeleteNotice);
+router.post("/blockUser/:userID", AuthVerify, BlockUser);
+router.post("/unblockUser/:userID", AuthVerify, UnblockUser);
 router.get(
   "/readAllReportSubmitedByUser",
   AuthVerify,
   ReadAllReportSubmitedByUser
 );
 router.get(
-  "/readSingleReportSubmitedByUser/:report_id",
+  "/readSingleReportSubmitedByUser/:reportID",
   AuthVerify,
   ReadSingleReportSubmitedByUser
 );
@@ -53,7 +53,7 @@ router.get(
   ReadAllReportSubmitedByWriter
 );
 router.get(
-  "/readSingleReportSubmitedByWriter/:report_id",
+  "/readSingleReportSubmitedByWriter/:reportID",
   AuthVerify,
   ReadSingleReportSubmitedByWriter
 );

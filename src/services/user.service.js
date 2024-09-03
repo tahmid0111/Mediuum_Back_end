@@ -47,7 +47,6 @@ exports.RegistrationService = async (req) => {
 
     return { status: "success" };
   } catch (error) {
-    console.log(error, "hi3");
     return { status: "fail" };
   }
 };
@@ -71,7 +70,7 @@ exports.LoginService = async (req, res) => {
     let token = EncodeToken(user.Email, user._id);
     SetCookie(res, "token", token);
 
-    return { status: "success", data: token };
+    return { status: "success" };
   } catch (error) {
     console.log(error)
     return { status: "fail" };
@@ -80,7 +79,7 @@ exports.LoginService = async (req, res) => {
 
 exports.LogoutService = async (req, res) => {
   try {
-    await RemoveCookie(res);
+   await RemoveCookie(res);
     return { status: "success" };
   } catch (error) {
     return { status: "fail" };
@@ -90,7 +89,6 @@ exports.LogoutService = async (req, res) => {
 exports.ReadUserService = async (req) => {
   try {
     let Query = { Email: req.headers.email };
-    console.log(req.headers.email)
     const projection = { Password: 0 };
     const result = await UserModel.findOne(Query, projection);
     return { status: "success", data: result };
@@ -106,7 +104,7 @@ exports.UpdateUserService = async (req) => {
     if (reqBody.Email || reqBody.Password) {
       return { status: "fail" };
     }
-    if (req.file.path) {
+    if (reqBody.Image) {
       let myBody = {
         ...reqBody,
         Image: req.file.path,
@@ -236,7 +234,7 @@ exports.ReadAllGlobalNoticeService = async (req) => {
 
 exports.ReadAllNoticeByUserService = async (req) => {
   try {
-    let Query = { UserID: req.params.user_id };
+    let Query = { UserID: req.params.userID };
     let result = await NoticeModel.find(Query);
 
     return { status: "success", data: result };
@@ -247,7 +245,7 @@ exports.ReadAllNoticeByUserService = async (req) => {
 
 exports.ReadGlobalSingleNoticeService = async (req) => {
   try {
-    let Query = { _id: req.params.notice_id };
+    let Query = { _id: req.params.noticeID };
     let result = await GlobalNoticeModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -257,7 +255,7 @@ exports.ReadGlobalSingleNoticeService = async (req) => {
 
 exports.ReadSingleNoticeService = async (req) => {
   try {
-    let Query = { _id: req.params.notice_id };
+    let Query = { _id: req.params.noticeID };
     let result = await NoticeModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -267,7 +265,7 @@ exports.ReadSingleNoticeService = async (req) => {
 
 exports.ReportByUserService = async (req) => {
   try {
-    let readerID = req.headers.user_id;
+    let readerID = req.headers.userID;
     let writerID = req.params.writerID;
 
     let reported = await ReportByReaderModel.findOne({
@@ -294,7 +292,7 @@ exports.ReportByUserService = async (req) => {
 
 exports.ReadAllReportByUserService = async (req) => {
   try {
-    let readerID = req.headers.user_id;
+    let readerID = req.headers.userID;
     let Query = { ReporterID: readerID };
 
     let result = await ReportByReaderModel.find(Query);
@@ -306,7 +304,7 @@ exports.ReadAllReportByUserService = async (req) => {
 
 exports.WithrawReportByUserService = async (req) => {
   try {
-    let readerID = req.headers.user_id;
+    let readerID = req.headers.userID;
     let writerID = req.body.writerID;
     let Query = {
       ReporterID: readerID,
@@ -321,7 +319,7 @@ exports.WithrawReportByUserService = async (req) => {
 
 exports.FollowWriterService = async (req) => {
   try {
-    let followerID = req.headers.user_id;
+    let followerID = req.headers.userID;
     let writerID = req.params.writerID;
 
     let followed = await FollowerModel.findOne({
@@ -346,7 +344,7 @@ exports.FollowWriterService = async (req) => {
 
 exports.ReadAllFollowingService = async (req) => {
   try {
-    let Query = { FollowerID: req.headers.user_id };
+    let Query = { FollowerID: req.headers.userID };
 
     let result = await FollowerModel.find(Query);
     return { status: "success", data: result };
@@ -357,7 +355,7 @@ exports.ReadAllFollowingService = async (req) => {
 
 exports.AddExpressionService = async (req) => {
   try {
-    let readerID = req.headers.user_id;
+    let readerID = req.headers.userID;
     let blogID = req.params.blogID;
     let expression = req.body.Expression;
     let Query = {
@@ -385,7 +383,7 @@ exports.AddExpressionService = async (req) => {
 
 exports.CreateCommentService = async (req) => {
   try {
-    let readerID = req.headers.user_id;
+    let readerID = req.headers.userID;
     let blogID = req.params.blogID;
     let myBody = {
       ReaderID: readerID,
@@ -402,7 +400,7 @@ exports.CreateCommentService = async (req) => {
 
 exports.DeleteCommentByUserService = async (req) => {
   try {
-    let readerID = req.headers.user_id;
+    let readerID = req.headers.userID;
     let commentID = req.params.commentID;
     let Query = {
       ReaderID: readerID,

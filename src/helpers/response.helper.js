@@ -10,7 +10,7 @@ exports.sendResponse = (
 };
 
 // error handler
-exports.sendErrorResponse = (res, statusCode = 404) => {
+exports.sendErrorResponse = (res, statusCode = 302) => {
   res
     .status(statusCode)
     .json({ status: "fail", message: "Something went wrong" });

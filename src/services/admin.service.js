@@ -104,7 +104,7 @@ exports.ReadSingleManagerService = async (req) => {
     if (!VerifyAdmin(req)) {
       return { status: "fail" };
     }
-    let Query = { _id: req.params.manager_id };
+    let Query = { _id: req.params.managerID };
     let result = await ManagerModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
@@ -118,7 +118,7 @@ exports.UpdateManagerInfoService = async (req) => {
       return { status: "fail" };
     }
     let reqBody = req.body;
-    let Query = { _id: req.params.manager_id };
+    let Query = { _id: req.params.managerID };
     if (reqBody.file) {
       let myBody = {
         ...reqBody,
@@ -137,7 +137,7 @@ exports.UpdateManagerInfoService = async (req) => {
 
 exports.DeleteManagerService = async (req) => {
   try {
-    let Query = { _id: req.params.manager_id };
+    let Query = { _id: req.params.managerID };
     let result = await ManagerModel.deleteOne(Query);
     return { status: "success", data: result };
   } catch (error) {
