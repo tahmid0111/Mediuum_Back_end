@@ -103,9 +103,10 @@ exports.AddToLibraryService = async (req) => {
     let myBody = {
       BlogID: req.params.blogID,
       UserID: req.headers.userID,
-    }
+    };
+    let Query = { _id: BlogID };
     let result = await LibraryModel.create(myBody);
-
+    // await BlogModel.updateOne(Query, { $set: { Saved: true } });
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

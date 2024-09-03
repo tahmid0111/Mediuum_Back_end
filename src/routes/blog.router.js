@@ -30,10 +30,10 @@ router.get("/readBlogByTopic/:topicID", ReadBlogByTopic);
 // reader features
 router.get("/readSingleBlog/:blogID", AuthVerify, ReadSingleBlog);
 // library
-router.post("/addToLibrary/:blogID", AuthVerify, AddToLibrary);
-router.post("/removeFromLibrary/:blogID", AuthVerify, ReadSingleBlog);
+router.get("/addToLibrary/:blogID", AuthVerify, AddToLibrary);
+router.get("/removeFromLibrary/:blogID", AuthVerify, ReadSingleBlog);
 router.get("/getFullLibrary", AuthVerify, ReadSingleBlog);
-router.post("/removeFullLibrary", AuthVerify, ReadSingleBlog);
+router.get("/removeFullLibrary", AuthVerify, ReadSingleBlog);
 
 router.get("/readAllCommentByBlog/:blogID", AuthVerify,ReadAllCommentByBlog);
 router.get(

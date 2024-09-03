@@ -44,6 +44,10 @@ const DataSchema = mongoose.Schema(
       ref: "topic",
       required: true,
     },
+    Saved: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     timestamps: true,
