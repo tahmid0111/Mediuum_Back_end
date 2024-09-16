@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const DataSchema = mongoose.Schema(
   {
-    WriterID: {
+    UserID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'writer',
+      ref: 'user',
       required: true,
     },
     Title: {

@@ -19,8 +19,8 @@ const {
 } = require("../controllers/blog.controller");
 
 // guest features
-router.get("/readAllBlog", ReadAllBlog);
-router.get("/readAllWriter", ReadAllWriter);
+router.get("/readAllBlog",AuthVerify, ReadAllBlog);
+router.get("/readAllWriter", AuthVerify, ReadAllWriter);
 router.get("/readSingleWriter/:writerID", AuthVerify, ReadSingleWriter);
 router.get("/readSingleUser/:userID", AuthVerify, ReadSingleUser);
 router.get("/readAllCategory", ReadAllCategory);

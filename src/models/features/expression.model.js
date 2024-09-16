@@ -12,15 +12,10 @@ const DataSchema = mongoose.Schema(
       ref: "user",
       required: true,
     },
-    Like: {
+    LoveReact: {
       type: Boolean,
       required: true,
       default: false,
-    },
-    Expression: {
-      type: String,
-      required: true,
-      enum: ['love', 'exciting' , 'sad', 'angry'],
     },
   },
   {

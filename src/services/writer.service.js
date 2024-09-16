@@ -4,40 +4,39 @@ const DraftModel = require("../models/features/draft.model");
 const FollowerModel = require("../models/features/follower.model");
 const ReportByWriterModel = require("../models/privacy/reportByWriter.model");
 const UserModel = require("../models/user/user.model");
-const WriterModel = require("../models/user/writer.model");
 
-exports.CreateWriterProfileService = async (req) => {
-  try {
-    let userID = req.headers.userID;
-    let Query = { _id: userID };
-    let reqBody = req.body;
-    let myBody = {
-      ...reqBody,
-      UserID: userID,
-      Image: req.file.path,
-    };
-    let result = await WriterModel.create(myBody);
-    await UserModel.updateOne(Query, { $set: { WriterID: result._id } });
-    return { status: "success" };
-  } catch (error) {
-    console.log(error);
-    return { status: "fail" };
-  }
-};
+// exports.CreateWriterProfileService = async (req) => {
+//   try {
+//     let userID = req.headers.userID;
+//     let Query = { _id: userID };
+//     let reqBody = req.body;
+//     let myBody = {
+//       ...reqBody,
+//       UserID: userID,
+//       Image: req.file.path,
+//     };
+//     let result = await WriterModel.create(myBody);
+//     await UserModel.updateOne(Query, { $set: { WriterID: result._id } });
+//     return { status: "success" };
+//   } catch (error) {
+//     console.log(error);
+//     return { status: "fail" };
+//   }
+// };
 
-exports.ReadWriterProfileService = async (req) => {
-  try {
-    let Query = { UserID: req.headers.userID };
-    let result = await WriterModel.findOne(Query);
-    return { status: "success", data: result };
-  } catch (error) {
-    return { status: "fail" };
-  }
-};
+// exports.ReadWriterProfileService = async (req) => {
+//   try {
+//     let Query = { UserID: req.headers.userID };
+//     let result = await WriterModel.findOne(Query);
+//     return { status: "success", data: result };
+//   } catch (error) {
+//     return { status: "fail" };
+//   }
+// };
 
 exports.ReadAllFollowerService = async (req) => {
   try {
-    let Query = { WriterID: req.params.writerID };
+    let Query = { UserID: req.headers.userID };
     let result = await FollowerModel.find(Query);
 
     return { status: "success", data: result };
@@ -46,39 +45,39 @@ exports.ReadAllFollowerService = async (req) => {
   }
 };
 
-exports.UpdateWriterProfileService = async (req) => {
-  try {
-    let userID = req.headers.userID;
-    let Query = { UserID: userID };
-    let reqBody = req.body;
+// exports.UpdateWriterProfileService = async (req) => {
+//   try {
+//     let userID = req.headers.userID;
+//     let Query = { UserID: userID };
+//     let reqBody = req.body;
 
-    if (reqBody.WriterName || reqBody.UserID) {
-      return { status: "fail" };
-    }
-    if (req.file) {
-      let myBody = {
-        ...reqBody,
-        Image: req.file.path,
-      };
+//     if (reqBody.WriterName || reqBody.UserID) {
+//       return { status: "fail" };
+//     }
+//     if (req.file) {
+//       let myBody = {
+//         ...reqBody,
+//         Image: req.file.path,
+//       };
 
-      await WriterModel.updateOne(Query, myBody);
-      return { status: "success" };
-    } else {
-      await WriterModel.updateOne(Query, reqBody);
-      return { status: "success" };
-    }
-  } catch (error) {
-    console.log(error);
-    return { status: "fail" };
-  }
-};
+//       await WriterModel.updateOne(Query, myBody);
+//       return { status: "success" };
+//     } else {
+//       await WriterModel.updateOne(Query, reqBody);
+//       return { status: "success" };
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return { status: "fail" };
+//   }
+// };
 
 exports.CreateBlogDraftService = async (req) => {
   try {
     let reqBody = req.body;
     let myBody = {
       ...reqBody,
-      WriterID: req.params.writerID,
+      UserID: req.headers.userID,
     };
 
     await DraftModel.create(myBody);
@@ -137,7 +136,6 @@ exports.PublishBlogService = async (req) => {
   try {
     let Query = { _id: req.params.draftID };
     let draft = await DraftModel.findOne(Query);
-    console.log(draft)
     const removeExtraFieldsFromDraft = (draft) => {
       const plainObject = draft.toObject();
       const { _id, ...rest } = plainObject;
@@ -147,13 +145,11 @@ exports.PublishBlogService = async (req) => {
     let myBody = {
       ...modifiedDraft,
       Image: req.file.path,
-    };
-    console.log(myBody)
-
+    }
     await BlogModel.create(myBody);
     return { status: "success" };
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     return { status: "fail" };
   }
 };
@@ -198,8 +194,8 @@ exports.DeleteBlogService = async (req) => {
 exports.ReportByWriterService = async (req) => {
   try {
     let userID = req.headers.userID;
-    let writer = await WriterModel.findOne({ UserID: userID });
-    let writerID = writer._id;
+    // let writer = await WriterModel.findOne({ UserID: userID });
+    // let writerID = writer._id;
     let readerID = req.params.readerID;
 
     let reported = await ReportByWriterModel.findOne({

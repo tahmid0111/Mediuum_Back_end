@@ -1,0 +1,202 @@
+[
+  {
+    "_id": "64f875ed502e1b80556da299",
+    "TopicName": "News",
+    "CategoryID": "64f875ed502e1b80556da101"
+  },
+  {
+    "_id": "64f875ed502e1b80556da298",
+    "TopicName": "AI Ethics",
+    "CategoryID": "64f875ed502e1b80556da101"
+  },
+  {
+    "_id": "64f875ed502e1b80556da297",
+    "TopicName": "Space Tourism",
+    "CategoryID": "64f875ed502e1b80556da101"
+  },
+  {
+    "_id": "64f875ed502e1b80556da201",
+    "TopicName": "Artificial Intelligence",
+    "CategoryID": "64f875ed502e1b80556da102"
+  },
+  {
+    "_id": "64f875ed502e1b80556da202",
+    "TopicName": "Web Development",
+    "CategoryID": "64f875ed502e1b80556da102"
+  },
+  {
+    "_id": "64f875ed502e1b80556da203",
+    "TopicName": "Digital Nomad",
+    "CategoryID": "64f875ed502e1b80556da102"
+  },
+  {
+    "_id": "64f875ed502e1b80556da204",
+    "TopicName": "Gadgets",
+    "CategoryID": "64f875ed502e1b80556da102"
+  },
+  {
+    "_id": "64f875ed502e1b80556da205",
+    "TopicName": "Cybersecurity",
+    "CategoryID": "64f875ed502e1b80556da102"
+  },
+  {
+    "_id": "64f875ed502e1b80556da206",
+    "TopicName": "Self-care",
+    "CategoryID": "64f875ed502e1b80556da103"
+  },
+  {
+    "_id": "64f875ed502e1b80556da207",
+    "TopicName": "Fashion",
+    "CategoryID": "64f875ed502e1b80556da103"
+  },
+  {
+    "_id": "64f875ed502e1b80556da208",
+    "TopicName": "Hobbies",
+    "CategoryID": "64f875ed502e1b80556da103"
+  },
+  {
+    "_id": "64f875ed502e1b80556da209",
+    "TopicName": "Mindfulness",
+    "CategoryID": "64f875ed502e1b80556da103"
+  },
+  {
+    "_id": "64f875ed502e1b80556da210",
+    "TopicName": "Adventure",
+    "CategoryID": "64f875ed502e1b80556da104"
+  },
+  {
+    "_id": "64f875ed502e1b80556da211",
+    "TopicName": "Road Trips",
+    "CategoryID": "64f875ed502e1b80556da104"
+  },
+  {
+    "_id": "64f875ed502e1b80556da212",
+    "TopicName": "Cruise Vacations",
+    "CategoryID": "64f875ed502e1b80556da104"
+  },
+  {
+    "_id": "64f875ed502e1b80556da213",
+    "TopicName": "Dubai",
+    "CategoryID": "64f875ed502e1b80556da104"
+  },
+  {
+    "_id": "64f875ed502e1b80556da214",
+    "TopicName": "Switzerland",
+    "CategoryID": "64f875ed502e1b80556da104"
+  },
+  {
+    "_id": "64f875ed502e1b80556da215",
+    "TopicName": "Bodybuilding",
+    "CategoryID": "64f875ed502e1b80556da105"
+  },
+  {
+    "_id": "64f875ed502e1b80556da216",
+    "TopicName": "Yoga Practice",
+    "CategoryID": "64f875ed502e1b80556da105"
+  },
+  {
+    "_id": "64f875ed502e1b80556da217",
+    "TopicName": "Fat Loss",
+    "CategoryID": "64f875ed502e1b80556da105"
+  },
+  {
+    "_id": "64f875ed502e1b80556da218",
+    "TopicName": "Startup",
+    "CategoryID": "64f875ed502e1b80556da106"
+  },
+  {
+    "_id": "64f875ed502e1b80556da219",
+    "TopicName": "Business Scaling",
+    "CategoryID": "64f875ed502e1b80556da106"
+  },
+  {
+    "_id": "64f875ed502e1b80556da220",
+    "TopicName": "Growth Mindset",
+    "CategoryID": "64f875ed502e1b80556da106"
+  },
+  {
+    "_id": "64f875ed502e1b80556da221",
+    "TopicName": "Angel Investors",
+    "CategoryID": "64f875ed502e1b80556da106"
+  },
+  {
+    "_id": "64f875ed502e1b80556da222",
+    "TopicName": "JavaScript",
+    "CategoryID": "64f875ed502e1b80556da107"
+  },
+  {
+    "_id": "64f875ed502e1b80556da223",
+    "TopicName": "Python",
+    "CategoryID": "64f875ed502e1b80556da107"
+  },
+  {
+    "_id": "64f875ed502e1b80556da224",
+    "TopicName": "React js",
+    "CategoryID": "64f875ed502e1b80556da107"
+  },
+  {
+    "_id": "64f875ed502e1b80556da225",
+    "TopicName": "MERN Stack",
+    "CategoryID": "64f875ed502e1b80556da107"
+  },
+  {
+    "_id": "64f875ed502e1b80556da226",
+    "TopicName": "TypeScript",
+    "CategoryID": "64f875ed502e1b80556da107"
+  },
+  {
+    "_id": "64f875ed502e1b80556da227",
+    "TopicName": "Cats",
+    "CategoryID": "64f875ed502e1b80556da108"
+  },
+  {
+    "_id": "64f875ed502e1b80556da228",
+    "TopicName": "Dogs",
+    "CategoryID": "64f875ed502e1b80556da108"
+  },
+  {
+    "_id": "64f875ed502e1b80556da229",
+    "TopicName": "Animal food",
+    "CategoryID": "64f875ed502e1b80556da108"
+  },
+  {
+    "_id": "64f875ed502e1b80556da230",
+    "TopicName": "Fiction",
+    "CategoryID": "64f875ed502e1b80556da109"
+  },
+  {
+    "_id": "64f875ed502e1b80556da231",
+    "TopicName": "Non-fiction",
+    "CategoryID": "64f875ed502e1b80556da109"
+  },
+  {
+    "_id": "64f875ed502e1b80556da232",
+    "TopicName": "History",
+    "CategoryID": "64f875ed502e1b80556da109"
+  },
+  {
+    "_id": "64f875ed502e1b80556da233",
+    "TopicName": "Motivational",
+    "CategoryID": "64f875ed502e1b80556da109"
+  },
+  {
+    "_id": "64f875ed502e1b80556da234",
+    "TopicName": "Literature",
+    "CategoryID": "64f875ed502e1b80556da109"
+  },
+  {
+    "_id": "64f875ed502e1b80556da235",
+    "TopicName": "USA Election",
+    "CategoryID": "64f875ed502e1b80556da110"
+  },
+  {
+    "_id": "64f875ed502e1b80556da236",
+    "TopicName": "Russia",
+    "CategoryID": "64f875ed502e1b80556da110"
+  },
+  {
+    "_id": "64f875ed502e1b80556da237",
+    "TopicName": "Wars",
+    "CategoryID": "64f875ed502e1b80556da110"
+  }
+]

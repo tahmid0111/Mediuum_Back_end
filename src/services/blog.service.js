@@ -5,7 +5,6 @@ const TopicModel = require("../models/blog/topic.model");
 const CommentModel = require("../models/features/comment.model");
 const ExpressionModel = require("../models/features/expression.model");
 const UserModel = require("../models/user/user.model");
-const WriterModel = require("../models/user/writer.model");
 
 exports.ReadAllBlogService = async (req) => {
   try {
@@ -18,7 +17,7 @@ exports.ReadAllBlogService = async (req) => {
 
 exports.ReadAllWriterService = async (req) => {
   try {
-    const result = await WriterModel.find().sort({ WriterName: 1 });
+    // const result = await WriterModel.find().sort({ WriterName: 1 });
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };
@@ -28,7 +27,7 @@ exports.ReadAllWriterService = async (req) => {
 exports.ReadSingleWriterService = async (req) => {
   try {
     let Query = { _id: req.params.writerID };
-    const result = await WriterModel.findOne(Query);
+    // const result = await WriterModel.findOne(Query);
     return { status: "success", data: result };
   } catch (error) {
     return { status: "fail" };

@@ -2,21 +2,18 @@ const mongoose = require("mongoose");
 
 const DataSchema = mongoose.Schema(
   {
-    FirstName: {
+    FullName: {
       type: String,
       required: true,
       trim: true,
-      minLength: 3,
-      maxLength: 12,
+      minLength: 8,
+      maxLength: 30,
       match: /^[A-Za-z\s]+$/,
     },
-    LastName: {
+    SubTitle: {
       type: String,
-      required: true,
       trim: true,
-      minLength: 3,
-      maxLength: 12,
-      match: /^[A-Za-z\s]+$/,
+      maxLength: 100,
     },
     Email: {
       type: String,
@@ -47,7 +44,7 @@ const DataSchema = mongoose.Schema(
     },
     Image: {
       type: String,
-      // required: true,
+      required: true,
     },
     About: {
       type: String,
@@ -60,15 +57,6 @@ const DataSchema = mongoose.Schema(
       type: Boolean,
       required: true,
       default: false,
-    },
-    WriterProfile: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    WriterID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "writer",
     },
   },
   {
