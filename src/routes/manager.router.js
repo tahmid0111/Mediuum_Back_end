@@ -21,19 +21,36 @@ const {
   ReadSingleReportSubmitedByUser,
   SendGlobalNotice,
   SendNoticeToSingleUser,
+  CreateTrendingBlog,
+  CreatePopularWriter,
+  DeleteTrendingBlog,
+  DeletePopularWriter,
+  ReadAllTrendingBlog,
+  ReadAllPopularWriter,
 } = require("../controllers/manager.controller");
 
 router.post("/loginAsManager", LoginAsManager);
 router.post("/logoutAsManager", AuthVerify, LogoutAsManager);
 // basic features
 router.get("/readAllUser", AuthVerify, ReadAllUser);
-router.post("/createCategory", AuthVerify, CreateCategory);
-router.post("/createTopic/:categoryID", AuthVerify, CreateTopic);
+router.post("/createCategory", CreateCategory);
+router.post("/createTopic/:categoryID", CreateTopic);
 router.post("/deleteCategory/:categoryID", AuthVerify, DeleteCategory);
 router.post("/deleteTopic/:topicID", AuthVerify, DeleteTopic);
+// trending blogs and writers
+router.post("/createTrendingBlog/:blogID", CreateTrendingBlog);
+router.get("/readAllTrendingBlog", ReadAllTrendingBlog);
+router.post("/createPopularWriter/:userID", CreatePopularWriter);
+router.get("/readAllPopularWriter", ReadAllPopularWriter);
+// router.post("/deleteTrendingBlog/:userID", DeleteTrendingBlog);
+// router.post("/deletePopularWriter/:userID", DeletePopularWriter);
 // privacy features
 router.post("/sendGlobalNotice", AuthVerify, SendGlobalNotice);
-router.post("/sendNoticeToSingleUser/:userID", AuthVerify, SendNoticeToSingleUser);
+router.post(
+  "/sendNoticeToSingleUser/:userID",
+  AuthVerify,
+  SendNoticeToSingleUser
+);
 router.post("/deleteNotice/:noticeID", AuthVerify, DeleteNotice);
 router.post("/blockUser/:userID", AuthVerify, BlockUser);
 router.post("/unblockUser/:userID", AuthVerify, UnblockUser);

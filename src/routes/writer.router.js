@@ -14,7 +14,6 @@ const {
   PublishBlog,
   UpdateBlog,
   DeleteBlog,
-  DeleteCommentByWriter,
   ReportByWriter,
   ReadAllReportByWriter,
   WidrawReportByWriter,
@@ -42,7 +41,7 @@ router.post(
   UpdateWriterProfile
 );
 // draft related API
-router.post("/createBlogDraft/:writerID", AuthVerify, CreateBlogDraft);
+router.post("/createBlogDraft", AuthVerify, CreateBlogDraft);
 router.get(
   "/readAllBlogDraftByWriter/:writerID",
   AuthVerify,

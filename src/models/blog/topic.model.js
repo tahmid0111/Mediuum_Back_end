@@ -8,12 +8,12 @@ const DataSchema = mongoose.Schema(
       trim: true,
     },
     CategoryID: {
-      // type: mongoose.Schema.Types.ObjectId,
-      type: String,
-      ref: 'category',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
       required: true,
     },
-  }
+  },
+  { versionKey: false }
 );
 
 const TopicModel = mongoose.model("topic", DataSchema);

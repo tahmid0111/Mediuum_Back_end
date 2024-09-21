@@ -7,7 +7,8 @@ const DataSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-  }
+  },
+  { versionKey: false }
 );
 
 const CategoryModel = mongoose.model("category", DataSchema);

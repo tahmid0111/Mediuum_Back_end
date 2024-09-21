@@ -11,7 +11,9 @@ const ReportByWriterModel = require("../models/privacy/reportByWriter.model");
 const UserModel = require("../models/user/user.model");
 const GlobalNoticeModel = require("../models/privacy/globalNotice.model");
 const BlockedModel = require("../models/privacy/block.model");
-
+const BlogModel = require("../models/blog/blog.model");
+const TrendingBlogModel = require("../models/trending/TrendingBlog.model");
+const PopularWriterModel = require("../models/trending/popularWriter.model");
 
 exports.LoginAsManagerService = async (req, res) => {
   try {
@@ -65,11 +67,105 @@ exports.ReadAllUserService = async (req) => {
 
 exports.CreateCategoryService = async (req) => {
   try {
-    if (!VerifyManager(req)) {
-      return { status: "fail" };
-    }
+    // if (!VerifyManager(req)) {
+    //   return { status: "fail" };
+    // }
     let reqBody = req.body;
-    let result = await CategoryModel.create(reqBody);
+    await CategoryModel.create(reqBody);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.CreateTrendingBlogService = async (req) => {
+  try {
+    // if (!VerifyManager(req)) {
+    //   return { status: "fail" };
+    // }
+    let Query = { _id: req.params.blogID };
+    let result = await BlogModel.findOne(Query);
+    let Query2 = { _id: result.UserID };
+    let result2 = await UserModel.findOne(Query2);
+    let Query3 = { _id: result.TopicID };
+    let result3 = await TopicModel.findOne(Query3);
+    let myBody = {
+      BlogID: result._id,
+      Title: result.Title,
+      Image: result.Image,
+      TopicName: result3.TopicName,
+      WriterName: result2.FullName,
+      WriterImage: result2.Image,
+    }
+    await TrendingBlogModel.create(myBody);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.ReadAllTrendingBlogService = async (req) => {
+  try {
+    let result = await TrendingBlogModel.find();
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.CreatePopularWriterService = async (req) => {
+  try {
+    // if (!VerifyManager(req)) {
+    //   return { status: "fail" };
+    // }
+    let Query = { _id: req.params.userID };
+    let result = await UserModel.findOne(Query);
+    let myBody = {
+      UserID: req.params.userID,
+      UserName: result.FullName,
+      UserImage: result.Image,
+      SubTitle: result.SubTitle,
+    };
+    await PopularWriterModel.create(myBody);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.readAllPopularWriterService = async (req) => {
+  try {
+    let result = await PopularWriterModel.find();
+    return { status: "success", data: result };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.DeleteTrendingBlogService = async (req) => {
+  try {
+    // if (!VerifyManager(req)) {
+    //   return { status: "fail" };
+    // }
+    let reqBody = req.body;
+    await CategoryModel.create(reqBody);
+
+    return { status: "success" };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
+exports.DeletePopularWriterService = async (req) => {
+  try {
+    // if (!VerifyManager(req)) {
+    //   return { status: "fail" };
+    // }
+    let reqBody = req.body;
+    await CategoryModel.create(reqBody);
 
     return { status: "success" };
   } catch (error) {
@@ -79,9 +175,9 @@ exports.CreateCategoryService = async (req) => {
 
 exports.CreateTopicService = async (req) => {
   try {
-    if (!VerifyManager(req)) {
-      return { status: "fail" };
-    }
+    // if (!VerifyManager(req)) {
+    //   return { status: "fail" };
+    // }
     let categoryID = req.params.categoryID;
     let reqBody = req.body;
     let myBody = {
@@ -92,7 +188,7 @@ exports.CreateTopicService = async (req) => {
 
     return { status: "success" };
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return { status: "fail" };
   }
 };

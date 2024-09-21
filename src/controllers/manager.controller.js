@@ -1,5 +1,3 @@
-
-
 const { sendResponse, sendErrorResponse } = require("../helpers/response.helper");
 const {
   LoginAsManagerService,
@@ -18,6 +16,12 @@ const {
   UnblockUserService,
   ReadSingleReportSubmitedByWriterService,
   ReadSingleReportSubmitedByUserService,
+  DeletePopularWriterService,
+  DeleteTrendingBlogService,
+  CreatePopularWriterService,
+  CreateTrendingBlogService,
+  readAllPopularWriterService,
+  ReadAllTrendingBlogService,
 } = require("../services/manager.service");
 
 exports.LoginAsManager = async (req, res) => {
@@ -45,6 +49,48 @@ exports.ReadAllUser = async (req, res) => {
 
 exports.CreateCategory = async (req, res) => {
   let result = await CreateCategoryService(req);
+  result.status === "success"
+    ? sendResponse(res, "Category has been created successfully!")
+    : sendErrorResponse(res);
+};
+
+exports.CreateTrendingBlog = async (req, res) => {
+  let result = await CreateTrendingBlogService(req);
+  result.status === "success"
+    ? sendResponse(res, "Blog has been added to Trending list")
+    : sendErrorResponse(res);
+};
+
+exports.ReadAllTrendingBlog = async (req, res) => {
+  let result = await ReadAllTrendingBlogService(req);
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.CreatePopularWriter = async (req, res) => {
+  let result = await CreatePopularWriterService(req);
+  result.status === "success"
+    ? sendResponse(res, "Writer has been added to Popular list")
+    : sendErrorResponse(res);
+};
+
+exports.ReadAllPopularWriter = async (req, res) => {
+  let result = await readAllPopularWriterService(req);
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.DeleteTrendingBlog = async (req, res) => {
+  let result = await DeleteTrendingBlogService(req);
+  result.status === "success"
+    ? sendResponse(res, "Category has been created successfully!")
+    : sendErrorResponse(res);
+};
+
+exports.DeletePopularWriter = async (req, res) => {
+  let result = await DeletePopularWriterService(req);
   result.status === "success"
     ? sendResponse(res, "Category has been created successfully!")
     : sendErrorResponse(res);

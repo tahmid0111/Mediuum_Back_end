@@ -17,6 +17,7 @@ const {
   ReadSingleWriterService,
   ReadSingleUserService,
   AddToLibraryService,
+  ReadSingleTopicService,
 } = require("../services/blog.service");
 
 exports.ReadAllBlog = async (req, res) => {
@@ -77,6 +78,14 @@ exports.ReadBlogByCategory = async (req, res) => {
 
 exports.ReadBlogByTopic = async (req, res) => {
   let result = await ReadBlogByTopicService(req);
+
+  result.status === "success"
+    ? sendResponse(res, "Your expected data is here!", result.data)
+    : sendErrorResponse(res);
+};
+
+exports.ReadSingleTopic = async (req, res) => {
+  let result = await ReadSingleTopicService(req);
 
   result.status === "success"
     ? sendResponse(res, "Your expected data is here!", result.data)

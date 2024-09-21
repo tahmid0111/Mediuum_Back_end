@@ -16,10 +16,11 @@ const {
   ReadSingleWriter,
   ReadSingleUser,
   AddToLibrary,
+  ReadSingleTopic,
 } = require("../controllers/blog.controller");
 
 // guest features
-router.get("/readAllBlog",AuthVerify, ReadAllBlog);
+router.get("/readAllBlog", ReadAllBlog);
 router.get("/readAllWriter", AuthVerify, ReadAllWriter);
 router.get("/readSingleWriter/:writerID", AuthVerify, ReadSingleWriter);
 router.get("/readSingleUser/:userID", AuthVerify, ReadSingleUser);
@@ -27,6 +28,7 @@ router.get("/readAllCategory", ReadAllCategory);
 router.get("/readAllTopicByCategory/:categoryID", ReadAllTopicByCategory);
 router.get("/readBlogByCategory/:categoryID", ReadBlogByCategory);
 router.get("/readBlogByTopic/:topicID", ReadBlogByTopic);
+router.get("/readSingleTopic/:topicID", ReadSingleTopic);
 // reader features
 router.get("/readSingleBlog/:blogID", AuthVerify, ReadSingleBlog);
 // library
@@ -35,7 +37,7 @@ router.get("/removeFromLibrary/:blogID", AuthVerify, ReadSingleBlog);
 router.get("/getFullLibrary", AuthVerify, ReadSingleBlog);
 router.get("/removeFullLibrary", AuthVerify, ReadSingleBlog);
 
-router.get("/readAllCommentByBlog/:blogID", AuthVerify,ReadAllCommentByBlog);
+router.get("/readAllCommentByBlog/:blogID", AuthVerify, ReadAllCommentByBlog);
 router.get(
   "/readAllExpressionByBlog/:blogID",
   AuthVerify,

@@ -5,6 +5,7 @@ const TopicModel = require("../models/blog/topic.model");
 const CommentModel = require("../models/features/comment.model");
 const ExpressionModel = require("../models/features/expression.model");
 const UserModel = require("../models/user/user.model");
+const { ObjectId } = require("mongodb");
 
 exports.ReadAllBlogService = async (req) => {
   try {
@@ -65,8 +66,40 @@ exports.ReadAllTopicByCategoryService = async (req) => {
 
 exports.ReadBlogByCategoryService = async (req) => {
   try {
-    let Query = { CategoryID: req.params.categoryID };
-    let result = await BlogModel.find(Query);
+    let Query1 = {
+      $match: {
+        CategoryID: new ObjectId(req.params.categoryID),
+      },
+    };
+    let lookup1 = {
+      $lookup: {
+        from: "users",
+        localField: "UserID",
+        foreignField: "_id",
+        as: "UserData",
+      },
+    };
+    let unWind = {
+      $unwind: "$UserData",
+    };
+    let projection = {
+      $project: {
+        UserData: {
+          _id: 0,
+          About: 0,
+          Password: 0,
+          SubTitle: 0,
+          Email: 0,
+          Occupation: 0,
+          Deactivated: 0,
+          createdAt: 0,
+          updatedAt: 0,
+        },
+      },
+    };
+
+    const Pipeline1 = [Query1, lookup1, unWind, projection];
+    let result = await BlogModel.aggregate(Pipeline1);
 
     return { status: "success", data: result };
   } catch (error) {
@@ -86,12 +119,70 @@ exports.ReadBlogByTopicService = async (req) => {
   }
 };
 
+exports.ReadSingleTopicService = async (req) => {
+  try {
+    let Query = { _id: req.params.topicID };
+    let result = await TopicModel.find(Query);
+
+    return { status: "success", data: result[0] };
+  } catch (error) {
+    return { status: "fail" };
+  }
+};
+
 exports.ReadSingleBlogService = async (req) => {
   try {
-    let Query = { _id: req.params.blogID };
-    let result = await BlogModel.findOne(Query);
+    let Query1 = {
+      $match: {
+        _id: new ObjectId(req.params.blogID),
+      },
+    };
+    let lookup1 = {
+      $lookup: {
+        from: "users",
+        localField: "UserID",
+        foreignField: "_id",
+        as: "UserData",
+      },
+    };
+    let lookup2 = {
+      $lookup: {
+        from: "topics",
+        localField: "TopicID",
+        foreignField: "_id",
+        as: "TopicDetails",
+      },
+    };
+    let unWind1 = {
+      $unwind: "$UserData",
+    };
+    let unWind2 = {
+      $unwind: "$TopicDetails",
+    };
+    let projection1 = {
+      $project: {
+        UserData: {
+          _id: 0,
+          About: 0,
+          Password: 0,
+          Email: 0,
+          Occupation: 0,
+          Deactivated: 0,
+          createdAt: 0,
+          updatedAt: 0,
+        },
+        TopicDetails: {
+          _id: 0,
+          CategoryID: 0,
+        },
+      },
+    };
 
-    return { status: "success", data: result };
+    const Pipeline1 = [Query1, lookup1, unWind1, lookup2, unWind2, projection1];
+    let result = await BlogModel.aggregate(Pipeline1);
+    // let result = await BlogModel.findOne({ _id: req.params.blogID });
+
+    return { status: "success", data: result[0] };
   } catch (error) {
     return { status: "fail" };
   }
